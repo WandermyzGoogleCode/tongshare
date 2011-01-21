@@ -1,0 +1,197 @@
+# Author:: Mike Reich (mike@seabourneconsulting.com)
+# Copyright:: Copyright (C) 2010 Mike Reich
+# License:: GPL v2
+#--
+# Licensed under the General Public License (GPL), Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#
+# Feel free to use and update, but be sure to contribute your
+# code back to the project and attribute as required by the license.
+#++
+require 'time'
+class Time
+  #Returns a ISO 8601 complete formatted string of the time
+  def complete
+    #self.utc.iso8601
+    self.utc.strftime("%Y%m%dT%H%M%SZ")
+  end
+  
+  def self.parse_complete(value)
+    
+	  #Time.xmlschema(value)
+    d, h = value.split("T")
+    if (h == nil)
+	return Time.parse(d)
+    else
+        
+	    if h["Z"]
+	  #FIXME timezone!
+	  return Time.parse(d+" "+h.gsub("Z","")) + Time.now.utc_offset
+	  
+	else
+    	  return Time.parse(value)
+	end
+    end
+  end
+end
+
+module GCal4Ruby
+  #The Recurrence class stores information on an Event's recurrence.  The class implements
+  #the RFC 2445 iCalendar recurrence description.
+  class Recurrence
+    #The event start date/time
+    attr_reader :start_time
+    #The event end date/time
+    attr_reader :end_time
+    #the event reference
+    attr_reader :event
+    #The date until which the event will be repeated
+    attr_reader :repeat_until
+    #The event frequency
+    attr_reader :frequency
+    #True if the event is all day (i.e. no start/end time)
+    attr_accessor :all_day
+    #
+    attr_reader :interval
+    #
+    attr_reader :day
+    #
+    attr_reader :count
+    
+    #Accepts an optional attributes hash or a string containing a properly formatted ISO 8601 recurrence rule.  Returns a new Recurrence object
+    def initialize(vars = {})
+      @interval = 1
+      if vars.is_a? Hash
+        vars.each do |key, value|
+          self.send("#{key}=", value)
+        end
+      elsif vars.is_a? String
+        self.load(vars)
+      end
+      @all_day ||= false
+    end
+    
+    #Accepts a string containing a properly formatted ISO 8601 recurrence rule and loads it into the recurrence object.  
+    #Contributed by John Paul Narowski.
+    def load(rec)
+      got_start = false 
+      puts rec
+      puts "end"
+      attrs = rec.split("\n")
+      attrs.each do |val|
+        key, value = val.split(":")
+        if key == 'RRULE'
+          value.split(";").each do |rr| 
+            rr_key, rr_value = rr.split("=")
+            if rr_key == 'FREQ'
+	      @frequency = rr_value
+	    elsif rr_key == 'INTERVAL'
+	      @interval = rr_value.to_i
+	    elsif rr_key == 'COUNT'
+	      @count = rr_value
+	    elsif rr_key == 'UNTIL'
+	      @repeat_until = Time.parse_complete(rr_value)
+	    elsif rr_key == 'BYDAY' or rr_key == 'BYMONTHDAY'
+              @day = rr_value
+	    end
+	  end
+	    
+        elsif !got_start and (key.include?("DTSTART;TZID") or key.include?("DTSTART") or key.include?('DTSTART;VALUE=DATE-TIME'))
+          @start_time = Time.parse_complete(value)
+          got_start = true
+        elsif key.include?('DTSTART;VALUE=DATE')
+          @start_time = Time.parse(value)
+          @all_day = true
+        elsif key.include?("DTEND;TZID") or key.include?("DTEND") or key.include?('DTEND;VALUE=DATE-TIME')
+          @end_time = Time.parse_complete(value)
+        elsif key.include?('DTEND;VALUE=DATE')
+          @end_time = Time.parse(value)
+        end
+      end
+    end
+    
+    def rrule
+      output = ''
+      output += "RRULE:FREQ=#{@frequency}"
+      output += ";COUNT=#{@count}" if count
+      output += ";INTERVAL=#{@interval}" if interval > 1
+      #TODO: BYMONTHDAY
+      output += ";BYDAY=#{@day}" if day
+      if @repeat_until
+        if @all_day
+	  output += ";UNTIL=#{@repeat_until.strftime("%Y%m%d")}"
+	else
+	  output += ";UNTIL=#{@repeat_until.complete}"
+	end
+      end
+      output
+    end
+
+    #Returns a string with the correctly formatted ISO 8601 recurrence rule
+    def to_recurrence_string
+      output = ''
+      if @all_day
+        output += "DTSTART;VALUE=DATE:#{@start_time.utc.strftime("%Y%m%d")}\n"
+      else
+        output += "DTSTART;VALUE=DATE-TIME:#{@start_time.complete}\n"
+      end
+      if @all_day
+        output += "DTEND;VALUE=DATE:#{@end_time.utc.strftime("%Y%m%d")}\n"
+      else
+        output += "DTEND;VALUE=DATE-TIME:#{@end_time.complete}\n"
+      end
+      output += rrule  
+      output += "\n"
+    end
+    
+    #Sets the start date/time.  Must be a Time object.
+    def start_time=(s)
+      if not s.is_a?(Time)
+        raise RecurrenceValueError, "Start must be a date or a time"
+      else
+        @start_time = s
+      end
+    end
+    
+    #Sets the end Date/Time. Must be a Time object.
+    def end_time=(e)
+      if not e.is_a?(Time)
+        raise RecurrenceValueError, "End must be a date or a time"
+      else
+        @end_time = e
+      end
+    end
+    
+    #Sets the parent event reference
+    def event=(e)
+      if not e.is_a?(Event)
+        raise RecurrenceValueError, "Event must be an event"
+      else
+        @event = e
+      end
+    end
+    
+    #Sets the end date for the recurrence
+    def repeat_until=(r)
+      if not  r.is_a?(Date)
+        raise RecurrenceValueError, "Repeat_until must be a date"
+      else
+        @repeat_until = r
+      end
+    end
+    def frequency=(f)
+      if f.is_a?(String)
+        @frequency = f
+      else
+        raise RecurrenceValueError, "Frequency must be a string (see documentation)"
+      end
+    end
+  end
+end
