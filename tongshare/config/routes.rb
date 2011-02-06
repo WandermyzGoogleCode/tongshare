@@ -1,4 +1,6 @@
 Tongshare::Application.routes.draw do
+  get "temp/view"
+
   resources :users
 
   resources :groups
