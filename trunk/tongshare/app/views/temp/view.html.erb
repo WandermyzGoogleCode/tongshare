@@ -1,0 +1,19 @@
+<form action="/temp/view" method="GET">
+  <p>Username: <input type="text" name="user" /> </p>
+  <p>Password: <input type="password" name="pass" /> </p>
+  <input type="submit" value="View" />
+</form>
+<p>Calendars:</p>
+<% @cals.each do |cal| %>
+  <p><%= cal %></p>
+<% end %>
+<br>
+<p>Events in first calendar:</p>
+<% @events.each do |e| %>
+  <p>Title: <%= e.title %> </p>
+  <p>Where: <%= e.where %> </p>
+  <p>Start Time: <%= e.start_time %> </p>
+  <p>End Time: <%= e.end_time %> </p>
+  <p>RRULE: <%= e.recurrence.to_recurrence_string if e.recurrence %> </p>
+  <br>
+<% end %>
