@@ -1,0 +1,11 @@
+经过调查，我觉得我们可以通过如下办法实现多个user_identifier的login：
+    1、利用rails generate devise:views将view放到自己的工程中自定义（这个步骤应该是无论如何都必不可少的），
+        从而用户可以任意输入一个user_identifier而不用输入email。
+    2、自己写一个SessionsController < Devise::SessionsController以控制login
+        2.1、在用户输入一个user_identifier之后，首先查找数据库获得user_id
+        2.2、利用user_id作为login的key值，让devise进行登录。这里就牵涉到如何让devise用非email作为key，详情参见：
+            https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-sign-in-with-something-other-than-their-email-address
+            另外，还有一个问题是devise的什么API是接收login_key, password并进行验证的，这个偶还在查。
+    3、最后，可能要控制一下routes.rb中的devise_for，以启用新的controller已经viewer。
+
+以上是初步的调查结果，我会接着去做实验，有问题欢迎交流。话说ruby on rails要搞清楚每一步怎么走的还真实麻烦。
