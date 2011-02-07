@@ -9,3 +9,12 @@
     3、最后，可能要控制一下routes.rb中的devise_for，以启用新的controller已经viewer。
 
 以上是初步的调查结果，我会接着去做实验，有问题欢迎交流。话说ruby on rails要搞清楚每一步怎么走的还真实麻烦。
+
+关于自定义Controller和Routes：
+    关键不在于找SessionsController或者别的东西，而是devise_for所在的文件：/usr/lib/ruby/gems/1.8/gems/devise-1.1.5/lib/devise/rails/routes.rb
+    其中关于devise_for的注释长达几十行，很好的阐述了各个操作对应的controller及action，因此即使看不懂各自controller的代码，也基本知道该怎么自定义了。
+    关于如何authenticate，其实SessionsController中也有线索，可以在netbeans里面go to Symbol查authenticate!(Warden::Proxy)，然后看_perform_authenticate.
+    嗯，现在有这么几点心得：
+        1、对于方法，尤其是erb中使用的方法，光go to definition(F3)有时候不管用，此时可以多用go to Type和go to Symbol以及grep
+        2、搞不懂调用顺序及关系，大部分是由于routes.rb造成的，此时多看看routes.rb中使用的方法的definition以及注释
+
