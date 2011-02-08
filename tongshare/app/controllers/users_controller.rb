@@ -1,3 +1,4 @@
+#deprecated
 class UsersController < ApplicationController
   # GET /users
   # GET /users.xml
