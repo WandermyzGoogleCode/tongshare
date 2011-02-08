@@ -7,12 +7,12 @@ User System: 	http://github.com/plataformatec/devise#readme
 模块划分
 User
 M: 
-    （Devise）
-    UserExtra: 和验证系统无关的用户信息：学号、email、手机（暂定）、登录用户名
+    User：(devise)
+    UserExtra: 和验证系统无关的用户信息：学号、手机（暂定）、登录用户名（email在User里）
     AdminExtra：系统管理员的有关信息：（目前）IsForbidden；以后可以记录该管理员详细联系信息等。普通用户以及群组管理员不会在此表中有记录。
     UserIdentifier: 用于支持多种类型的登录（目前公司/学校号码、email、手机）
 C:
-    Register: 学号、学生清华密码、系统密码、Email、手机号（选填）
+    Register: 学号、学生清华密码、系统密码、Email、手机号（选填）、姓名
     Login: 登录方式、密码
     Logout：
 V：
@@ -27,7 +27,7 @@ M:
     (CanCan)
     Membership：记录该用户在某个群组内的权限大小
 C:
-    （SYS）用户管理：编辑用户信息、设置群组、设置其在群组中的权限
+    （SYS）用户管理：编辑用户信息、设置群组、设置其在群组中的权限、添加用户
     （GR）添加/删除群组管理员，设置其在群组中的权限（大小不得超过设置者的权限）
 V：
     仅Web
