@@ -14,3 +14,6 @@ The following is an interesting comment from devise.rb.
   # should add them to the navigational formats lists. Default is [:html]
   # config.navigational_formats = [:html, :iphone]
 }}}
+
+= `NetBeans`英文以及IRB =
+见[http://www.cnblogs.com/sinkzephyr/archive/2008/03/17/1110241.html]，其中有说如何将`NetBeans`通过比较优美的办法变成英文版的。另外，还说了怎么搞出IRB，这对于WINDOWS用户来说还是很不错的吧。
