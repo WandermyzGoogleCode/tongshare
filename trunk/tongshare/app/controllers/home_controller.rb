@@ -5,6 +5,10 @@ class HomeController < ApplicationController
   before_filter :authenticate_user!
 
   def index
+    @test = UUIDTools::UUID.random_create
+
+    @user = User.new
+    @user.user_identifier.build
   end
 
 end

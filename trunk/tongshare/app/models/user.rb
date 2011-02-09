@@ -8,16 +8,18 @@
 # by Wander: add columns for devise. 
 
 class User < ActiveRecord::Base
+
+  NIL_EMAIL_ALIAS_DOMAIN = 'null.tongshare.com' #see registration_extended_controller
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, 
          :token_authenticatable, #for mobile auto-login
          :recoverable, :rememberable, :trackable,
          :registerable,
+         :validatable,
          :authentication_keys => [:id]
-         #no confirmable, we will rewrite it
-         #no validatable, we will rewrite it
-
+       
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :id
   has_many :user_identifier, :dependent => :destroy
@@ -28,5 +30,23 @@ class User < ActiveRecord::Base
   has_many :sharing, :foreign_key => "shared_from", :dependent => :destroy
   has_many :user_sharing, :dependent => :destroy
 
-  validates :email, :uniqueness => true, :allow_blank => true, :allow_nil => true
+  has_one :user_extra, :dependent => :destroy
+  has_one :admin_extra, :dependent => :destroy
+
+  #merge errors of children into this model
+  validate do |user|
+    user.user_identifier.each do |identifier|
+      next if identifier.valid?
+      identifier.errors.each do |attr, err|
+        errors.add attr, err
+      end
+    end
+  end
+
+  #skip sth. useless like "user_identifier is invalid"
+  after_validation :purge_useless
+
+  def purge_useless
+    errors.delete :user_identifier
+  end
 end

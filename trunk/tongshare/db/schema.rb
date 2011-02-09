@@ -10,12 +10,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110208144035) do
+ActiveRecord::Schema.define(:version => 20110208152947) do
 
   create_table "acceptances", :force => true do |t|
     t.integer  "event_id"
     t.integer  "user_id"
     t.integer  "decision"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "admin_extras", :force => true do |t|
+    t.integer  "user_id"
+    t.boolean  "is_forbidden"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -70,6 +77,14 @@ ActiveRecord::Schema.define(:version => 20110208144035) do
     t.integer  "event_id"
     t.integer  "shared_from"
     t.text     "extra_info"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_extras", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "mobile"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
