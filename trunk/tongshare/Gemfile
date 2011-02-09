@@ -33,3 +33,5 @@ gem 'uuidtools' #generate uuid string for unique random email address
 # group :development, :test do
 #   gem 'webrat'
 # end
+
+gem 'parseexcel' # parse excel xls file such as THU courses table
