@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110209171633) do
+ActiveRecord::Schema.define(:version => 20110210102847) do
 
   create_table "acceptances", :force => true do |t|
     t.integer  "event_id"
@@ -63,6 +63,19 @@ ActiveRecord::Schema.define(:version => 20110209171633) do
     t.text     "extra_info"
     t.string   "identifier"
     t.integer  "creator_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "instances", :force => true do |t|
+    t.string   "name"
+    t.datetime "begin"
+    t.datetime "end"
+    t.string   "location"
+    t.text     "extra_info"
+    t.integer  "event_id"
+    t.integer  "index"
+    t.boolean  "override"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

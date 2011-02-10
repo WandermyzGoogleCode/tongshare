@@ -1,6 +1,6 @@
 require 'gcal4ruby'
 
-include GCal4Ruby
+#include GCal4Ruby
 class TempController < ApplicationController
   def view
     @cals = []

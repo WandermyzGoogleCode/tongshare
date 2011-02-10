@@ -2,20 +2,20 @@
 
 one:
   name: MyString
-  begin: 2011-02-09 19:53:08
-  end: 2011-02-09 19:53:08
+  begin: 2011-02-10 18:28:47
+  end: 2011-02-10 18:28:47
   location: MyString
   extra_info: MyText
-  creator_id: 1
+  event_id: 1
   index: 1
   override: false
 
 two:
   name: MyString
-  begin: 2011-02-09 19:53:08
-  end: 2011-02-09 19:53:08
+  begin: 2011-02-10 18:28:47
+  end: 2011-02-10 18:28:47
   location: MyString
   extra_info: MyText
-  creator_id: 1
+  event_id: 1
   index: 1
   override: false
