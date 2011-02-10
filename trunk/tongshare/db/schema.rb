@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110208152947) do
+ActiveRecord::Schema.define(:version => 20110209171633) do
 
   create_table "acceptances", :force => true do |t|
     t.integer  "event_id"
@@ -26,6 +26,17 @@ ActiveRecord::Schema.define(:version => 20110208152947) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "consumer_tokens", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "type",       :limit => 30
+    t.string   "token",      :limit => 1024
+    t.string   "secret"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "consumer_tokens", ["token"], :name => "index_consumer_tokens_on_token", :unique => true
 
   create_table "events", :force => true do |t|
     t.string   "name"

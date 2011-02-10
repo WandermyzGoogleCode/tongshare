@@ -80,10 +80,10 @@ module GCal4Ruby
     
     #Accepts a string containing a properly formatted ISO 8601 recurrence rule and loads it into the recurrence object.  
     #Contributed by John Paul Narowski.
+
+    WEEK = {"SU" => 0, "MO" => 1, "TU" => 2, "WE" => 3, "TH" => 4, "FR" => 5, "ST" => 6}
     def load(rec)
       got_start = false 
-      puts rec
-      puts "end"
       attrs = rec.split("\n")
       attrs.each do |val|
         key, value = val.split(":")
@@ -95,11 +95,14 @@ module GCal4Ruby
 	    elsif rr_key == 'INTERVAL'
 	      @interval = rr_value.to_i
 	    elsif rr_key == 'COUNT'
-	      @count = rr_value
+	      @count = rr_value.to_i
 	    elsif rr_key == 'UNTIL'
 	      @repeat_until = Time.parse_complete(rr_value)
 	    elsif rr_key == 'BYDAY' or rr_key == 'BYMONTHDAY'
-              @day = rr_value
+              @day = []
+              rr_value.split(";").each do |d|
+                @day[WEEK[d.upcase]] = true;
+              end
 	    end
 	  end
 	    
