@@ -1,4 +1,8 @@
 Tongshare::Application.routes.draw do
+  resources :oauth_consumers do
+    get :callback, :on => :member
+  end
+
   devise_for :users, :controllers => {:registrations => "registrations_extended"}
 
   get "home/index"

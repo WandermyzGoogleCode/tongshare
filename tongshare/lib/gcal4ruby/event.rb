@@ -305,6 +305,7 @@ module GCal4Ruby
     #Loads the event info from an XML string.
     def load(string)
       super(string)
+      #debug
       @xml = string
       @exists = true
       xml = REXML::Document.new(string)

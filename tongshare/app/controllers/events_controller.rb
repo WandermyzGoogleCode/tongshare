@@ -41,9 +41,11 @@ class EventsController < ApplicationController
   # POST /events.xml
   def create
     @event = Event.new(params[:event])
-
+    ret = @event.save
+    #expand instances
+    @event.generate_instance
     respond_to do |format|
-      if @event.save
+      if ret
         format.html { redirect_to(@event, :notice => 'Event was successfully created.') }
         format.xml  { render :xml => @event, :status => :created, :location => @event }
       else
@@ -57,9 +59,10 @@ class EventsController < ApplicationController
   # PUT /events/1.xml
   def update
     @event = Event.find(params[:id])
-
+    ret = @event.update_attributes(params[:event])
+    
     respond_to do |format|
-      if @event.update_attributes(params[:event])
+      if ret
         format.html { redirect_to(@event, :notice => 'Event was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -80,4 +83,8 @@ class EventsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+
+
 end
+

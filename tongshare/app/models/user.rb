@@ -32,6 +32,10 @@ class User < ActiveRecord::Base
 
   has_one :user_extra, :dependent => :destroy
   has_one :admin_extra, :dependent => :destroy
+  has_one :google, :class_name => "GoogleToken", :dependent=> :destroy
+  #FIXME hack!
+  has_many :consumer_tokens, :class_name => "GoogleToken", :dependent => :destroy
+
 
   #merge errors of children into this model
   validate do |user|
