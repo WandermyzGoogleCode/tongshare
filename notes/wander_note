@@ -1,5 +1,3 @@
-Password: YF5PX9aW2rt7
-
 User System: 	http://github.com/plataformatec/devise#readme
 		http://github.com/binarylogic/authlogic#readme
 
@@ -8,7 +6,7 @@ User System: 	http://github.com/plataformatec/devise#readme
 User
 M: 
     User：(devise)
-    UserExtra: 和验证系统无关的用户信息：（目前）姓名、手机号（公司号码是专门为登录用的，因此放在UserIdentifier里）
+    UserExtra: 和验证系统无关的用户信息：（目前）姓名（公司号码是专门为登录用的，因此放在UserIdentifier里）
     AdminExtra：系统管理员的有关信息：（目前）IsForbidden；以后可以记录该管理员详细联系信息等。普通用户以及群组管理员不会在此表中有记录。
     UserIdentifier: 用于支持多种类型的登录（目前公司/学校号码、email、手机）
 C:
