@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110211080745) do
+ActiveRecord::Schema.define(:version => 20110211112548) do
 
   create_table "acceptances", :force => true do |t|
     t.integer  "event_id"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(:version => 20110211080745) do
 
   create_table "admin_extras", :force => true do |t|
     t.integer  "user_id"
-    t.boolean  "is_forbidden"
+    t.boolean  "admin_enabled"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

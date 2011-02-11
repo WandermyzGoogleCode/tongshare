@@ -13,4 +13,12 @@ class Group < ActiveRecord::Base
   validates_length_of :name, :maximum => MAX_NAME_LENGTH
   validates_length_of :extra_info, :maximum => MAX_EXTRA_INFO_LENGTH
   validates_length_of :identifier, :maximum => MAX_IDENTIFIER_LENGTH
+
+  #return nil if the user is not a member of this group
+  def member_power(user)
+    return nil if user.nil?
+    result = membership.find :first, :user => user
+    return nil if result.nil?
+    return result.power
+  end
 end
