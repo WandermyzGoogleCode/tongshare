@@ -1,6 +1,9 @@
 # Currently, column priority is in {0, 1} where 0 is invitation and 1 is
 # recommendation. Later, more priority levels may be added. 
 class UserSharing < ActiveRecord::Base
+  PRIORITY_INVITE = 0
+  PRIORITY_RECOMMENDATION = 1
+
   belongs_to :sharing
   belongs_to :user
   

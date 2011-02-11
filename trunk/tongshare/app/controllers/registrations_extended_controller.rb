@@ -1,6 +1,7 @@
 class RegistrationsExtendedController < Devise::RegistrationsController
   def new
     super
+    authorize! :create, resource
   end
 
   def create
@@ -34,6 +35,7 @@ class RegistrationsExtendedController < Devise::RegistrationsController
       resource.email = params[:user][:email]
     end
 
+    authorize! :create, resource
     #do what devise does
     if resource.save
       set_flash_message :notice, :signed_up
@@ -48,15 +50,18 @@ class RegistrationsExtendedController < Devise::RegistrationsController
   def edit
     #TODO
     super
+    authorize! :update
   end
 
   def update
     #TODO
     super
+    authorize! :update
   end
 
   def destroy
     #TODO
     super
+    authorize :destroy
   end
 end
