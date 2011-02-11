@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110210102847) do
+ActiveRecord::Schema.define(:version => 20110211080745) do
 
   create_table "acceptances", :force => true do |t|
     t.integer  "event_id"
@@ -114,12 +114,14 @@ ActiveRecord::Schema.define(:version => 20110210102847) do
   end
 
   create_table "user_identifiers", :force => true do |t|
-    t.string   "value"
+    t.string   "login_value"
     t.integer  "user_id"
-    t.string   "type"
+    t.string   "login_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "user_identifiers", ["login_type", "login_value"], :name => "index_user_identifiers_on_type_and_value", :unique => true
 
   create_table "user_sharings", :force => true do |t|
     t.integer  "sharing_id"

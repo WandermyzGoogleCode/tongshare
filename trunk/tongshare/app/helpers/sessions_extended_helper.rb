@@ -1,0 +1,2 @@
+module SessionsExtendedHelper
+end
