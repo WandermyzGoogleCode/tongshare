@@ -12,6 +12,7 @@ Tongshare::Application.routes.draw do
   get "home/index"
 
   get "temp/view"
+  get "temp/cal"
 
   resources :groups
 

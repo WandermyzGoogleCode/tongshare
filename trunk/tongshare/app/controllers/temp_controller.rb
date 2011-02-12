@@ -1,7 +1,13 @@
 require 'gcal4ruby'
 
 #include GCal4Ruby
+include GcalHelper
 class TempController < ApplicationController
+  
+  def cal
+    create_calendar
+  end
+
   def view
     @cals = []
     @events = []
