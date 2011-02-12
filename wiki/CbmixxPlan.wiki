@@ -1,0 +1,19 @@
+#summary cbmixx's plan
+#labels Type-Note
+
+== before milestone1 ==
+ * 完善Event
+  # create
+  # edit
+  # delete
+  # query
+  # share?
+  # reminder?
+
+== before milestone2 ==
+ * 与Google Calendar同步
+  # 后台服务
+  # 一般事件
+  # 重复事件
+  # 重复事件单次修改
+  # 整体同步
