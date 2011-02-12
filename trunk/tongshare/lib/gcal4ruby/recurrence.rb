@@ -120,7 +120,11 @@ module GCal4Ruby
         end
       end
     end
-    
+
+    def from_rrule(s)
+      load('RRULE:' + s)
+    end
+
     def rrule
       output = ''
       output += "RRULE:FREQ=#{@frequency}"

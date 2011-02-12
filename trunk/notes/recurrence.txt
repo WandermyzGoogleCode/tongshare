@@ -1,3 +1,5 @@
+#include "rrule.txt"
+
 introduction
 ##
 it's havily moded. DO NOT refer to docs of orignal gcal4ruby
@@ -9,12 +11,11 @@ BYMONTHDAY or BYDAY?
 !!review for timezone related!!
 ##
 
-
 example for recurrence:
 ##
 DTSTART;VALUE=DATE:20100505
 DTEND;VALUE=DATE:20100506
-RRULE:FREQ=WEEKLY;BYDAY=Tu;UNTIL=20100904
+RRULE:FREQ=WEEKLY;BYDAY=Tu;UNTIL=20100904  # part of rrule, store in database
 ##
 
 parse:
@@ -27,24 +28,10 @@ to_s:
 rec.to_recurrence_string
 ##
 
-rrule(store in database):
-##
-rec.rrule
-##
-
 property:
 ##
 start_time
 end_time
 event  #(reference)
-repeat_until
-frequency
 all_day
-interval
-day
-count
 ##
-
-
-
-
