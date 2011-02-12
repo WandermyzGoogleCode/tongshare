@@ -1,5 +1,7 @@
 #summary cbmixx's plan
 #labels Type-Note
+== notes ==
+[http://code.google.com/p/tongshare/source/browse/trunk/notes/rrule.txt tips for RRULE]
 
 == before milestone1 ==
  * 完善Event
