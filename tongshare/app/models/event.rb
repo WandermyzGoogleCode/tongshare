@@ -26,11 +26,6 @@ class Event < ActiveRecord::Base
     generate_instance
   end
 
-  def self.query(time_begin, time_end)
-    #TODO check event changed
-    Instance.where("begin >= ? AND end <= ?", time_begin, time_end)
-  end
-  
   protected
 
   def drop_instance
