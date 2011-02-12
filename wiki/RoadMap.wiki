@@ -1,0 +1,22 @@
+#summary Development Roadmap
+#labels Featured
+
+= Milestone1 （Deadline: 02-17） =
+ * 基本用户系统（无群组、权限、管理员）+ 基本事件（无同步）	
+ * features
+  # 支持课表自动导入
+  # 学生清华插件身份确认
+  # 事件分享
+  # 查看用户的有空状态
+  # 邮件事件提醒
+  # 查看活动的参加反馈情况
+ * 分工（请各自建立个人主页，写好自己的安排和对别人的依赖，就像BRAVURA的任务记录一样）
+  # 刘洋：界面、用户系统
+  # 刘超：事件操作API
+  # 李宇骞：TEST/学生清华插件
+ * others
+  # 联系BRAVURA其它组员准备开始第一周的推广
+
+= Milestone2 =
+ * 加入群组和权限的用户系统，支持Google同步
+ * features (To be filled)
