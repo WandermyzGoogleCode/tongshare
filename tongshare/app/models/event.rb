@@ -27,6 +27,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.query(time_begin, time_end)
+    #TODO check event changed
     Instance.where("begin >= ? AND end <= ?", time_begin, time_end)
   end
   
