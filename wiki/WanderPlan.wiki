@@ -11,10 +11,15 @@
   # 登录/注册入口
   # 新建事件
    * 依赖接口：新建事件 （尤其是：我还不知道重复逻辑最后怎么样了……）
+    * SpaceFlyer: 目前据我了解，没有接口，但是可以通过Event.new + generate_instances搞。刘超最好还是封装一下。最后的重复逻辑采用了生成instances，允许override的办法，因此多出了一个instances表，belongs to event
    * 依赖接口：事件分享（或者：现在操作sharing和user_sharing有什么要注意的地方吗？）
+    * SpaceFlyer: 我好像没看到有关sharing的任何commit?
    * 依赖接口：邮件提醒（这个谁做？）
+    * SpaceFlyer: 嗯，Good question，这个貌似需要讨论吧，不知道具体的情况、难度以及依赖性。
   # 显示当天事件
    * 依赖接口：按时间段查询事件（希望接口能把计算重复逻辑的工作完成）
+    * SpaceFlyer: 有instances，所以不需要计算重复逻辑
   # 编辑事件详情（包括查看反馈）
   # 查看用户有空状态
    * 问题：可以查看什么人的有空状态？如果是所有人，那就得做搜索用户的功能。另外，默认是可以让别人知道自己有空没空是吗？这不太好吧？貌似就需要权限系统了。所以我觉得是否这个功能可以先不在mile stone 1里
+    * SpaceFlyer: 所有人，不需要搜索，一开始先从输入用户的employee_num, email等，或者点击链接（比如查看同一个活动的人的有空时间）进行查看。只是否busy这个我觉得不是什么大不了的事情吧，google calendar默认也是可以看到的。而且日历上的只是一个参考，又不能作为证据什么的。我觉得这是一个很重要的incentive，有了这个用户会顿时觉得日程表确实应该online and shared.
