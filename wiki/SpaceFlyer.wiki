@@ -1,0 +1,24 @@
+#summary SpaceFlyer个人主页（任务详情、计划、依赖）
+#labels Type-Person
+
+ * 用户验证、自动获取课表（选作），depend on: nothing
+  # 2-12晚，打电话也要咨询到学生清华那边到底怎么弄。
+  # 2-12晚，先找刘导询问和计算中心的大致关系，看情况和计算中心尽快取得联系，尽量直接拿到课表xls和用户验证接口。
+
+ * 事件API测试，depend on: 事件API
+  # ASAP and before 2-15，导入刘超的xls课表，自动测试各个attribute以及各种按周重复.
+  # ASAP and before 2-15，测试一下事件API的性能，看看COST随总事件数量的增加有没有太快的增长，顺便看一下我们的存储和时间效率
+ 
+ * 分享API测试，depend on: 分享API
+  # ASAP and before 2-16，把我们自己的工作、会议以及接下来BRAVURA的一些活动给写成一个脚本，自动测试。
+
+ * 用户API测试，depend on：用户API
+  # ASAP and before 2-16，测试用户各种可能的注册情景，并测试用户API的性能，看我们的性能随用户人数的变化，以及我们初步的承载能力。
+
+ * 界面测试，depend on：各个界面
+  # ASAP and before 2-17，自己玩，然后找电脑小白玩
+
+ * 监控程序
+  # 大致想法是我们的产品一上限，最好就有程序化的自动监控，把我们关注的一些数据随时以简洁易懂的形式报告给我们。
+
+ 
