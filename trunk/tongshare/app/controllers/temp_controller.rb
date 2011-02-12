@@ -2,17 +2,19 @@ require 'gcal4ruby'
 
 #include GCal4Ruby
 include GcalHelper
+include EventsHelper
 class TempController < ApplicationController
   
   def cal
     #test for query= =
     time_begin = Time.utc(2011, 1, 1)
     time_end = Time.utc(2011, 3, 1)
-    is =  Event.query(time_begin, time_end)
-    puts is.size
-
+    is = query_event(0, 5)
+    logger.debug is.size
+    is = query_instance(time_begin, time_end)
+    logger.debug is.size
     ##
-    create_calendar
+    #create_calendar
   end
 
   def view
