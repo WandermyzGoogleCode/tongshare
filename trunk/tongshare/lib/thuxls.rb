@@ -12,8 +12,10 @@ class Course
   attr_accessor :name
   attr_accessor :teacher
   attr_accessor :location
-  attr_accessor :day_times # subset of 1..6, 第1..6节
-  attr_accessor :week_days # subset of 1..7，星期一..星期日
+  #day_times和week_days应该是两个等长的数组，(week_days[i], day_times[i])
+  #共同确定第i节课的时间（一门课一周可能有多节）
+  attr_accessor :day_times # array of 1..6, 第1..6节
+  attr_accessor :week_days # array of 1..7，星期一..星期日
   attr_accessor :week_modifier # "全周", "双周", "单周", "前八周", "后八周"
 
   def initialize(course_set)
