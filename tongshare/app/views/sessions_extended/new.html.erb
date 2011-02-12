@@ -2,12 +2,14 @@
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
  <p>
-    <%= select_tag "login_type", <<OPTIONS
+   <%
+    options = <<OPTIONS
         <option value="#{UserIdentifier::TYPE_EMPLOYEE_NO}" selected>学号/工作证号</option>
         <option value="#{UserIdentifier::TYPE_EMAIL}">电子邮件</option>
         <option value="#{UserIdentifier::TYPE_MOBILE}">手机号</option>
 OPTIONS
-.html_safe    #seems a bug in rails 3.0, escape < as &lt;. .html_safe goes around it.
+    %>
+    <%= select_tag "login_type", options.html_safe    #seems a bug in rails 3.0, escape < as &lt;. .html_safe goes around it.
     %><br/>
     <%= text_field_tag :login_value, params[:login_value], :max_length => UserIdentifier::MAX_VALUE_LENGTH %></p>
  
