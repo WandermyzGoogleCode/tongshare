@@ -81,7 +81,8 @@ module GCal4Ruby
     #Accepts a string containing a properly formatted ISO 8601 recurrence rule and loads it into the recurrence object.  
     #Contributed by John Paul Narowski.
 
-    WEEK = {"SU" => 0, "MO" => 1, "TU" => 2, "WE" => 3, "TH" => 4, "FR" => 5, "ST" => 6}
+    WEEK = ["SU", "MO", "TU", "WE", "TH", "FR", "ST"]
+    WEEK_REVERSE = {"SU" => 0, "MO" => 1, "TU" => 2, "WE" => 3, "TH" => 4, "FR" => 5, "ST" => 6}
     def load(rec)
       got_start = false 
       attrs = rec.split("\n")
@@ -100,8 +101,8 @@ module GCal4Ruby
 	      @repeat_until = Time.parse_complete(rr_value)
 	    elsif rr_key == 'BYDAY' or rr_key == 'BYMONTHDAY'
               @day = []
-              rr_value.split(";").each do |d|
-                @day[WEEK[d.upcase]] = true;
+              rr_value.split(",").each do |d|
+                @day[WEEK_REVERSE[d.upcase]] = true;
               end
 	    end
 	  end
@@ -126,7 +127,17 @@ module GCal4Ruby
       output += ";COUNT=#{@count}" if count
       output += ";INTERVAL=#{@interval}" if interval > 1
       #TODO: BYMONTHDAY
-      output += ";BYDAY=#{@day}" if day
+      if @day
+        output += ";BYDAY="
+        t = false
+        for i in 0 .. 6
+          if @day[i]
+            output += "," if t
+            output += WEEK[i]
+            t = true
+          end
+        end
+      end
       if @repeat_until
         if @all_day
 	  output += ";UNTIL=#{@repeat_until.strftime("%Y%m%d")}"

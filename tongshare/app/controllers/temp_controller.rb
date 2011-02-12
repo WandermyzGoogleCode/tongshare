@@ -5,6 +5,13 @@ include GcalHelper
 class TempController < ApplicationController
   
   def cal
+    #test for query= =
+    time_begin = Time.utc(2011, 1, 1)
+    time_end = Time.utc(2011, 3, 1)
+    is =  Event.query(time_begin, time_end)
+    puts is.size
+
+    ##
     create_calendar
   end
 
