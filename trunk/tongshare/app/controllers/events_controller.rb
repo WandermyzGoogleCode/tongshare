@@ -42,8 +42,6 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(params[:event])
     ret = @event.save
-    #expand instances
-    @event.generate_instance
     respond_to do |format|
       if ret
         format.html { redirect_to(@event, :notice => 'Event was successfully created.') }

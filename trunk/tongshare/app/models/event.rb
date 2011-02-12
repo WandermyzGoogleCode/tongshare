@@ -11,6 +11,35 @@ class Event < ActiveRecord::Base
 
   #TODO validates
   #
+  def save
+    super
+    #TODO review of when to call save?
+    #TODO edit each for better performance?
+    drop_instance
+    generate_instance
+  end
+
+  def update_attributes(vars = {})
+    super
+    #TODO edit each for better performance?
+    drop_instance
+    generate_instance
+  end
+
+  def self.query(time_begin, time_end)
+    Instance.where("begin >= ? AND end <= ?", time_begin, time_end)
+  end
+  
+  protected
+
+  def drop_instance
+    if self.instances
+      self.instances.each do |i|
+        i.destroy
+      end
+    end
+  end
+  
   def generate_instance
     #TODO check if instances present
     if !self.rrule || self.rrule == ""
@@ -31,14 +60,27 @@ class Event < ActiveRecord::Base
       elsif rec.frequency == 'WEEKLY'
         now = self.begin
         count = 0
+        interval = 0
+        interval = rec.interval - 1 if rec.interval > 1
         while 1
           if rec.day[now.wday]
-            #:name => self.name, :location => self.location, :extra_info => self.extra_info,
-            i = self.instances.build(:begin => now, :end => self.end + (now - self.begin), :override => false, :index => count)
+            #
+            i = self.instances.build(
+              :name => self.name, 
+              :location => self.location, 
+              :extra_info => self.extra_info,
+              :begin => now,
+              :end => self.end + (now - self.begin),
+              :override => false,
+              :index => count
+            )
             i.save
             count += 1
           end
           now += 1.day
+          if now.sunday?
+            now += (interval * 7).day
+          end
           if rec.count and count >= rec.count.to_i
             break
           end
