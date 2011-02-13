@@ -22,6 +22,10 @@ module EventsHelper
     if acceptance != ACCEPTANCE_DEFAULT
       user_sharings.keep_if{|u| u.accept? == acceptance }
     end
+
+    #user_sharing (uid, pri) -> sharing -> event -> instance (time begin/end)
+    
+
     events = user_sharings.map { |u| u.sharing.event }
     ret = []
     events.each do |e|

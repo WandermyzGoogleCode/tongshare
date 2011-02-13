@@ -22,11 +22,11 @@ class UserIdentifier < ActiveRecord::Base
   def value_format_check
     case login_type
     when TYPE_EMPLOYEE_NO
-      errors.add(:employee_no, '格式不正确') if login_value.match(/[0-9]{10}/).nil?   #目前只考虑清华. TODO: 工作证格式？
+      errors.add(:login_value, :employee_no_invalid) if login_value.match(/[0-9]{10}/).nil?   #目前只考虑清华. TODO: 工作证格式？
     when TYPE_MOBILE
-      errors.add(:mobile, '格式不正确') if login_value.match(/1[0-9]{10}/).nil?
+      errors.add(:login_value, :mobile_invalid) if login_value.match(/1[0-9]{10}/).nil?
     when TYPE_EMAIL
-      errors.add(:email, '格式不正确') if login_value.match(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/).nil?
+      #errors.add(:email, :invalid) if login_value.match(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/).nil?
     end
   end
 

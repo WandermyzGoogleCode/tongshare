@@ -1,26 +1,5 @@
 <h2>登录</h2>
 
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
- <p>
-   <%
-    options = <<OPTIONS
-        <option value="#{UserIdentifier::TYPE_EMPLOYEE_NO}" selected>学号/工作证号</option>
-        <option value="#{UserIdentifier::TYPE_EMAIL}">电子邮件</option>
-        <option value="#{UserIdentifier::TYPE_MOBILE}">手机号</option>
-OPTIONS
-    %>
-    <%= select_tag "login_type", options.html_safe    #seems a bug in rails 3.0, escape < as &lt;. .html_safe goes around it.
-    %><br/>
-    <%= text_field_tag :login_value, params[:login_value], :max_length => UserIdentifier::MAX_VALUE_LENGTH %></p>
- 
-  <p><%= f.label :password, '密码' %><br />
-  <%= f.password_field :password %></p>
-
-  <% if devise_mapping.rememberable? -%>
-    <p><%= f.check_box :remember_me %> <%= f.label :remember_me, '记住我' %></p>
-  <% end -%>
-
-  <p><%= f.submit "登录" %></p>
-<% end %>
+<%= render :partial => "sessions_extended/login_form" %>
 
 <%= render :partial => "devise/shared/links" %>
