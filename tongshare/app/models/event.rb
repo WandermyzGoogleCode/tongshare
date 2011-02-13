@@ -4,7 +4,7 @@ class Event < ActiveRecord::Base
   attr_accessible :name, :begin, :end, :location, :extra_info, :rrule
   
   belongs_to :creator, :class_name => "User"
-  has_many :acceptances, :dependent => :destroy
+  has_many :acceptances, :foreign_key => "event_id", :dependent => :destroy
   has_many :sharings, :foreign_key => "event_id", :dependent => :destroy
   has_many :reminders, :foreign_key => "event_id", :dependent => :destroy
   has_many :instances, :foreign_key => "event_id", :dependent => :destroy
@@ -26,8 +26,37 @@ class Event < ActiveRecord::Base
     generate_instance
   end
 
-  protected
+  #TODO untested
+  def add_user_sharing(current_user_id, extra_info, user_ids)
+    s = self.sharings.new(:shared_from => current_user_id, :extra_info => extra_info)
+    s.save
+    ids = user_ids.split(%r{[,;]\s*})
+    ids.each do |i|
+      u = s.user_sharing.new(:user_id => i.to_i)
+      u.save
+    end
+  end
 
+  def query_instance(time_begin, time_end)
+    Instance.where("event_id = ? AND begin >= ? AND end <= ?", self.id, time_begin, time_end).order("begin")
+  end
+
+  #TODO untested
+  def decide_by_user(user_id, acceptance = ACCEPTANCE_TRUE)
+    accs = self.acceptances.where("user_id = ? AND event_id = ?", user_id, self.id)
+    if accs
+      assert accs.size == 1
+      accs[0].decision = acceptance
+      accs[0].save
+    else
+      acc = self.acceptances.new(:user_id => user_id, :decision => acceptance)
+      acc.save
+    end
+  end
+
+  
+  protected
+ 
   def drop_instance
     if self.instances
       self.instances.each do |i|
