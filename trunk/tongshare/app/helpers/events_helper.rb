@@ -16,7 +16,7 @@ module EventsHelper
   ACCEPTANCE_UNDECIDED = nil
   
   #TODO untested
-  
+  #TODO group?
   def query_sharing_instance(time_begin, time_end, priority = PRIORITY_INVITE, acceptance = ACCEPTANCE_DEFAULT, user_id = current_user.id)
     user_sharings = UserSharing.where("user_id = ? AND priority = ?", user_id, priority)
     if acceptance != ACCEPTANCE_DEFAULT

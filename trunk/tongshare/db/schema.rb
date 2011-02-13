@@ -10,12 +10,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110212140657) do
+ActiveRecord::Schema.define(:version => 20110213094454) do
 
   create_table "acceptances", :force => true do |t|
     t.integer  "event_id"
     t.integer  "user_id"
-    t.integer  "decision"
+    t.boolean  "decision"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
