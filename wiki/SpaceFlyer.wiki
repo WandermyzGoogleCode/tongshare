@@ -4,6 +4,8 @@
  * 用户验证、自动获取课表（选作），depend on: nothing
   # 2-12晚，打电话也要咨询到学生清华那边到底怎么弄。
   # 2-12晚，先找刘导询问和计算中心的大致关系，看情况和计算中心尽快取得联系，尽量直接拿到课表xls和用户验证接口。
+  # 学清用户验证的东西已经要来了，估计整个清华的身份验证用的都是那套炯thuauth系统，大致的原理是：client用https讲用户名、密码发送到info服务器，info服务器call back client，返回一个票据。随后client讲票据提交到application server，再由application server调用thuauth的API来验证票据是否有效。其中application server和info server必须在一起，才能使用thuauth。相关资料已经通过gmail发过来了。
+  # 自动获取课表的HACK信息已经从ZHE牛那里获得确认，他的思路和刘洋一样都是伪装浏览器将COOKIE等设置好。不同的是，他说这是小菜一碟，并且说可以参考thuacm上的tunet_login的程序代码。相关资料我正在去thuacm服务器上搜集。
 
  * 事件API测试，depend on: 事件API
   # ASAP and before 2-15，导入刘超的xls课表，自动测试各个attribute以及各种按周重复.
