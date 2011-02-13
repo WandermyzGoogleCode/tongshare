@@ -6,13 +6,19 @@ include EventsHelper
 class TempController < ApplicationController
   
   def cal
-    #test for query= =
     time_begin = Time.utc(2011, 1, 1)
     time_end = Time.utc(2011, 3, 1)
-    is = query_event(0, 5)
+    is = query_sharing_instance(time_begin, time_end, PRIORITY_INVITE, ACCEPTANCE_TRUE, 1)
     logger.debug is.size
-    is = query_instance(time_begin, time_end)
-    logger.debug is.size
+    logger.debug is[0].name
+
+    #test for query= =
+
+#
+#    is = query_event(0, 5)
+#    logger.debug is.size
+#    is = query_instance(time_begin, time_end)
+#    logger.debug is.size
     ##
     #create_calendar
   end
