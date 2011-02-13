@@ -17,21 +17,43 @@ module EventsHelper
   
   #TODO untested
   #TODO group?
+  #user_sharing (uid, pri) -> sharing -> event -> instance (time begin/end)
   def query_sharing_instance(time_begin, time_end, priority = PRIORITY_INVITE, acceptance = ACCEPTANCE_DEFAULT, user_id = current_user.id)
-    user_sharings = UserSharing.where("user_id = ? AND priority = ?", user_id, priority)
-    if acceptance != ACCEPTANCE_DEFAULT
-      user_sharings.keep_if{|u| u.accept? == acceptance }
+    #
+    if acceptance == ACCEPTANCE_DEFAULT
+      where = "user_sharings.user_id = ? " +
+              "AND user_sharings.priority = ? " +
+              "AND instances.begin >= ? " +
+              "AND instances.end <= ? "
+      UserSharing.
+        select("instances.*").
+        joins('INNER JOIN sharings ON sharings.id = user_sharings.sharing_id').
+        joins('INNER JOIN events ON sharings.event_id = events.id').
+        joins('LEFT OUTER JOIN acceptances ON acceptances.event_id = events.id AND acceptances.user_id = user_sharings.user_id').
+        joins('INNER JOIN instances ON instances.event_id = events.id').
+        where(where,
+              user_id,
+              priority,
+              time_begin,
+              time_end)
+    else
+      where = "user_sharings.user_id = ? " +
+              "AND user_sharings.priority = ? " +
+              "AND instances.begin >= ? " +
+              "AND instances.end <= ? " +
+              "AND acceptances.decision = ?"
+      UserSharing.
+        select("instances.*").
+        joins('INNER JOIN sharings ON sharings.id = user_sharings.sharing_id').
+        joins('INNER JOIN events ON sharings.event_id = events.id').
+        joins('LEFT OUTER JOIN acceptances ON acceptances.event_id = events.id AND acceptances.user_id = user_sharings.user_id').
+        joins('INNER JOIN instances ON instances.event_id = events.id').
+        where(where,
+              user_id,
+              priority,
+              time_begin,
+              time_end,
+              acceptance)
     end
-
-    #user_sharing (uid, pri) -> sharing -> event -> instance (time begin/end)
-    
-
-    events = user_sharings.map { |u| u.sharing.event }
-    ret = []
-    events.each do |e|
-      ret += e.query_instance(time_begin, time_end)
-    end
-    ret
   end
-
 end
