@@ -2,13 +2,19 @@
 #home for the whole site. Currently it is used for testing
 
 class HomeController < ApplicationController
-  before_filter :authenticate_user!
-
   def index
-    @test = UUIDTools::UUID.random_create
 
-    @user = User.new
-    @user.user_identifier.build
+
+
+    if user_signed_in?
+      flash[:notice] = notice
+      flash[:alert] = alert
+      redirect_to events_url
+    else
+      
+    end
+
+        
   end
 
 end

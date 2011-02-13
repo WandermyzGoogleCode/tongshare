@@ -1,15 +1,12 @@
 <h2>新用户注册</h2>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+  <%= devise_error_messages_translated! %>
 
-  <p><label for="employee_no">学号/工作证号</label><br/>
-    <%= text_field_tag :employee_no, params[:employee_no], :max_length => UserIdentifier::MAX_VALUE_LENGTH %></p>
-  <% #It seems that f.xxx must be bound to a field of the model. So use text_field_tag instead %>
-
+  <%= label_for_login :employee_no %>
+  <%= text_field_for_login :employee_no %>
  
   <% #TODO: 学生清华密码。姓名应由学生清华提供  %>
-
 
   <p><%= f.label :password, '“同享日程”密码' %><br />
     <%= f.password_field :password %></p>
@@ -17,20 +14,25 @@
   <p><%= f.label :password_confirmation, '确认“同享日程“密码' %><br />
     <%= f.password_field :password_confirmation %></p>
 
-  <p><a href="#" onClick="alert('TODO')">（TODO）为什么有两种密码？</a></p>
+  <%#*<p><a href="#" onClick="alert('TODO')">（TODO）为什么有两种密码？</a></p>%>
 
   <%=
     link_to_function"更多登录方式", nil, :id => 'more_login_link' do |page|
       page.visual_effect :toggle_blind, 'more_login', :duration => 0.5
     end
   %>
-  <div id="more_login" style="display:none">
+
+  <% if more_login_used? %>
+    <div id="more_login">
+  <% else %>
+    <div id="more_login" style="display:none">
+  <% end %>
     <% resource[:email] = '' if defined?(resource) && nil_email_alias?(resource[:email]) %>
       <p><%= f.label :email, '电子邮件（选填）' %><br/>
       <%= f.text_field :email %></p>
 
-      <p><label for="mobile">手机（选填）</label><br/>
-        <%= text_field_tag :mobile, params[:mobile], :max_length => UserIdentifier::MAX_VALUE_LENGTH %></p>
+        <%= label_for_login :mobile %>
+        <%= text_field_for_login :mobile %>
   </div>
 
   <p><%= f.submit "注册" %></p>

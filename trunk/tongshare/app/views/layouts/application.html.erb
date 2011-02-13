@@ -1,18 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Tongshare</title>
+  <title>同享日程<%= "-#{@title}" if defined? @title%></title>
   <%= stylesheet_link_tag :all %>
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
 </head>
 <body>
 
+  <div id="header">
+    <h1>同享日程</h1>
+  </div>
+
+<% if user_signed_in? %>
+  <div id="toolbar">
+    <div class="toolbar_item" id="toolbar_new_event">
+      <%= link_to "新建日程", new_event_path%>
+    </div>
+    <div class="toolbar_item" id="toolbar_profile">个人信息</div>
+    <div class="toolbar_item" id="toolbar_sync">日历同步</div>
+    <div class="toolbar_item" id="toolbar_group">群组管理</div>
+    <div class="toolbar_item" id="toolbar_logout">
+      <%= link_to "注销", destroy_user_session_path%>
+    </div>
+  </div>
+<% end %>
+
 <% if alert %>
-  <p><%= alert %></p>
+  <div id="alert"><%= alert %></div>
 <% end %>
 <% if notice %>
-  <p><%= notice %></p>
+  <div id="notice"><%= notice %></div>
 <% end %>
 <%= yield %>
 
