@@ -27,7 +27,8 @@ class Event < ActiveRecord::Base
   end
 
   #TODO untested
-  def add_user_sharing(current_user_id, extra_info, user_ids)
+  #TODO group?
+  def add_sharing(current_user_id, extra_info, user_ids, group_ids = '')
     s = self.sharings.new(:shared_from => current_user_id, :extra_info => extra_info)
     s.save
     ids = user_ids.split(%r{[,;]\s*})
