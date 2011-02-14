@@ -8,52 +8,65 @@ module EventsHelper
     Event.where("creator_id = ?", creator_id).limit(limit_num).offset(limit_from).order("begin")
   end
 
-  PRIORITY_INVITE = 0
-  PRIORITY_RECOMMENDATION = 1
-  ACCEPTANCE_DEFAULT = :fake
-  ACCEPTANCE_TRUE = true
-  ACCEPTANCE_FALSE = false
-  ACCEPTANCE_UNDECIDED = nil
-  
   #TODO untested
   #TODO group?
   #user_sharing (uid, pri) -> sharing -> event -> instance (time begin/end)
-  def query_sharing_instance(time_begin, time_end, priority = PRIORITY_INVITE, acceptance = ACCEPTANCE_DEFAULT, user_id = current_user.id)
-    #
-    if acceptance == ACCEPTANCE_DEFAULT
-      where = "user_sharings.user_id = ? " +
-              "AND user_sharings.priority = ? " +
-              "AND instances.begin >= ? " +
-              "AND instances.end <= ? "
+  class SQLConstant
+    SELECT_INSTANCE = "instances.*"
+    SELECT_EVENT = "events.*"
+    JOINS_BASE = 'INNER JOIN sharings ON sharings.id = user_sharings.sharing_id ' +
+            'INNER JOIN events ON sharings.event_id = events.id ' +
+            'LEFT OUTER JOIN acceptances ON acceptances.event_id = events.id AND acceptances.user_id = user_sharings.user_id '
+    JOINS_INSTANCE = 'INNER JOIN instances ON instances.event_id = events.id'
+    WHERE_USER_ID = "user_sharings.user_id = ?"
+    WHERE_PRIORITY = "user_sharings.priority = ?"
+    WHERE_TIME = "instances.begin >= ? AND instances.end <= ?"
+    WHERE_DECISION = "acceptances.decision = ?"
+    WHERE_DECISION_UNDECIDED = "acceptances.decision IS NULL"
+    WHERE_AND = ' AND '
+  end
+
+  def build_where(*w)
+    w.join(SQLConstant::WHERE_AND)
+  end
+
+  # !readonly value returned
+  def query_all_accepted_instance(time_begin, time_end, user_id = current_user.id)
+    query_sharing_accepted_instance(time_begin, time_end, user_id) + query_own_instance(time_begin, time_end, user_id)
+  end
+
+  # !readonly value returned
+  def query_sharing_accepted_instance(time_begin, time_end, user_id = current_user.id)
+    UserSharing.
+      select(SQLConstant::SELECT_INSTANCE).
+      joins(SQLConstant::JOINS_BASE + SQLConstant::JOINS_INSTANCE).
+      where(
+        build_where(SQLConstant::WHERE_USER_ID, SQLConstant::WHERE_DECISION, SQLConstant::WHERE_TIME),
+        user_id,
+        Acceptance::DECISION_ACCEPTED,
+        time_begin, time_end)
+  end
+
+  # !readonly value returned
+  def query_sharing_event(priority = UserSharing::PRIORITY_INVITE, decision = Acceptance::DECISION_UNDECIDED, user_id = current_user.id)
+    if decision == Acceptance::DECISION_UNDECIDED
       UserSharing.
-        select("instances.*").
-        joins('INNER JOIN sharings ON sharings.id = user_sharings.sharing_id').
-        joins('INNER JOIN events ON sharings.event_id = events.id').
-        joins('LEFT OUTER JOIN acceptances ON acceptances.event_id = events.id AND acceptances.user_id = user_sharings.user_id').
-        joins('INNER JOIN instances ON instances.event_id = events.id').
-        where(where,
-              user_id,
-              priority,
-              time_begin,
-              time_end)
+        select(SQLConstant::SELECT_EVENT).
+        joins(SQLConstant::JOINS_BASE).
+        where(
+          build_where(SQLConstant::WHERE_USER_ID, SQLConstant::WHERE_DECISION_UNDECIDED, SQLConstant::WHERE_PRIORITY),
+          user_id,
+          priority)
     else
-      where = "user_sharings.user_id = ? " +
-              "AND user_sharings.priority = ? " +
-              "AND instances.begin >= ? " +
-              "AND instances.end <= ? " +
-              "AND acceptances.decision = ?"
       UserSharing.
-        select("instances.*").
-        joins('INNER JOIN sharings ON sharings.id = user_sharings.sharing_id').
-        joins('INNER JOIN events ON sharings.event_id = events.id').
-        joins('LEFT OUTER JOIN acceptances ON acceptances.event_id = events.id AND acceptances.user_id = user_sharings.user_id').
-        joins('INNER JOIN instances ON instances.event_id = events.id').
-        where(where,
-              user_id,
-              priority,
-              time_begin,
-              time_end,
-              acceptance)
+        select(SQLConstant::SELECT_EVENT).
+        joins(SQLConstant::JOINS_BASE).
+        where(
+          build_where(SQLConstant::WHERE_USER_ID, SQLConstant::WHERE_DECISION, SQLConstant::WHERE_PRIORITY),
+          user_id,
+          decision,
+          priority)
     end
   end
+  
 end
