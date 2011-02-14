@@ -1,5 +1,7 @@
 class SessionsExtendedController < Devise::SessionsController
   def new
+
+
     super
   end
 

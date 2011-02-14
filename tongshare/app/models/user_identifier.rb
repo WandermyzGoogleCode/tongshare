@@ -11,7 +11,7 @@ class UserIdentifier < ActiveRecord::Base
   validates_length_of :login_value, :maximum => MAX_VALUE_LENGTH, :message => "长度不能超过#{MAX_VALUE_LENGTH}字节" #TODO: several issues with i18n
   
   # Currently, only three types are supported
-  validates_format_of :login_type, :with => /(employee_no)|(mobile)|(email)/
+  validates_format_of :login_type, :with => /(#{TYPE_EMPLOYEE_NO})|(#{TYPE_MOBILE})|(#{TYPE_EMAIL})/
 
   validates_uniqueness_of :login_value, :scope => :login_type   #it seems this validates uniqueness of [:value, :type]
   #TODO: "Value has already been taken" -> "xxx has already been taken"
