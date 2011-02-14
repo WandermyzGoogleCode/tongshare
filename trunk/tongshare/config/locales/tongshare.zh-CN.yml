@@ -1,0 +1,5 @@
+zh-CN:
+  tongshare:
+    event:
+      created: "日程\"%{name}\"创建成功"
+      updated: "日程\"%{name}\"修改成功"

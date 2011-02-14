@@ -12,9 +12,12 @@ class Event < ActiveRecord::Base
   has_many :instances, :foreign_key => "event_id", :dependent => :destroy
 
   #TODO validates
+  validates :name, :begin, :presence => true
+  #
   #
   def save
-    super
+    ret = super
+    return false if !ret
     #TODO review of when to call save?
     #TODO edit each for better performance?
     drop_instance

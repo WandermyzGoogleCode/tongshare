@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  include EventsHelper
+
   before_filter :authenticate_user!
 
   # GET /events
@@ -27,6 +29,9 @@ class EventsController < ApplicationController
   # GET /events/new.xml
   def new
     @event = Event.new
+    @event.begin = Time.now
+    @event.end = Time.now + 30.minutes
+    time_ruby2selector(@event)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -37,16 +42,19 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
+    time_ruby2selector(@event)
   end
 
   # POST /events
   # POST /events.xml
   def create
     @event = Event.new(params[:event])
+    time_selector2ruby(@event)
+    
     ret = @event.save
     respond_to do |format|
       if ret
-        format.html { redirect_to(@event, :notice => 'Event was successfully created.') }
+        format.html { redirect_to(@event, :notice => I18n.t('tongshare.event.created', :name => @event.name)) }
         format.xml  { render :xml => @event, :status => :created, :location => @event }
       else
         format.html { render :action => "new" }
@@ -59,11 +67,13 @@ class EventsController < ApplicationController
   # PUT /events/1.xml
   def update
     @event = Event.find(params[:id])
+    time_selector2ruby(@event)
+    
     ret = @event.update_attributes(params[:event])
     
     respond_to do |format|
       if ret
-        format.html { redirect_to(@event, :notice => 'Event was successfully updated.') }
+        format.html { redirect_to(@event, :notice => I18n.t('tongshare.event.updated', :name => @event.name)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

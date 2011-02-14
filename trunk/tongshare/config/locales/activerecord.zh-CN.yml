@@ -1,13 +1,4 @@
-zh:
-  errors:
-    attributes:
-      password:
-        confirmation: "两次输入的密码不一致"
-        too_short: "密码长度不够"
-        blank: "密码不能为空"
-      email:
-        taken: "\"%{value}\"已被占用"
-
+zh-CN:      
   activerecord:
     errors:
       models:
@@ -18,15 +9,25 @@ zh:
               mobile_invalid: "手机号格式不正确"
               taken: "登录名“%{value}”已被占用"
               blank: "学号/工作证号不能为空" #currently, only employee_no cannot be empty
+        user:
+          attributes:
+            password:
+              confirmation: "两次输入的密码不一致"
+              too_short: "密码长度不够"
+              blank: "密码不能为空"
+            email:
+              taken: "\"%{value}\"已被占用"
 
-      messages:
-        invalid: "格式不正确"
+
+      #messages:
+      #  invalid: "格式不正确"
 
       template:
         header: "您输入的信息中含有%{count}个错误，请更正"
 
     models:
       user: "用户"
+      event: "日程"
 
     attributes:
       user:
@@ -40,5 +41,10 @@ zh:
         mobile: "手机号"
         email: "电子邮件"
 
-
+      event:
+        name: "日程标题"
+        begin: "开始于"
+        end: "结束于"
+        location: "地点"
+        extra_info: "描述"
 
