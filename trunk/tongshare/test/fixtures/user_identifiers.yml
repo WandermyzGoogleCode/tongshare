@@ -1,11 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  value: MyString
+  login_value: 2007011000
   user_id: 1
-  type: MyString
+  login_type: employee_no
 
 two:
-  value: MyString
-  user_id: 1
-  type: MyString
+  login_value: 2007011001
+  user_id: 2
+  login_type: employee_no

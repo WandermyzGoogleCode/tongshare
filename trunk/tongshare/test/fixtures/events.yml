@@ -1,19 +1,20 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  name: MyString
-  begin: 2011-01-19 20:31:31
-  end: 2011-01-19 20:31:31
-  location: MyString
-  extra_info: MyText
+one_instance:
+  name: meeting
+  begin: 2011-01-19 20:00:00
+  end: 2011-01-19 21:00:00
+  location: 6C101
+  extra_info: 
   creator_id: 1
 
-two:
-  name: MyString
-  begin: 2011-01-19 20:31:31
-  end: 2011-01-19 20:31:31
-  location: MyString
-  extra_info: MyText
+weekly_count:
+  name: course
+  begin: 2011-01-19 08:00:00
+  end: 2011-01-19 09:35:00
+  location: 6C201
+  extra_info: which course?
+  rrule: FREQ=WEEKLY; DAY=WE; COUNT=5
   creator_id: 1
 
 security_course:
