@@ -6,7 +6,7 @@ include GcalHelper
 include EventsHelper
   
   def cal
-    SysMailer.reminder_email(current_user).deliver
+    #SysMailer.reminder_email(current_user).deliver
 
     
     time_begin = Time.utc(2011, 1, 1)
