@@ -2,6 +2,7 @@ require 'test_helper'
 
 class GroupsControllerTest < ActionController::TestCase
   setup do
+    sign_in users(:one)
     @group = groups(:one)
     @group.identifier = rand.to_s[0..15]
   end
