@@ -2,8 +2,8 @@
 
 one:
   user_id: 1
-  is_forbidden: false
+  admin_enabled: false
 
 two:
-  user_id: 1
-  is_forbidden: false
+  user_id: 2
+  admin_enabled: true
