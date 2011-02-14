@@ -1,6 +1,8 @@
 require 'gcal4ruby'
 
 class Event < ActiveRecord::Base
+
+  MAX_INSTANCE_COUNT = 64
   attr_accessible :name, :begin, :end, :location, :extra_info, :rrule
   
   belongs_to :creator, :class_name => "User"
@@ -107,9 +109,15 @@ class Event < ActiveRecord::Base
           if now.sunday?
             now += (interval * 7).day
           end
+
+          if count >= MAX_INSTANCE_COUNT
+            break
+          end
+
           if rec.count and count >= rec.count.to_i
             break
           end
+          
           if rec.repeat_until and now >= rec.repeat_until
             break
           end
