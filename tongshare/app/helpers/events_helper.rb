@@ -1,4 +1,15 @@
 module EventsHelper
+  #go around time zone bug in calendar_date_selector
+  def time_ruby2selector(event)
+    event.begin = event.begin + 8.hours unless event.begin.blank?
+    event.end = event.end + 8.hours unless event.end.blank?
+  end
+
+  def time_selector2ruby(event)
+    event.begin = event.begin - 8.hours unless event.begin.blank?
+    event.end = event.end - 8.hours unless event.end.blank?
+  end
+
   def query_own_instance(time_begin, time_end, creator_id = current_user.id)
     #TODO check event changed
     Instance.where("creator_id = ? AND begin >= ? AND end <= ?", creator_id, time_begin, time_end).order("begin")

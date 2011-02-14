@@ -1,43 +1,40 @@
 <%= form_for(@event) do |f| %>
   <% if @event.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+      <h2><%= I18n.t 'activerecord.errors.template.header', :count => @event.errors.count %></h2>
 
       <ul>
-      <% @event.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @event.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :begin %><br />
-    <%= f.datetime_select :begin %>
-  </div>
-  <div class="field">
-    <%= f.label :end %><br />
-    <%= f.datetime_select :end %>
-  </div>
-  <div class="field">
-    <%= f.label :location %><br />
-    <%= f.text_field :location %>
-  </div>
-  <div class="field">
-    <%= f.label :extra_info %><br />
-    <%= f.text_area :extra_info %>
-  </div>
-  <div class="field">
-    <%= f.label :rrule %><br />
-    <%= f.text_field :rrule %>
-  </div>
-  <div class="field">
-    <%= f.label :creator_id %><br />
-    <%= f.text_field :creator_id %>
+  <div id="event_details">
+    <fieldset>
+      <legend>日程详情</legend>
+      <div class="field">
+        <%= f.label :name %><br />
+        <%= f.text_field :name %>
+      </div>
+      <div class="field">
+        <%= f.label :begin %><br />
+        <%= f.calendar_date_select :begin%>
+      </div>
+      <div class="field">
+        <%= f.label :end %><br />
+        <%= f.calendar_date_select :end %>
+      </div>
+      <div class="field">
+        <%= f.label :location %><br />
+        <%= f.text_field :location %>
+      </div>
+      <div class="field">
+        <%= f.label :extra_info %><br />
+        <%= f.text_area :extra_info %>
+      </div>
+    </fieldset>
   </div>
   <div class="actions">
     <%= f.submit %>

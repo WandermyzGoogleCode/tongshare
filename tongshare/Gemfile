@@ -25,6 +25,7 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'devise', '1.1.5' #Authentication System
 gem 'cancan', '1.5.1' #Permission System
 gem 'uuidtools' #generate uuid string for unique random email address
+gem 'calendar_date_select', :git => 'http://github.com/paneq/calendar_date_select.git', :branch => 'rails3test'
 
 # for google calendar api and auth related
 gem 'edave-gdata4ruby', '0.2.0'
