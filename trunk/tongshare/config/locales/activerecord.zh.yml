@@ -5,6 +5,8 @@ zh:
         confirmation: "两次输入的密码不一致"
         too_short: "密码长度不够"
         blank: "密码不能为空"
+      email:
+        taken: "\"%{value}\"已被占用"
 
   activerecord:
     errors:
