@@ -6,6 +6,9 @@ include GcalHelper
 include EventsHelper
   
   def cal
+    SysMailer.reminder_email(current_user).deliver
+
+    
     time_begin = Time.utc(2011, 1, 1)
     time_end = Time.utc(2011, 3, 1)
     #is = query_sharing_accepted_instance(time_begin, time_end, 1)

@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable,
          :registerable,
          :validatable,
+         :confirmable, #email verify
          :authentication_keys => [:id]
        
   # Setup accessible (or protected) attributes for your model

@@ -1,4 +1,5 @@
 class RegistrationsExtendedController < Devise::RegistrationsController
+include RegistrationsExtendedHelper
   def new
     super
     authorize! :create, resource
@@ -36,6 +37,15 @@ class RegistrationsExtendedController < Devise::RegistrationsController
     end
 
     authorize! :create, resource
+
+    #skip email verify if no email here
+    if nil_email_alias?(resource.email)
+      logger.debug "nil_email, user_id = #{resource.id}"
+      resource.skip_confirmation!
+    else
+      logger.debug "email confirm: user_id = #{resource.id}, email = #{@user.email}"
+    end
+
     #do what devise does
     if resource.save
       set_flash_message :notice, :signed_up
