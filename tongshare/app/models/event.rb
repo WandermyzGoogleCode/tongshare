@@ -26,7 +26,14 @@ class Event < ActiveRecord::Base
     logger.debug self.rrule.to_yaml
     drop_instance
     ret = generate_instance
-    return false if !ret
+    if !ret
+      if !self.rrule_count.nil?
+        errors.add :rrule_count, :too_many_instances
+      else
+        #TODO repeat_until
+      end
+      return false
+    end
     ret = super
     logger.debug errors.to_yaml
     return false if !ret
@@ -158,9 +165,21 @@ class Event < ActiveRecord::Base
       
       #modified by Wander
       rec = self.recurrence
-
+      interval = self.rrule_interval
       if rec.frequency == 'DAILY'
-        #TODO
+        return false if rec.count > MAX_INSTANCE_COUNT
+        for i in 0..(rec.count - 1)
+            instance = self.instances.build(
+              :name => self.name,
+              :location => self.location,
+              :extra_info => self.extra_info,
+              :begin => self.begin + (i * interval).day,
+              :end => self.end + (i * interval).day,
+              :override => false,
+              :index => i,
+              :creator_id => self.creator_id
+            )          
+        end
       elsif rec.frequency == 'WEEKLY'
         now = self.begin
         count = 0
