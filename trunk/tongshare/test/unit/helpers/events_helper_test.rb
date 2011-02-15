@@ -34,10 +34,9 @@ class EventsHelperTest < ActionView::TestCase
     end
   end
 
-  test "全周双时双规则" do
+  test "一门课程全周+双周" do
     course_name = "数值分析"
     events = find_classes(course_name)
-    pp events
     assert events.size == 2
     begins = ["2011-2-21 8:00", "2011-3-3 15:20"]
     ends = ["2011-2-21 9:35", "2011-3-3 16:55"]
@@ -62,23 +61,54 @@ class EventsHelperTest < ActionView::TestCase
   end
 
   test "前八周单时" do
-
+    course_name = "计算机软件前沿技术"
+    events = find_classes(course_name)
+    assert events.size == 1
+    rec = GCal4Ruby::Recurrence.new
+    rec.load(events[0].rrule)
+    assert(rec.count == 8)
+    assert(rec.interval == 1)
+    assert(rec.frequency == GCal4Ruby::Recurrence::WEEKLY_FREQUENCE)
+    assert(events[0].begin.localtime == Time.parse("2011-2-22 15:20"))
   end
 
   test "后八周单时" do
-
-  end
-
-  test "双周单时" do
-
+    course_name = "后八周测试课程"
+    events = find_classes(course_name)
+    assert events.size == 1
+    assert events[0].begin.localtime == Time.parse("2011-2-26 9:50") + (8*7).days
+    assert events[0].end.localtime == Time.parse("2011-2-26 11:25") + (8*7).days
+    rec = GCal4Ruby::Recurrence.new
+    rec.load(events[0].rrule)
+    assert(rec.count == 8)
+    assert(rec.interval == 1)
+    assert(rec.frequency == GCal4Ruby::Recurrence::WEEKLY_FREQUENCE)
   end
 
   test "单周单时" do
-
+    course_name = "单周测试课程"
+    events = find_classes(course_name)
+    assert events.size == 1
+    assert events[0].begin.localtime == Time.parse("2011-2-27 13:30")
+    assert events[0].end.localtime == Time.parse("2011-2-27 15:05")
+    rec = GCal4Ruby::Recurrence.new
+    rec.load(events[0].rrule)
+    assert(rec.count == 8)
+    assert(rec.interval == 2)
+    assert(rec.frequency == GCal4Ruby::Recurrence::WEEKLY_FREQUENCE)
   end
 
   test "No Week Modifier" do
-    
+    course_name = "NO MODIFIER 测试课程"
+    events = find_classes(course_name)
+    assert events.size == 1
+    assert events[0].begin.localtime == Time.parse("2011-2-25 19:20")
+    assert events[0].end.localtime == Time.parse("2011-2-25 20:55")
+    rec = GCal4Ruby::Recurrence.new
+    rec.load(events[0].rrule)
+    assert(rec.count == 16)
+    assert(rec.interval == 1)
+    assert(rec.frequency == GCal4Ruby::Recurrence::WEEKLY_FREQUENCE)
   end
 
 end
