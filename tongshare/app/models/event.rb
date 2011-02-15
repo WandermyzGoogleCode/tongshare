@@ -22,8 +22,21 @@ class Event < ActiveRecord::Base
   def save
     #generate rrule
     logger.debug self.recurrence.to_yaml
+
+    #check rrule_days
+    if self.rrule_frequency == GCal4Ruby::Recurrence::WEEKLY_FREQUENCE
+      if self.rrule_days.empty?
+        self.rrule_days = [Date.today.wday]
+      end
+    else
+      self.rrule_days = []
+    end
+
     self.rrule = self.recurrence.rrule
     logger.debug self.rrule.to_yaml
+
+
+
     drop_instance
     ret = generate_instance
     if !ret
@@ -125,7 +138,6 @@ class Event < ActiveRecord::Base
     days.each do |d|
       ret << d.to_i unless d.blank?
     end
-    ret = [Date.today.wday] if (rrule_frequency == GCal4Ruby::Recurrence::WEEKLY_FREQUENCE && ret.empty?)
     self.recurrence.set_days(ret)
   end
 
