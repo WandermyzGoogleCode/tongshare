@@ -5,7 +5,7 @@ module EventsHelper
 
    # Please check these time settings. Are they correct?
   COURSE_BEGINES = ["8:00", "9:50", "13:30", "15:20", "17:05", "19:20"]
-  COURSE_ENDS = ["9:35", "11:25", "15:05", "16:55", "18:40", "21:05"]
+  COURSE_ENDS = ["9:35", "11:25", "15:05", "16:55", "18:40", "20:55"]
 
   # TODO This should be configured for each semester so it's better
   # to be setted in a separate config file.
