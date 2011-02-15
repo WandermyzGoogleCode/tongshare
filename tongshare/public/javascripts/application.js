@@ -16,7 +16,7 @@ function show_repeat_options(type, div_id)
     {
         Effect.BlindUp(div_id, {duration: 0.2});
     }
-    else if (! $(div_id).visible())
+    else if (type != "NONE" && ! $(div_id).visible())
     {
         Effect.BlindDown(div_id, {duration: 0.2});
     }

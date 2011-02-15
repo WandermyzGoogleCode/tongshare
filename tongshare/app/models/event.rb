@@ -98,7 +98,7 @@ class Event < ActiveRecord::Base
   end
 
   def rrule_frequency=(f)
-    self.recurrence.frequency = f
+    self.recurrence.frequency = (f == GCal4Ruby::Recurrence::NONE_FREQUENCY) ? nil : f
   end
 
   def rrule_interval
