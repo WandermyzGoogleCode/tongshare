@@ -38,13 +38,8 @@ include RegistrationsExtendedHelper
 
     authorize! :create, resource
 
-    #skip email verify if no email here
-    if nil_email_alias?(resource.email)
-      logger.debug "nil_email, user_id = #{resource.id}"
-      resource.skip_confirmation!
-    else
-      logger.debug "email confirm: user_id = #{resource.id}, email = #{@user.email}"
-    end
+    #skip email verify always
+    resource.skip_confirmation!
 
     #do what devise does
     if resource.save

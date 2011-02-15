@@ -15,7 +15,7 @@ class Event < ActiveRecord::Base
   has_many :instances, :foreign_key => "event_id", :dependent => :destroy
 
   #TODO validates
-  validates :name, :begin, :presence => true
+  validates :name, :begin, :creator_id, :presence => true
   #
   #
 
@@ -143,7 +143,7 @@ class Event < ActiveRecord::Base
   
   def generate_instance
     #TODO check if instances present
-    if !self.rrule || self.rrule == ""
+    if !self.rrule.blank?
       i = self.instances.build(
         :override => nil,
         :name => self.name,
