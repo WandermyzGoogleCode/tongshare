@@ -12,9 +12,7 @@ module EventsHelper
   # Note! This day is Sunday instead of Monday(since Monday is +1)
   FIRST_DAY_IN_SEMESTER = "2011-2-20"
 
-  # Convert a course_class to events
-  # Note that a course_class may include multiple classes per week,
-  # therefore multiple events will be generated according to current settings.
+  # Convert a course_class to an event
   def class2event(course_class)
     event = Event.new(:name => course_class.name, :extra_info => course_class.extra_info, :location => course_class.location)
     week_day = course_class.week_day
