@@ -46,6 +46,11 @@ module GCal4Ruby
   #The Recurrence class stores information on an Event's recurrence.  The class implements
   #the RFC 2445 iCalendar recurrence description.
   class Recurrence
+    DAILY_FREQUENCE = "DAILY"
+    WEEKLY_FREQUENCE = "WEEKLY"
+
+    FREQUENCES = [DAILY_FREQUENCE, WEEKLY_FREQUENCE]
+
     #The event start date/time
     attr_reader :start_time
     #The event end date/time
@@ -59,11 +64,11 @@ module GCal4Ruby
     #True if the event is all day (i.e. no start/end time)
     attr_accessor :all_day
     #
-    attr_reader :interval
+    attr_accessor :interval
     #
     attr_reader :day
     #
-    attr_reader :count
+    attr_accessor :count
     
     #Accepts an optional attributes hash or a string containing a properly formatted ISO 8601 recurrence rule.  Returns a new Recurrence object
     def initialize(vars = {})
@@ -121,6 +126,9 @@ module GCal4Ruby
       end
     end
 
+    # @deprecated
+    # What does 'RRULE:' + s mean?
+    # Use {#load}(rec.rrule) directly
     def from_rrule(s)
       load('RRULE:' + s)
     end
@@ -144,10 +152,10 @@ module GCal4Ruby
       end
       if @repeat_until
         if @all_day
-	  output += ";UNTIL=#{@repeat_until.strftime("%Y%m%d")}"
-	else
-	  output += ";UNTIL=#{@repeat_until.complete}"
-	end
+          output += ";UNTIL=#{@repeat_until.strftime("%Y%m%d")}"
+        else
+          output += ";UNTIL=#{@repeat_until.complete}"
+        end
       end
       output
     end
@@ -204,12 +212,29 @@ module GCal4Ruby
         @repeat_until = r
       end
     end
+
+    # Set frequency. f must be one String in FREQUENCES
     def frequency=(f)
-      if f.is_a?(String)
+      if f.is_a?(String) && FREQUENCES.include?(f)
         @frequency = f
       else
         raise RecurrenceValueError, "Frequency must be a string (see documentation)"
       end
+    end
+
+    # days must be an array of Integers
+    # days[i]%7 will be added to event.day
+    def set_days(days)
+      @day = Array.new(7, false)
+      for d in days
+        @day[d%7] = true
+      end
+    end
+
+    #[day%7] will be setted to event.day
+    def set_day(day)
+      days = [day]
+      set_days(days)
     end
   end
 end
