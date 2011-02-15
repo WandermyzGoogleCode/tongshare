@@ -100,9 +100,7 @@ class Event < ActiveRecord::Base
   end
 
   def rrule_interval
-    ret = self.recurrence.interval
-    ret ||= 1
-    ret
+    self.recurrence.interval || 1
   end
 
   def rrule_interval=(i)
@@ -110,7 +108,9 @@ class Event < ActiveRecord::Base
   end
 
   def rrule_days
-    self.recurrence.get_days
+    ret = self.recurrence.get_days
+    ret = [Date.today.wday] if ret.empty?
+    ret
   end
 
   def rrule_days=(days)
@@ -118,11 +118,12 @@ class Event < ActiveRecord::Base
     days.each do |d|
       ret << d.to_i unless d.blank?
     end
+    ret = [Date.today.wday] if (rrule_frequency == GCal4Ruby::Recurrence::WEEKLY_FREQUENCE && ret.empty?)
     self.recurrence.set_days(ret)
   end
 
   def rrule_count
-    self.recurrence.count
+    self.recurrence.count || 1
   end
 
   def rrule_count=(count)
