@@ -1,8 +1,8 @@
-require 'thuxls'
+require 'thucourse'
 
 $KCODE = 'u'
 
-filename = "tmp/lc.xls"
+filename = "test/fixtures/lc.xls"
 
 table = xls2table(filename)
 course_set = Course.parse_table(table)
