@@ -6,7 +6,8 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.xml
   def index
-    @events = Event.all
+    @events = Event.find_all_by_creator_id current_user.id
+    authorize! :index, Event
 
     respond_to do |format|
       format.html # index.html.erb
@@ -18,7 +19,8 @@ class EventsController < ApplicationController
   # GET /events/1.xml
   def show
     @event = Event.find(params[:id])
-
+    authorize! :show, @event
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @event }
@@ -36,6 +38,9 @@ class EventsController < ApplicationController
     @event.rrule_days = [Date.today.wday]
     @event.rrule_count = 16  #TODO: how to set default value?
 
+    @event.creator_id = current_user.id
+    authorize! :new, @event
+
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @event }
@@ -45,6 +50,8 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
+    authorize! :edit, @event
+    
     time_ruby2selector(@event)
   end
 
@@ -53,6 +60,9 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(params[:event])
     time_selector2ruby(@event)
+
+    @event.creator_id = current_user.id
+    authorize! :create, @event
     
     ret = @event.save
     respond_to do |format|
@@ -70,6 +80,8 @@ class EventsController < ApplicationController
   # PUT /events/1.xml
   def update
     @event = Event.find(params[:id])
+    authorize! :update, @event
+    
     time_selector2ruby(@event)
     
     ret = @event.update_attributes(params[:event])
@@ -89,6 +101,7 @@ class EventsController < ApplicationController
   # DELETE /events/1.xml
   def destroy
     @event = Event.find(params[:id])
+    authorize! :destroy, @event
     @event.destroy
 
     respond_to do |format|
