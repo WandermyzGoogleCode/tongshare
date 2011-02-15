@@ -126,5 +126,31 @@ module EventsHelper
           priority)
     end
   end
-  
+
+
+  #for views
+  def frequency_radio_buttons(form)
+    frequences = [GCal4Ruby::Recurrence::NONE_FREQUENCY]
+    frequences.concat GCal4Ruby::Recurrence::FREQUENCES
+
+    result = ""
+    frequences.each do |freq|
+      result += form.radio_button :rrule_frequency, freq,
+                :onClick => "show_repeat_options('#{freq}')"
+      result += label_tag "event_rrule_frequency_#{freq.downcase}",
+                I18n.t("tongshare.event.recurrence.#{freq.downcase}")
+    end
+
+    result.html_safe
+  end
+
+  def days_check_boxes(form)
+    result = ""
+    for i in 0..6
+      result += form.check_box "rrule_days", {:multiple => true}, i, nil
+      result += label_tag "event_rrule_days_#{i}", I18n.t("date.abbr_day_names")[i]
+    end
+
+    result.html_safe
+  end
 end

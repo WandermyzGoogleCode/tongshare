@@ -6,7 +6,8 @@ class Event < ActiveRecord::Base
   # In order to make Event.new(:creator_id => creator_id) work, attr_accessible :creator_id
   # seems to be necessary!
   attr_accessible :name, :begin, :end, :location, :extra_info, :rrule, :creator_id
-  
+  attr_accessible :rrule_interval, :rrule_frequency, :rrule_days, :rrule_count
+
   belongs_to :creator, :class_name => "User"
   has_many :acceptances, :foreign_key => "event_id", :dependent => :destroy
   has_many :sharings, :foreign_key => "event_id", :dependent => :destroy
@@ -17,21 +18,36 @@ class Event < ActiveRecord::Base
   validates :name, :begin, :presence => true
   #
   #
+
   def save
+    #generate rrule
+    logger.debug self.recurrence.to_yaml
+    self.rrule = self.recurrence.rrule
+    logger.debug self.rrule.to_yaml
+
     ret = super
+
+    logger.debug errors.to_yaml
+
     return false if !ret
     #TODO review of when to call save?
     #TODO edit each for better performance?
     drop_instance
     generate_instance
+    #TODO: LC: you should return true/false. Once fail to generate, you need to rollback the newly created event.
+    return true
   end
 
-  def update_attributes(vars = {})
-    super
-    #TODO edit each for better performance?
-    drop_instance
-    generate_instance
-  end
+#  def update_attributes(vars = {})
+#    #"super" will call "save", so no more for rrule
+#
+#    ret = super
+#    return false if !ret
+#    #TODO edit each for better performance?
+#    #drop_instance
+#    #generate_instance
+#    #modified by Wander: do not do these two operations because update_attributes calls "save"
+#  end
 
   #TODO untested
   #TODO group?
@@ -63,7 +79,58 @@ class Event < ActiveRecord::Base
     end
   end
 
-  
+  #virtual fields for recurrence logic
+  #these fields will simplify and unify new/edit in controllers
+  #TODO: validates
+  def recurrence
+    if !defined? @recurrence
+      @recurrence = GCal4Ruby::Recurrence.new
+      @recurrence.from_rrule(self.rrule) unless self.rrule.blank?
+    end
+
+    @recurrence
+  end
+
+  def rrule_frequency
+    ret = self.recurrence.frequency
+    ret ||= GCal4Ruby::Recurrence::NONE_FREQUENCY
+    ret
+  end
+
+  def rrule_frequency=(f)
+    self.recurrence.frequency = f
+  end
+
+  def rrule_interval
+    ret = self.recurrence.interval
+    ret ||= 1
+    ret
+  end
+
+  def rrule_interval=(i)
+    self.recurrence.interval = i.to_i
+  end
+
+  def rrule_days
+    self.recurrence.get_days
+  end
+
+  def rrule_days=(days)
+    ret = []
+    days.each do |d|
+      ret << d.to_i unless d.blank?
+    end
+    self.recurrence.set_days(ret)
+  end
+
+  def rrule_count
+    self.recurrence.count
+  end
+
+  def rrule_count=(count)
+    self.recurrence.count = count.to_i
+  end
+
   protected
  
   def drop_instance
@@ -88,8 +155,12 @@ class Event < ActiveRecord::Base
         )
       i.save
     else
-      rec = GCal4Ruby::Recurrence.new
-      rec.from_rrule(self.rrule) # rec.load('RRULE:' + self.rrule) will encounter bug since self.rrule may begin with 'RRULE:'
+      #rec = GCal4Ruby::Recurrence.new
+      #rec.from_rrule(self.rrule) # rec.load('RRULE:' + self.rrule) will encounter bug since self.rrule may begin with 'RRULE:'
+      
+      #modified by Wander
+      rec = self.recurrence
+
       if rec.frequency == 'DAILY'
         #TODO
       elsif rec.frequency == 'WEEKLY'

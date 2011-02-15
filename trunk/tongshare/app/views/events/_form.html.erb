@@ -27,6 +27,29 @@
         <%= f.calendar_date_select :end %>
       </div>
       <div class="field">
+        <%= frequency_radio_buttons f %>
+      </div>
+
+      <div id="repeat_options" style="display:none">
+        <fieldset>
+          <legend id="repeat_legend">不重复</legend>
+          <div class="field">
+              <%= f.label :rrule_interval, "每隔" %>
+              <%= f.number_field :rrule_interval, :min => 1, :maxlength => 3 %>
+              <span id="interval_suffix">天</span>
+          </div>
+          <div id="rrule_days_panel" style="display:none">
+            重复于 <%= days_check_boxes f %>
+          </div>
+          <div id="rrule_end_panel">
+            日程发生 <%= f.number_field :rrule_count, :min => 1, :maxlength => 3 %> 次后停止重复
+            <%#TODO: repeat_until (how to assign this value to Recurrence??; TODO: never?%>
+          </div>
+        </fieldset>
+      </div>
+      <%= javascript_tag "show_repeat_options(\"#{@event.rrule_frequency}\");" %>
+
+      <div class="field">
         <%= f.label :location %><br />
         <%= f.text_field :location %>
       </div>

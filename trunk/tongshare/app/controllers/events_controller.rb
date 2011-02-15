@@ -33,6 +33,9 @@ class EventsController < ApplicationController
     @event.end = Time.now + 30.minutes
     time_ruby2selector(@event)
 
+    @event.rrule_days = [Date.today.wday]
+    @event.rrule_count = 16  #TODO: how to set default value?
+
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @event }
