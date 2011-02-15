@@ -1,4 +1,53 @@
 module EventsHelper
+  require 'thucourse'
+  require 'gcal4ruby/recurrence'
+  require 'time'
+
+   # Please check these time settings. Are they correct?
+  COURSE_BEGINES = ["8:00", "9:50", "13:30", "15:20", "17:05", "19:20"]
+  COURSE_ENDS = ["9:35", "11:25", "15:05", "16:55", "18:40", "21:05"]
+
+  # TODO This should be configured for each semester so it's better
+  # to be setted in a separate config file.
+  # Note! This day is Sunday instead of Monday(since Monday is +1)
+  FIRST_DAY_IN_SEMESTER = "2011-2-20"
+
+  # Convert a course_class to events
+  # Note that a course_class may include multiple classes per week,
+  # therefore multiple events will be generated according to current settings.
+  def class2event(course_class)
+    event = Event.new(:name => course_class.name, :extra_info => course_class.extra_info, :location => course_class.location)
+    week_day = course_class.week_day
+    day_time = course_class.day_time-1 # from 1..6 to 0..5
+    # Note that week_day = 7 for Sunday so first Sunday class will be 6 days after the first Monday
+    event.begin = Time.parse(FIRST_DAY_IN_SEMESTER + " " + COURSE_BEGINES[day_time]) + week_day.days
+    event.end = Time.parse(FIRST_DAY_IN_SEMESTER + " " + COURSE_ENDS[day_time]) + week_day.days
+    rrule = GCal4Ruby::Recurrence.new
+    rrule.frequency = GCal4Ruby::Recurrence::WEEKLY_FREQUENCE
+    rrule.set_day(week_day)
+    rrule.count = 16
+    if (course_class.week_modifier)
+      case course_class.week_modifier
+      when CourseClass::EVEN_WEEK
+        rrule.count = 8
+        rrule.interval = 2
+        event.begin += 7.days
+        event.end += 7.days
+      when CourseClass::ODD_WEEK
+        rrule.count = 8
+        rrule.interval = 2
+      when CourseClass::EARLIER_EIGHT
+        rrule.count = 8
+      when CourseClass::LATER_EIGHT
+        rrule.count = 8
+        event.begin += (7*8).days
+        event.end += (7*8).days
+      end
+    end
+    event.rrule = rrule.rrule
+    return event
+  end
+
   #go around time zone bug in calendar_date_selector
   def time_ruby2selector(event)
     event.begin = event.begin + 8.hours unless event.begin.blank?

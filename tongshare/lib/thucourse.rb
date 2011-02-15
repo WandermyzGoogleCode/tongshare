@@ -5,9 +5,9 @@ require 'iconv'
 require 'pp'
 
 # First use xls2table to convert a xls file to a 2D array, i.e. table.
-# Then use Course.parse_table(table) which returns a course_set.
-# A course_set is a hashtable which maps course name to corresponding Course class.
-class Course
+# Then use CourseClass.parse_table(table) which returns a class_set.
+# A class_set is an array of CourseClass
+class CourseClass
   ALL_WEEK = "全周"
   EVEN_WEEK = "双周"
   ODD_WEEK = "单周"
@@ -17,50 +17,52 @@ class Course
   VALID_WEEK_MODIFIERS = [ALL_WEEK, EVEN_WEEK, ODD_WEEK, EARLIER_EIGHT, LATER_EIGHT]
   VALID_SECOND_ROW = ",星期一,星期二,星期三,星期四,星期五,星期六,星期日"
 
-  attr_accessor :course_set
+  attr_accessor :class_set
   attr_accessor :name
   attr_accessor :teacher
   attr_accessor :location
-  #day_times和week_days应该是两个等长的数组，(week_days[i], day_times[i])
-  #共同确定第i节课的时间（一门课一周可能有多节）
-  attr_accessor :day_times # array of 1..6, 第1..6节
-  attr_accessor :week_days # array of 1..7，星期一..星期日
+  #day_time和week_day
+  #共同确定课程中一节课的时间（一门课一周可能有多节）
+  attr_accessor :day_time # 1..6, 第1..6节
+  attr_accessor :week_day # 1..7，星期一..星期日
   attr_accessor :week_modifier # "全周", "双周", "单周", "前八周", "后八周"
   attr_accessor :extra_info # 所有除课程名之外的信息，如“喻文健；限选；全周；六教6C201”
 
-  def initialize(course_set)
-    @course_set = course_set
+  def initialize(class_set = [])
+    @class_set = class_set
     @name = "Default Course Name"
     @week_days = []
     @day_times = []
   end
 
-  def Course.add(week_day, day_time, spec, course_set)
+  def self.add(week_day, day_time, spec, class_set)
     if (result = spec.match(/(.*)\((.*)\)/))
       name = result[1];
       extra = result[2];
-      course_set[name] = Course.new(course_set) unless course_set[name]
-      course = course_set[name]
-      course.name = name
-      course.extra_info = extra
+      course_class = CourseClass.new(class_set)
+      class_set << course_class
+      course_class.name = name
+      course_class.extra_info = extra
       options = extra.split("；")
-      course.teacher = options.first
-      course.location = options.last
+      course_class.teacher = options.first
+      course_class.location = options.last
       for i in 1...options.size-1
-        course.week_modifier = options[i] if VALID_WEEK_MODIFIERS.include? options[i]
+        course_class.week_modifier = options[i] if VALID_WEEK_MODIFIERS.include? options[i]
       end
-      course.day_times << day_time
-      course.week_days << week_day
+      course_class.day_time = day_time
+      course_class.week_day = week_day
     end
   end
 
   # Just Course.parse_table(xls2table(filename))
-  def Course.parse_xls(filename)
+  def self.parse_xls(filename)
     table = xls2table(filename)
-    return Course.parse_table(table)
+    return self.parse_table(table)
   end
 
-  def Course.parse_table(table)
+  # Returns an array of CourseClass (there might be two CourseClasses in this array with the same name,
+  # because one course might have multiple classes per week
+  def self.parse_table(table)
     #check table first, a sample valid csv table is like
     #
     #  ,,,,实验课课表
@@ -77,16 +79,16 @@ class Course
       pp table
       return nil
     end
-    course_set = {}
+    class_set = []
     for day_time in 1..6
       for week_day in 1..7
         row_index = day_time+2-1
         col_index = week_day+1-1
         spec = table[row_index][col_index]
-        Course.add(week_day, day_time, spec, course_set) if spec
+        self.add(week_day, day_time, spec, class_set) if spec
       end
     end
-    return course_set
+    return class_set
   end
 end
 
