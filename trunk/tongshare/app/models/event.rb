@@ -140,7 +140,7 @@ class Event < ActiveRecord::Base
   end
   
   def generate_instance
-    if !self.rrule.blank?
+    if self.rrule_frequency == GCal4Ruby::Recurrence::NONE_FREQUENCY
       i = self.instances.build(
         :override => nil,
         :name => self.name,
