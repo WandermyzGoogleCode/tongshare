@@ -137,12 +137,17 @@ module GCal4Ruby
     end
 
     def rrule
+
+      #add by Wander
+      return "" if @frequency.nil?
+
       output = ''
       output += "RRULE:FREQ=#{@frequency}"
       output += ";COUNT=#{@count}" if count
       output += ";INTERVAL=#{@interval}" if interval > 1
       #TODO: BYMONTHDAY
-      if @day
+      
+      if @day && @day.include?(true)
         output += ";BYDAY="
         t = false
         for i in 0 .. 6
@@ -220,6 +225,8 @@ module GCal4Ruby
     def frequency=(f)
       if f.is_a?(String) && FREQUENCES.include?(f)
         @frequency = f
+      elsif f.nil?
+        @frequency = nil  #add by Wander
       else
         raise RecurrenceValueError, "Frequency must be a string (see documentation)"
       end
