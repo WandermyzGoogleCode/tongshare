@@ -24,16 +24,13 @@ class Event < ActiveRecord::Base
     logger.debug self.recurrence.to_yaml
     self.rrule = self.recurrence.rrule
     logger.debug self.rrule.to_yaml
-
-    ret = super
-
-    logger.debug errors.to_yaml
-
-    return false if !ret
-    #TODO review of when to call save?
-    #TODO edit each for better performance?
     drop_instance
-    generate_instance
+    ret = generate_instance
+    return false if !ret
+    ret = super
+    logger.debug errors.to_yaml
+    return false if !ret
+    #TODO edit each for better performance?
     #TODO: LC: you should return true/false. Once fail to generate, you need to rollback the newly created event.
     return true
   end
@@ -98,7 +95,8 @@ class Event < ActiveRecord::Base
   end
 
   def rrule_frequency=(f)
-    self.recurrence.frequency = (f == GCal4Ruby::Recurrence::NONE_FREQUENCY) ? nil : f
+    # will be checked in GCal4Ruby::Recurrence::frequency=
+    self.recurrence.frequency = f
   end
 
   def rrule_interval
@@ -142,7 +140,6 @@ class Event < ActiveRecord::Base
   end
   
   def generate_instance
-    #TODO check if instances present
     if !self.rrule.blank?
       i = self.instances.build(
         :override => nil,
@@ -153,7 +150,7 @@ class Event < ActiveRecord::Base
         :end => self.end,
         :creator_id => self.creator_id
         )
-      i.save
+      #i.save
     else
       #rec = GCal4Ruby::Recurrence.new
       #rec.from_rrule(self.rrule) # rec.load('RRULE:' + self.rrule) will encounter bug since self.rrule may begin with 'RRULE:'
@@ -181,7 +178,7 @@ class Event < ActiveRecord::Base
               :index => count,
               :creator_id => self.creator_id
             )
-            i.save
+            #i.save
             count += 1
           end
           now += 1.day
@@ -190,7 +187,7 @@ class Event < ActiveRecord::Base
           end
 
           if count >= MAX_INSTANCE_COUNT
-            break
+            return false
           end
 
           if rec.count and count >= rec.count.to_i
@@ -201,15 +198,16 @@ class Event < ActiveRecord::Base
             break
           end
         end
-        puts 'instance generated:' + self.instances.size.to_s
+        logger.debug 'instance generated:' + self.instances.size.to_s
       elsif rec.frequency == 'MONTHLY'
         #TODO
       elsif rec.frequency == 'YEARLY'
         #TODO
       else
-        puts "event id = #{self.id}: unknown frequency: #{rec.frequency}!"
+        logger.debug "#{__method__}:unknown frequency: #{rec.frequency}"
       end
     end
+    true
   end
   
 end
