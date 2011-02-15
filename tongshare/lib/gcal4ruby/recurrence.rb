@@ -28,16 +28,14 @@ class Time
 	  #Time.xmlschema(value)
     d, h = value.split("T")
     if (h == nil)
-	return Time.parse(d)
+      return Time.parse(d)
     else
-        
-	    if h["Z"]
-	  #FIXME timezone!
-	  return Time.parse(d+" "+h.gsub("Z","")) + Time.now.utc_offset
-	  
-	else
-    	  return Time.parse(value)
-	end
+      if h["Z"]
+        #FIXME timezone!
+        return Time.parse(d+" "+h.gsub("Z","")) + Time.now.utc_offset
+      else
+        return Time.parse(value)
+      end
     end
   end
 end
@@ -181,7 +179,7 @@ module GCal4Ruby
       else
         output += "DTEND;VALUE=DATE-TIME:#{@end_time.complete}\n"
       end
-      output += rrule  
+      output += rrule 
       output += "\n"
     end
     
@@ -223,13 +221,23 @@ module GCal4Ruby
 
     # Set frequency. f must be one String in FREQUENCES
     def frequency=(f)
+
       if f.is_a?(String) && FREQUENCES.include?(f)
         @frequency = f
-      elsif f.nil?
+      elsif f.nil? || f == NONE_FREQUENCY
         @frequency = nil  #add by Wander
       else
         raise RecurrenceValueError, "Frequency must be a string (see documentation)"
       end
+    end
+
+    def interval=(i)
+      if i.is_a?(Integer) && i >= 1
+        @interval = i
+      else
+        raise RecurrenceValueError, "Interval must be a Integer and greater than 1"
+      end
+
     end
 
     # days must be an array of Integers
