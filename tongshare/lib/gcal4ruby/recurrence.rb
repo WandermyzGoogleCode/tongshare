@@ -46,6 +46,7 @@ module GCal4Ruby
   #The Recurrence class stores information on an Event's recurrence.  The class implements
   #the RFC 2445 iCalendar recurrence description.
   class Recurrence
+    NONE_FREQUENCY = "NONE"   #add this to represent "no repeat"
     DAILY_FREQUENCE = "DAILY"
     WEEKLY_FREQUENCE = "WEEKLY"
 
@@ -97,21 +98,21 @@ module GCal4Ruby
           value.split(";").each do |rr| 
             rr_key, rr_value = rr.split("=")
             if rr_key == 'FREQ'
-	      @frequency = rr_value
-	    elsif rr_key == 'INTERVAL'
-	      @interval = rr_value.to_i
-	    elsif rr_key == 'COUNT'
-	      @count = rr_value.to_i
-	    elsif rr_key == 'UNTIL'
-	      @repeat_until = Time.parse_complete(rr_value)
-	    elsif rr_key == 'BYDAY' or rr_key == 'BYMONTHDAY'
+              @frequency = rr_value
+            elsif rr_key == 'INTERVAL'
+              @interval = rr_value.to_i
+            elsif rr_key == 'COUNT'
+              @count = rr_value.to_i
+            elsif rr_key == 'UNTIL'
+              @repeat_until = Time.parse_complete(rr_value)
+            elsif rr_key == 'BYDAY' or rr_key == 'BYMONTHDAY'
               @day = []
               rr_value.split(",").each do |d|
                 @day[WEEK_REVERSE[d.upcase]] = true;
               end
-	    end
-	  end
-	    
+            end
+          end
+
         elsif !got_start and (key.include?("DTSTART;TZID") or key.include?("DTSTART") or key.include?('DTSTART;VALUE=DATE-TIME'))
           @start_time = Time.parse_complete(value)
           got_start = true
@@ -237,6 +238,14 @@ module GCal4Ruby
     def set_day(day)
       days = [day]
       set_days(days)
+    end
+
+    def get_days
+      days = []
+      for i in 0..6
+        days << i if (!@day.nil? && @day[i])
+      end
+      days
     end
   end
 end

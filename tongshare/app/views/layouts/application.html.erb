@@ -3,6 +3,8 @@
 <head>
   <title>同享日程<%= "-#{@title}" if defined? @title%></title>
   <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag "translations.js" %>
+  <%= javascript_include_tag "i18n.js" %>
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
   
