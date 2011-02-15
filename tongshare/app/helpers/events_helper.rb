@@ -12,9 +12,9 @@ module EventsHelper
   # Note! This day is Sunday instead of Monday(since Monday is +1)
   FIRST_DAY_IN_SEMESTER = "2011-2-20"
 
-  # Convert a course_class to an event
-  def class2event(course_class)
-    event = Event.new(:name => course_class.name, :extra_info => course_class.extra_info, :location => course_class.location)
+  # Convert a course_class to an event created by creator_id
+  def class2event(course_class, creator_id)
+    event = Event.new(:name => course_class.name, :extra_info => course_class.extra_info, :location => course_class.location, :creator_id => creator_id)
     week_day = course_class.week_day
     day_time = course_class.day_time-1 # from 1..6 to 0..5
     # Note that week_day = 7 for Sunday so first Sunday class will be 6 days after the first Monday

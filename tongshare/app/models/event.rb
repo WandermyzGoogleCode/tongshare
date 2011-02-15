@@ -3,7 +3,9 @@ require 'gcal4ruby'
 class Event < ActiveRecord::Base
 
   MAX_INSTANCE_COUNT = 64
-  attr_accessible :name, :begin, :end, :location, :extra_info, :rrule
+  # In order to make Event.new(:creator_id => creator_id) work, attr_accessible :creator_id
+  # seems to be necessary!
+  attr_accessible :name, :begin, :end, :location, :extra_info, :rrule, :creator_id
   
   belongs_to :creator, :class_name => "User"
   has_many :acceptances, :foreign_key => "event_id", :dependent => :destroy
@@ -34,6 +36,7 @@ class Event < ActiveRecord::Base
   #TODO untested
   #TODO group?
   def add_sharing(current_user_id, extra_info, user_ids, group_ids = '')
+    # I think this won't work since sharing has no attr_accessor!
     s = self.sharings.new(:shared_from => current_user_id, :extra_info => extra_info)
     s.save
     ids = user_ids.split(%r{[,;]\s*})
@@ -80,12 +83,13 @@ class Event < ActiveRecord::Base
         :location => self.location,
         :extra_info => self.extra_info,
         :begin => self.begin,
-        :end => self.end
+        :end => self.end,
+        :creator_id => self.creator_id
         )
       i.save
     else
       rec = GCal4Ruby::Recurrence.new
-      rec.load('RRULE:' + self.rrule)
+      rec.from_rrule(self.rrule) # rec.load('RRULE:' + self.rrule) will encounter bug since self.rrule may begin with 'RRULE:'
       if rec.frequency == 'DAILY'
         #TODO
       elsif rec.frequency == 'WEEKLY'
@@ -103,13 +107,14 @@ class Event < ActiveRecord::Base
               :begin => now,
               :end => self.end + (now - self.begin),
               :override => false,
-              :index => count
+              :index => count,
+              :creator_id => self.creator_id
             )
             i.save
             count += 1
           end
           now += 1.day
-          if now.sunday?
+          if now.wday == 0 # now.sunday? is too new for ruby1.8.7
             now += (interval * 7).day
           end
 

@@ -8,7 +8,7 @@ class EventsHelperTest < ActionView::TestCase
   def find_classes(course_name)
     events = []
     @course_set.each do |course_class|
-      events << class2event(course_class) if (course_class.name == course_name)
+      events << class2event(course_class, 1) if (course_class.name == course_name)
     end
     return events
   end
@@ -24,7 +24,7 @@ class EventsHelperTest < ActionView::TestCase
     assert events[0].extra_info == "胡事民；限选；全周；六教6A017"
 
     rec = GCal4Ruby::Recurrence.new
-    rec.load(events[0].rrule)
+    rec.from_rrule(events[0].rrule)
     assert rec.count == 16
     assert rec.frequency == GCal4Ruby::Recurrence::WEEKLY_FREQUENCE
     assert rec.interval == 1
@@ -50,7 +50,7 @@ class EventsHelperTest < ActionView::TestCase
       assert events[i].begin.localtime == Time.parse(begins[i])
       assert events[i].end.localtime == Time.parse(ends[i])
       rec = GCal4Ruby::Recurrence.new
-      rec.load(events[i].rrule)
+      rec.from_rrule(events[i].rrule)
       assert rec.frequency == GCal4Ruby::Recurrence::WEEKLY_FREQUENCE
       assert rec.day[week_days[i]]
       for day in 0...7
@@ -65,7 +65,7 @@ class EventsHelperTest < ActionView::TestCase
     events = find_classes(course_name)
     assert events.size == 1
     rec = GCal4Ruby::Recurrence.new
-    rec.load(events[0].rrule)
+    rec.from_rrule(events[0].rrule)
     assert(rec.count == 8)
     assert(rec.interval == 1)
     assert(rec.frequency == GCal4Ruby::Recurrence::WEEKLY_FREQUENCE)
@@ -79,7 +79,7 @@ class EventsHelperTest < ActionView::TestCase
     assert events[0].begin.localtime == Time.parse("2011-2-26 9:50") + (8*7).days
     assert events[0].end.localtime == Time.parse("2011-2-26 11:25") + (8*7).days
     rec = GCal4Ruby::Recurrence.new
-    rec.load(events[0].rrule)
+    rec.from_rrule(events[0].rrule)
     assert(rec.count == 8)
     assert(rec.interval == 1)
     assert(rec.frequency == GCal4Ruby::Recurrence::WEEKLY_FREQUENCE)
@@ -92,7 +92,7 @@ class EventsHelperTest < ActionView::TestCase
     assert events[0].begin.localtime == Time.parse("2011-2-27 13:30")
     assert events[0].end.localtime == Time.parse("2011-2-27 15:05")
     rec = GCal4Ruby::Recurrence.new
-    rec.load(events[0].rrule)
+    rec.from_rrule(events[0].rrule)
     assert(rec.count == 8)
     assert(rec.interval == 2)
     assert(rec.frequency == GCal4Ruby::Recurrence::WEEKLY_FREQUENCE)
@@ -105,7 +105,7 @@ class EventsHelperTest < ActionView::TestCase
     assert events[0].begin.localtime == Time.parse("2011-2-25 19:20")
     assert events[0].end.localtime == Time.parse("2011-2-25 20:55")
     rec = GCal4Ruby::Recurrence.new
-    rec.load(events[0].rrule)
+    rec.from_rrule(events[0].rrule)
     assert(rec.count == 16)
     assert(rec.interval == 1)
     assert(rec.frequency == GCal4Ruby::Recurrence::WEEKLY_FREQUENCE)

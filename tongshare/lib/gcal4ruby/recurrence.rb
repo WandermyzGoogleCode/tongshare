@@ -126,11 +126,13 @@ module GCal4Ruby
       end
     end
 
-    # @deprecated
-    # What does 'RRULE:' + s mean?
-    # Use {#load}(rec.rrule) directly
+    # Check whether there is RRULE before load
     def from_rrule(s)
-      load('RRULE:' + s)
+      if (!s.start_with? "RRULE:")
+        load('RRULE:' + s)
+      else
+        load s
+      end
     end
 
     def rrule
