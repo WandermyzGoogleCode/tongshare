@@ -34,7 +34,7 @@ class Ability
     # alias
     #############################
     alias_action :create, :update, :destroy, :to => :write
-    alias_action :update_sys, :edit_sys, :to => :update_sys
+    alias_action :edit_sys, :to => :update_sys
 
     #############################
     # Abilities of non-login users
@@ -49,6 +49,11 @@ class Ability
     # Abilities of normal users
     #############################
 
+    #events
+    can :write, Event, :creator_id => @user.id
+    can :show, Event, :creator_id => @user.id   #TODO shared events
+    can :index, Event
+
     #user can edit profile
     can :update, User, :id => @user.id
 
@@ -59,19 +64,19 @@ class Ability
     cannot :update_sys, Sharing
 
     #Recommend to individuals
-    can :write, UserSharing, 
+    can :write, UserSharing,
         :priority => UserSharing::PRIORITY_RECOMMENDATION,
         :sharing => {:shared_from => @user.id}
 
-    #Invite individuals 
-    can :write, UserSharing, 
+    #Invite individuals
+    can :write, UserSharing,
         :priority => UserSharing::PRIORITY_INVITE,
         :sharing => {:shared_from => @user.id}
 
     ##############################
     # Abilities of group members
     ##############################
-    
+
 
     ##############################
     # Abilities of group managers
@@ -79,12 +84,14 @@ class Ability
 
     #can write Membership "m" if "@user" has more power than "m.user" in "m.group"
     #including: appoint/fire managers, add/remove members
-    can :write, Membership do |m|      
+    can :write, Membership do |m|
       group_manager?(m.group) && more_or_equal_power_than?(m)
     end
 
     #can edit profile of the group
-    can :update, Group { |g| group_manager? g}
+    can :update, Group do |g|
+      group_manager? g
+    end
 
     #some fields of the group can be only modified by administrators
     cannot :update_sys, Group
