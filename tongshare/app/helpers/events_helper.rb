@@ -59,11 +59,11 @@ module EventsHelper
 
   def query_own_instance(time_begin, time_end, creator_id = current_user.id)
     #TODO check event changed
-    Instance.where("creator_id = ? AND begin >= ? AND end <= ?", creator_id, time_begin, time_end).order("begin")
+    Instance.where("creator_id = ? AND begin >= ? AND end <= ?", creator_id, time_begin, time_end).order("begin").to_a
   end
 
   def query_own_event(limit_from, limit_num, creator_id = current_user.id)
-    Event.where("creator_id = ?", creator_id).limit(limit_num).offset(limit_from).order("begin")
+    Event.where("creator_id = ?", creator_id).limit(limit_num).offset(limit_from).order("begin").to_a
   end
 
   #TODO untested
@@ -90,7 +90,7 @@ module EventsHelper
 
   # !readonly value returned
   def query_all_accepted_instance(time_begin, time_end, user_id = current_user.id)
-    query_sharing_accepted_instance(time_begin, time_end, user_id) + query_own_instance(time_begin, time_end, user_id)
+    query_sharing_accepted_instance(time_begin, time_end, user_id) + query_own_instance(time_begin, time_end, user_id).to_a
   end
 
   # !readonly value returned
@@ -102,7 +102,7 @@ module EventsHelper
         build_where(SQLConstant::WHERE_USER_ID, SQLConstant::WHERE_DECISION, SQLConstant::WHERE_TIME),
         user_id,
         Acceptance::DECISION_ACCEPTED,
-        time_begin, time_end)
+        time_begin, time_end).to_a
   end
 
   # !readonly value returned
@@ -114,7 +114,7 @@ module EventsHelper
         where(
           build_where(SQLConstant::WHERE_USER_ID, SQLConstant::WHERE_DECISION_UNDECIDED, SQLConstant::WHERE_PRIORITY),
           user_id,
-          priority)
+          priority).to_a
     else
       UserSharing.
         select(SQLConstant::SELECT_EVENT).
@@ -123,7 +123,7 @@ module EventsHelper
           build_where(SQLConstant::WHERE_USER_ID, SQLConstant::WHERE_DECISION, SQLConstant::WHERE_PRIORITY),
           user_id,
           decision,
-          priority)
+          priority).to_a
     end
   end
 
