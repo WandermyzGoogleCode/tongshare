@@ -4,6 +4,8 @@ class UserSharing < ActiveRecord::Base
   PRIORITY_INVITE = 0
   PRIORITY_RECOMMENDATION = 1
 
+  attr_accessible :user_id
+
   belongs_to :sharing
   belongs_to :user
   

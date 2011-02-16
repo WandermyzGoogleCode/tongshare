@@ -49,6 +49,7 @@ module GCal4Ruby
     WEEKLY_FREQUENCE = "WEEKLY"
 
     FREQUENCES = [DAILY_FREQUENCE, WEEKLY_FREQUENCE]
+    DUMMY_FREQS = FREQUENCES << NONE_FREQUENCY
 
     #The event start date/time
     attr_reader :start_time
