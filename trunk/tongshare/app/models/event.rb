@@ -161,6 +161,10 @@ class Event < ActiveRecord::Base
     self.recurrence.count = count.to_i
   end
 
+  def recurring?
+    !self.rrule.blank?
+  end
+
   protected
  
   def drop_instance

@@ -6,12 +6,33 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.xml
   def index
-    @events = Event.find_all_by_creator_id current_user.id
+    #@events = Event.find_all_by_creator_id current_user.id
     authorize! :index, Event
+
+    params[:range] = :day unless ["day", "week"].include?(params[:range])
+    params[:offset] ||= 0
+    range = params[:range].to_sym
+    offset = params[:offset].to_i
+
+    case range
+    when :day
+        from = Date.today + offset.days
+        to = Date.today + offset.days + 1.days
+    when :week:
+        from = Date.today.beginning_of_week + offset.weeks
+        to = Date.today.beginning_of_week + offset.weeks + 1.weeks
+    end
+    #TODO: this month, all(events)
+
+    logger.debug range.to_yaml
+    logger.debug from.to_yaml
+    logger.debug to.to_yaml
+
+    @instances = query_own_instance(from, to)
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @events }
+      #format.xml  { render :xml => @instances }
     end
   end
 

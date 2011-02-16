@@ -18,6 +18,9 @@
 
 <% if user_signed_in? %>
   <div id="toolbar">
+    <div class="toolbar_item" id="toolbar_my_events">
+      <%= link_to "我的日程", :controller => "events", :range => :day, :offset => 0 %>
+    </div>
     <div class="toolbar_item" id="toolbar_new_event">
       <%= link_to "新建日程", new_event_path%>
     </div>
