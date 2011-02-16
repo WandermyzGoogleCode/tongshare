@@ -95,17 +95,14 @@ class Event < ActiveRecord::Base
   #TODO untested
   def decide_by_user(user_id, decision = Acceptance::DECISION_ACCEPTED)
     accs = self.acceptances.where("user_id = ?", user_id)
-    if accs
-      if accs.size > 1
-        logger.error "#{__method__}: user_id = #{user_id}, event_id = #{self.id}"
-        return false
-      end
-      acc = accs[0]
+    if accs.exists?
+      acc = accs.first
       acc.decision = decision
     else
       acc = self.acceptances.build(:user_id => user_id, :decision => decision)
     end
     acc.save
+
   end
 
   #virtual fields for recurrence logic
