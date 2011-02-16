@@ -15,6 +15,16 @@ test:
   pool: 5
   timeout: 5000
 
+#  adapter: mysql
+#  encoding: utf8
+#  reconnect: false
+#  database: tongshare
+#  pool: 5
+#  timeout: 5000
+#  username: root
+#  password: topsecret
+#  host: localhost
+
 production:
   adapter: sqlite3
   database: db/production.sqlite3
