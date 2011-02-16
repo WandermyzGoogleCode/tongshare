@@ -8,6 +8,33 @@ class EventTest < ActiveSupport::TestCase
     Instance.delete_all
   end
 
+  test "limit test" do
+    (0...10).each do
+      begin_time = Time.now + rand(24*60).minutes
+      event = Event.new(:name => "TestEvent",
+        :begin => begin_time,
+        :end => begin_time + rand(180).minutes,
+        :creator_id => 0
+      );
+      event.save
+    end
+
+    # Please tell my why, result1 can pass the test!
+    result1 = query_own_event(0, 1, 0)
+    for event in result1
+      # do nothing
+    end
+    assert result1.size == 1
+
+    # While result2 cannot pass the test!
+    result2 = query_own_event(0, 1, 0)
+    pp result2.size
+    assert result2.size == 1
+    # By checking code in ActiveRecord::Relation#size,
+    # I find that ActiveRecord::#loaded? is a key. However, I don't know
+    # how to fix this bug. This bug is very confusing and can cause big damage!!!
+  end
+
   # Replace this with your real tests.
   test "加入刘超的课表" do
     class_set = CourseClass.parse_xls("test/fixtures/lc.xls")
