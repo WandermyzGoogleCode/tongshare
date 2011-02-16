@@ -54,4 +54,23 @@ class User < ActiveRecord::Base
   def purge_useless
     errors.delete :user_identifier
   end
+
+  def login_value(type)
+    
+  end
+
+  #get a friendly name for the user
+  def friendly_name
+    name = self.user_extra.name unless self.user_extra.nil?
+    return name unless name.blank?
+    
+    employee_no_rec = self.user_identifier.find_by_login_type(UserIdentifier::TYPE_EMPLOYEE_NO)
+    return employee_no_rec.login_value unless (employee_no_rec.nil? || employee_no_rec.login_value.blank?)
+
+    email_rec = self.user_identifier.find_by_login_type(UserIdentifier::TYPE_EMAIL)
+    return email_rec.login_value unless (email_rec.nil? || email_rec.login_value.blank?)
+
+    return nil
+  end
+
 end

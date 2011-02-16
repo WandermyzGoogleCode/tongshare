@@ -153,4 +153,10 @@ module EventsHelper
 
     result.html_safe
   end
+
+  def friendly_time_range(from, to = nil)
+    ret = I18n.l from, :format => :short
+    ret += " - " + I18n.l(to, :format => :short) unless to.nil?
+    ret
+  end
 end

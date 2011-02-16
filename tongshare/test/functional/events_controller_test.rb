@@ -9,7 +9,7 @@ class EventsControllerTest < ActionController::TestCase
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:events)
+    assert_not_nil assigns(:instances)
   end
 
   test "should get new" do

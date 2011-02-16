@@ -1,34 +1,57 @@
-<h1>Listing events</h1>
+<div id="welcome">你好，<%= current_user.friendly_name %></div>
+<div id="current_time"><%= l Time.now %> </div>
+<div id="share_notice">
+  <span><%="TODO"%>个被邀请的活动</span>
+  <span><%="TODO"%>个被推荐的活动</span>
+</div>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Begin</th>
-    <th>End</th>
-    <th>Location</th>
-    <th>Extra info</th>
-    <th>RRULE</th>
-    <th>Creator</th>
-    <th></th>
-    <th></th>
-  </tr>
+<div class="agenda_list" id="my_events">
+  <fieldset>
+    <legend>我的日程</legend>
+    <div id="agenda_pannel">
+      <%= link_to_unless_current "今天", {:range => :day, :offset => 0} %>
+      <%= link_to_unless_current "明天", {:range => :day, :offset => 1} %>
+      <%= link_to_unless_current "本周", {:range => :week, :offset => 0} %>
+      <%= link_to_unless_current "下周", {:range => :week, :offset => 1} %>
+    </div>
+    <div id="agenda_list_content">
+    <% @instances.each do |instance|%>
+      <%= div_for(instance, :class => "item") do %>
+        <div class="instance name">
+          <%= link_to instance.name, event_path(instance.event) %>
+        </div>
+        <div class="instance info">
+          <span>
+            <%= friendly_time_range instance.begin, instance.end %>
+          </span>
+          <span><%instance.location%></span>
+        </div>
+        <div class="instance links">
+          <span>分享</span>
+          <span>
+            <%= link_to "删除", instance.event, :method => "delete",
+                  :confirm => ("你确实要删除\"#{instance.name}\"吗？" + (instance.event.recurring? ? "这是一个重复的事件，所有重复项都会被删除！" : ""))
+            %>
+          </span>
+        </div>
+      <% end %>
+    <% end %>
+    </div>
+  </fieldset>
+</div>
 
-<% @events.each do |event| %>
-  <tr>
-    <td><%= event.name %></td>
-    <td><%= event.begin %></td>
-    <td><%= event.end %></td>
-    <td><%= event.location %></td>
-    <td><%= event.extra_info %></td>
-    <td><%= event.rrule %></td>
-    <td><%= event.creator_id %></td>
-    <td><%= link_to 'Show', event %></td>
-    <td><%= link_to 'Edit', edit_event_path(event) %></td>
-    <td><%= link_to 'Destroy', event, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+<div class="agenda_list" id="invited_events">
+  <fieldset>
+    <legend>邀请你参加的活动</legend>
+  </fieldset>
+</div>
+
+<div class="agenda_list" id="recommended_events">
+  <fieldset>
+    <legend>推荐给你的活动</legend>
+  </fieldset>
+</div>
 
 <br />
 
-<%= link_to 'New Event', new_event_path %>
+<%= link_to '新建日程', new_event_path %>
