@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class UserTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
+class TempTest < ActiveSupport::TestCase
+  test "Time" do
+    t = Time.now
+    assert t + 1.day == t + 3600 * 24
   end
 end

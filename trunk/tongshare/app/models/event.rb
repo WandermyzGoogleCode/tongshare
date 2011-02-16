@@ -213,7 +213,7 @@ class Event < ActiveRecord::Base
             #i.save
             count += 1
           end
-          now += 1.day
+          now += 3600 * 24 # now += 1.day seems to be too slow in 1.8.7
           if now.wday == 0 # now.sunday? is too new for ruby1.8.7
             now += (interval * 7).day
           end

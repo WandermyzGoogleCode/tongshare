@@ -1,5 +1,10 @@
 source 'http://rubygems.org'
 
+gem 'ruby-prof'
+
+# !!! Agile book says, "You may need to locate and install the MySQL database development files for your operating system first. On Ubuntu, for example, you will need to install libmysqlclient-dev" !!!
+gem 'mysql'
+
 gem 'rails', '3.0.3'
 
 # Bundle edge Rails instead:
