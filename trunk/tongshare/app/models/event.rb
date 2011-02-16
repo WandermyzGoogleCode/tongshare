@@ -102,7 +102,10 @@ class Event < ActiveRecord::Base
       acc = self.acceptances.build(:user_id => user_id, :decision => decision)
     end
     acc.save
+  end
 
+  def open_to_user(user_id)
+    self.creator_id == user_id || UserSharing.joins(:sharing).where(:user_id => user_id, 'sharings.event_id' => self.id).exists?
   end
 
   #virtual fields for recurrence logic

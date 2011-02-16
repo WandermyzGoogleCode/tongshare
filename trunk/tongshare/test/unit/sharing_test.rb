@@ -10,6 +10,9 @@ class SharingTest < ActiveSupport::TestCase
   end
 
   test "for add_sharing, decide_by_user, basic" do
+    #open_to_user
+    assert events(:one_instance).open_to_user(1)
+    assert !events(:one_instance).open_to_user(2)
     #add_sharing
     hashs = []
     user_identifiers(:em_one, :em_two, :email_one, :email_two, :mo_one, :mo_two).each do |uid|
@@ -18,6 +21,9 @@ class SharingTest < ActiveSupport::TestCase
     ret = events(:one_instance).add_sharing(1, "extra", hashs)
     #pp ret
     assert ret
+
+    assert events(:one_instance).open_to_user(2)
+    
     #pp events(:one_instance).sharings
     ret = events(:one_instance).sharings.to_a[0].user_sharings.to_a
     #pp ret.size
