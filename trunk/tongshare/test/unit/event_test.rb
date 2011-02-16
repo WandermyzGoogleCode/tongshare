@@ -19,20 +19,20 @@ class EventTest < ActiveSupport::TestCase
       event.save
     end
 
-    # Please tell my why, result1 can pass the test!
+    # OK now
     result1 = query_own_event(0, 1, 0)
     for event in result1
       # do nothing
     end
     assert result1.size == 1
 
-    # While result2 cannot pass the test!
+    # OK now
     result2 = query_own_event(0, 1, 0)
-    pp result2.size
     assert result2.size == 1
     # By checking code in ActiveRecord::Relation#size,
-    # I find that ActiveRecord::#loaded? is a key. However, I don't know
+    # I find that ActiveRecord::Relation#loaded? is a key. However, I don't know
     # how to fix this bug. This bug is very confusing and can cause big damage!!!
+    # This bug has been solved by calling ActiveRecord::Relation#to_a.
   end
 
   # Replace this with your real tests.
