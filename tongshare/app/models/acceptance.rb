@@ -12,4 +12,8 @@ class Acceptance < ActiveRecord::Base
   
   validates :user_id, :event_id, :decision, :presence => true
   validates_inclusion_of :decision, :in => [DECISION_ACCEPTED, DECISION_DENY]
+
+  validate do |accept|
+    errors.add :user_id, :already_exists if Acceptance.where("event_id = ? AND user_id = ?". accept.event_id, accept.user_id).exists?
+  end
 end
