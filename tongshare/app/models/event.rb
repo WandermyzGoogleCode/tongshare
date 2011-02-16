@@ -92,7 +92,6 @@ class Event < ActiveRecord::Base
     self.instances.where("begin >= ? AND end <= ?", time_begin, time_end).order("begin")
   end
 
-  #TODO untested
   def decide_by_user(user_id, decision = Acceptance::DECISION_ACCEPTED)
     accs = self.acceptances.where("user_id = ?", user_id)
     if accs.exists?
@@ -104,7 +103,8 @@ class Event < ActiveRecord::Base
     acc.save
   end
 
-  def open_to_user(user_id)
+  #TODO group
+  def open_to_user?(user_id)
     self.creator_id == user_id || UserSharing.joins(:sharing).where(:user_id => user_id, 'sharings.event_id' => self.id).exists?
   end
 
