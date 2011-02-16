@@ -17,7 +17,7 @@ weekly_count:
   location: 6C201
   extra_info: which course?
   rrule: FREQ=WEEKLY; DAY=WE; COUNT=5
-  creator_id: 1
+  creator_id: 2
 
 security_course:
   name: 密码学及安全计算

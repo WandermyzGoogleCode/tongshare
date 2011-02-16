@@ -65,27 +65,19 @@ class Event < ActiveRecord::Base
 
   #TODO untested
   #TODO group?
-  def add_sharing(current_user_id, extra_info, user_pairs, user_priority = UserSharing::PRIORITY_INVITE)
+  def add_sharing(current_user_id, extra_info, user_ids, user_priority = UserSharing::PRIORITY_INVITE)
     # I think this won't work since sharing has no attr_accessor!
     s = self.sharings.new(:shared_from => current_user_id, :extra_info => extra_info)
-    #ids = user_ids.split(%r{[,;]\s*})
-    ids = Set.new
-    user_pairs.each do |p|
-      uids = UserIdentifier.where('login_value = ? AND login_type = ?', p[:login_value], p[:login_type]).to_a
-      if uids.size == 1
-        ids << uids[0].user_id
-      else
-        logger.debug "#{p[:login_value]} #{p[:login_type]}: size=#{uids.size}"
-      end
-    end
-    ids.each do |id|
-      s.add_user_sharing(id, user_priority)
+    #ids = user_ids.split(%r{[,;]\s*}
+    uids = User.where(:id => user_ids)
+    uids.each do |id|
+      s.add_user_sharing(id.id, user_priority)
     end
     ret = s.save
-    if !ret
-      return s.errors
-    end
-    ret
+    # if !ret
+    #   return s.errors
+    # end
+    # ret
   end
 
   def query_instance(time_begin, time_end)

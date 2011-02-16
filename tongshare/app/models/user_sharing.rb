@@ -16,7 +16,7 @@ class UserSharing < ActiveRecord::Base
   def accept?
     acc = Acceptance.where("event_id = ? AND user_id = ?", self.sharing.event_id, self.user_id)
     if acc.exists?
-      acc[0].decision
+      acc.first.decision
     else
       nil
     end
