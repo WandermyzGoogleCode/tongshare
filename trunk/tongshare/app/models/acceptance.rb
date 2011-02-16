@@ -10,10 +10,12 @@ class Acceptance < ActiveRecord::Base
   belongs_to :event
   belongs_to :user
   
-  validates :user_id, :event_id, :decision, :presence => true
+  validates :user_id, :presence => true
+  #:event_id,
   validates_inclusion_of :decision, :in => [DECISION_ACCEPTED, DECISION_DENY]
 
-  validate do |accept|
-    errors.add :user_id, :already_exists if Acceptance.where("event_id = ? AND user_id = ?". accept.event_id, accept.user_id).exists?
-  end
+  #TODO: validate
+  #validate do |accept|
+  #  errors.add :user_id, :already_exists if Acceptance.where("event_id = ? AND user_id = ?", accept.event_id, accept.user_id).exists?
+  #end
 end

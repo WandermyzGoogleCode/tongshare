@@ -9,7 +9,8 @@ class SharingTest < ActiveSupport::TestCase
     UserSharing.delete_all
   end
 
-  test "for add_sharing, basic" do
+  test "for add_sharing, decide_by_user, basic" do
+    #add_sharing
     hashs = []
     user_identifiers(:em_one, :em_two, :email_one, :email_two, :mo_one, :mo_two).each do |uid|
       hashs << {:login_value => uid.login_value, :login_type => uid.login_type}
@@ -23,6 +24,13 @@ class SharingTest < ActiveSupport::TestCase
     assert ret.size == 2
     assert ret[0].user_id == 1
     assert ret[1].user_id == 2
+
+    #decide_by_user, accept
+    assert_nil ret[1].accept?
+    assert events(:one_instance).decide_by_user(2, true)
+    assert ret[1].accept?
+    assert events(:one_instance).decide_by_user(2, false)
+    assert !ret[1].accept?
   end
   
 end
