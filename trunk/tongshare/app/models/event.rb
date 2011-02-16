@@ -16,6 +16,8 @@ class Event < ActiveRecord::Base
 
   #TODO validates
   validates :name, :begin, :creator_id, :presence => true
+  validates_numericality_of :rrule_count, :allow_nil => true, :only_integer => true, :greater_than_or_equal_to => 1, :less_than_or_equal_to => MAX_INSTANCE_COUNT
+  validates_inclusion_of :rrule_frequency, :in => GCal4Ruby::Recurrence::DUMMY_FREQS
   #
   #
 
@@ -35,16 +37,11 @@ class Event < ActiveRecord::Base
     self.rrule = self.recurrence.rrule
     logger.debug self.rrule.to_yaml
 
-
-
+    return false if !valid?
     drop_instance
     ret = generate_instance
     if !ret
-      if !self.rrule_count.nil?
-        errors.add :rrule_count, :too_many_instances
-      else
-        #TODO repeat_until
-      end
+      #TODO repeat_until
       return false
     end
     ret = super
@@ -68,32 +65,34 @@ class Event < ActiveRecord::Base
 
   #TODO untested
   #TODO group?
-  def add_sharing(current_user_id, extra_info, user_ids, group_ids = '')
+  def add_sharing(current_user_id, extra_info, user_ids, user_priority = UserSharing::PRIORITY_INVITE)
     # I think this won't work since sharing has no attr_accessor!
     s = self.sharings.new(:shared_from => current_user_id, :extra_info => extra_info)
-    s.save
     ids = user_ids.split(%r{[,;]\s*})
     ids.each do |i|
-      u = s.user_sharing.new(:user_id => i.to_i)
-      u.save
+      s.user_sharing.new(:user_id => i.to_i, :priority => user_priority)
     end
+    s.save
   end
 
   def query_instance(time_begin, time_end)
-    Instance.where("event_id = ? AND begin >= ? AND end <= ?", self.id, time_begin, time_end).order("begin")
+    self.instances.where("begin >= ? AND end <= ?", time_begin, time_end).order("begin")
   end
 
   #TODO untested
-  def decide_by_user(user_id, acceptance = ACCEPTANCE_TRUE)
-    accs = self.acceptances.where("user_id = ? AND event_id = ?", user_id, self.id)
+  def decide_by_user(user_id, decision = Acceptance::DECISION_ACCEPTED)
+    accs = self.acceptances.where("user_id = ?", user_id)
     if accs
-      assert accs.size == 1
-      accs[0].decision = acceptance
-      accs[0].save
+      if accs.size > 1
+        logger.error "#{__method__}: user_id = #{user_id}, event_id = #{self.id}"
+        return false
+      end
+      acc = accs[0]
+      acc.decision = decision
     else
-      acc = self.acceptances.new(:user_id => user_id, :decision => acceptance)
-      acc.save
+      acc = self.acceptances.build(:user_id => user_id, :decision => decision)
     end
+    acc.save
   end
 
   #virtual fields for recurrence logic
@@ -180,15 +179,15 @@ class Event < ActiveRecord::Base
       interval = self.rrule_interval
       if rec.frequency == 'DAILY'
         return false if rec.count > MAX_INSTANCE_COUNT
-        for i in 0..(rec.count - 1)
-            instance = self.instances.build(
+        for j in 0..(rec.count - 1)
+            self.instances.build(
               :name => self.name,
               :location => self.location,
               :extra_info => self.extra_info,
-              :begin => self.begin + (i * interval).day,
-              :end => self.end + (i * interval).day,
+              :begin => self.begin + (j * interval).day,
+              :end => self.end + (j * interval).day,
               :override => false,
-              :index => i,
+              :index => j,
               :creator_id => self.creator_id
             )          
         end
@@ -200,7 +199,7 @@ class Event < ActiveRecord::Base
         while 1
           if rec.day[now.wday]
             #
-            i = self.instances.build(
+            self.instances.build(
               :name => self.name, 
               :location => self.location, 
               :extra_info => self.extra_info,
