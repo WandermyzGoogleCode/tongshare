@@ -69,3 +69,12 @@ root {
 .noticebar #notice {
 
 }
+
+
+.login_small {clear:right;width:100%;overflow:hidde}
+.login_small fieldset {border:none;float:left;}
+.login_small .field {clear:both;min-height:30px;height:auto !important;height:30px}
+.login_small .field .title {font-weight:bold; width:auto;margin-bottom:3px;}
+.login_small .field .textvalue {width:150px;padding:2px 0 2px 3px;border:1px solid #d2d2d2;float:left; margin-bottom: 3px;}
+.login_small .wrapper {display:inline}
+.login_small .wrapper .link1 {float:left; margin-right: 10px;}

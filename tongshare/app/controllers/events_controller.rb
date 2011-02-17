@@ -24,11 +24,10 @@ class EventsController < ApplicationController
     end
     #TODO: this month, all(events)
 
-    logger.debug range.to_yaml
-    logger.debug from.to_yaml
-    logger.debug to.to_yaml
+    logger.debug from.to_time.to_s
+    logger.debug to.to_time.to_s
 
-    @instances = query_all_accepted_instance_includes_event(from, to)
+    @instances = query_all_accepted_instance_includes_event(from.to_time, to.to_time)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -88,7 +87,7 @@ class EventsController < ApplicationController
     ret = @event.save
     respond_to do |format|
       if ret
-        format.html { redirect_to(@event, :notice => I18n.t('tongshare.event.created', :name => @event.name)) }
+        format.html { redirect_to(edit_event_path(@event), :notice => I18n.t('tongshare.event.created', :name => @event.name)) }
         format.xml  { render :xml => @event, :status => :created, :location => @event }
       else
         format.html { render :action => "new" }
@@ -109,7 +108,7 @@ class EventsController < ApplicationController
     
     respond_to do |format|
       if ret
-        format.html { redirect_to(@event, :notice => I18n.t('tongshare.event.updated', :name => @event.name)) }
+        format.html { redirect_to(edit_event_path(@event), :notice => I18n.t('tongshare.event.updated', :name => @event.name)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

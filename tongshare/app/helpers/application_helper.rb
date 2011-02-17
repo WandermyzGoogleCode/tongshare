@@ -49,10 +49,18 @@ HTML
     content.html_safe
   end
 
-  def styled_button(text, url, submit = false)
+  def styled_button(text, url)
     content = <<HTML
     <div class="wrapper"><a href="#{url}" class="link1"><span><span>#{text}</span></span></a></div>
 HTML
+    content.html_safe
+  end
+
+  def submit_button(form, id, text)
+    content = <<HTML
+    <div class="wrapper"><a href="#" class="link1" onclick="$('#{id}').submit();"><span><span>#{text}</span></span></a></div>
+HTML
+    content += form.submit(text, :style => "width:0px; height:0px;")
     content.html_safe
   end
 

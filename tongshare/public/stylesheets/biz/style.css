@@ -108,13 +108,14 @@ aside h2 {letter-spacing:-1px}
 /* footer */
 footer .inside {padding-top:36px}
 /* forms */
+form {clear:right;width:100%;overflow:hidden}
+form fieldset {border:none;float:left;}
+form .field {clear:both;min-height:30px;height:auto !important;height:30px}
+form .field .title {float:left;width:104px;font-weight:bold}
+form .field .textvalue {width:267px;padding:2px 0 2px 3px;border:1px solid #d2d2d2;float:left}
+form textarea {width:531px;height:167px;padding:2px 0 2px 3px;border:1px solid #d2d2d2;margin-bottom:15px;overflow:auto;float:left}
+form .wrapper {display:inline}
+form .wrapper .link1 {float:left; margin-right: 20px;}
 #search-form fieldset {position:absolute;right:50px;top:129px}
 #search-form input {width:128px;background:#fff;padding:2px 3px 2px 3px;border:1px solid #d9d9d9;float:left}
 #search-form a {float:left;margin-left:5px}
-#contacts-form {clear:right;width:100%;overflow:hidden}
-#contacts-form fieldset {border:none;float:left;}
-#contacts-form .field {clear:both;min-height:30px;height:auto !important;height:30px}
-#contacts-form label {float:left;width:104px;font-weight:bold}
-#contacts-form input {width:267px;padding:2px 0 2px 3px;border:1px solid #d2d2d2;float:left}
-#contacts-form textarea {width:531px;height:167px;padding:2px 0 2px 3px;border:1px solid #d2d2d2;margin-bottom:15px;overflow:auto;float:left}
-#contacts-form .link1 {float:left}

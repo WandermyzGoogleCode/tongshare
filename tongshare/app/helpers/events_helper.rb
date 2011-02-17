@@ -69,7 +69,7 @@ module EventsHelper
   end
 
   def query_own_instance(time_begin, time_end, creator_id = current_user.id)
-    Instance.where("creator_id = ? AND end >= ? AND begin <= ?", creator_id, time_begin, time_end).order("begin").to_a
+    Instance.where("creator_id = ? AND end >= ? AND begin <= ?", creator_id, time_begin.utc, time_end.utc).order("begin").to_a
     #modified by Wander 
   end
 
@@ -124,7 +124,7 @@ module EventsHelper
       joins(:event => :acceptances).
       where(
         build_where(SQLConstant::WHERE_TIME, SQLConstant::WHERE_ACCEPTANCE_USER, SQLConstant::WHERE_DECISION),
-        time_begin, time_end,
+        time_begin.utc, time_end.utc,
         user_id,
         Acceptance::DECISION_ACCEPTED).
       order('instances.begin').
@@ -136,7 +136,7 @@ module EventsHelper
       joins(:event => :acceptances).
       where(
         build_where(SQLConstant::WHERE_TIME, SQLConstant::WHERE_ACCEPTANCE_USER, SQLConstant::WHERE_DECISION),
-        time_begin, time_end, 
+        time_begin.utc, time_end.utc,
         user_id,
         Acceptance::DECISION_ACCEPTED).
       order('instances.begin').
@@ -189,6 +189,7 @@ module EventsHelper
                 :onClick => "show_repeat_options('#{freq}')"
       result += label_tag "event_rrule_frequency_#{freq.downcase}",
                 I18n.t("tongshare.event.recurrence.#{freq.downcase}")
+      result += "&nbsp;&nbsp;"
     end
 
     result.html_safe
@@ -199,6 +200,7 @@ module EventsHelper
     for i in 0..6
       result += form.check_box "rrule_days", {:multiple => true}, i, nil
       result += label_tag "event_rrule_days_#{i}", I18n.t("date.abbr_day_names")[i]
+      result += "&nbsp;&nbsp;"
     end
 
     result.html_safe
