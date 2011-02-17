@@ -1,0 +1,14 @@
+<%= div_for @event, :class => "show" do %>
+  <h1><%= @event.name %></h1>
+  <div class="event creator">由<%= @event.creator.friendly_name %>创建</div>
+  <div class="event_location">地点：<%= @event.location %></div>
+  <div class="event_time"><%= friendly_time_range @event.begin, @event.end  %></div>
+  <div class="event_extra">
+    <%= @event.extra_info %>
+  </div>
+
+  <div>
+      (TODO) RRULE:
+      <%= @event.rrule %>
+  </div>
+<% end %>

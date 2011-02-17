@@ -51,14 +51,21 @@ class Ability
 
     #events
     can :write, Event, :creator_id => @user.id
-    can :show, Event, :creator_id => @user.id   #TODO shared events
+    can :show, Event do |e|
+      e.open_to_user?(@user.id)
+      #TODO: I think we need to build a index table showing whether a user can access to an event
+    end
     can :index, Event
 
     #user can edit profile
     can :update, User, :id => @user.id
 
     #Manage sharing
-    can :write, Sharing, :shared_from => @user.id
+    can :create, Sharing do |s|
+      s.shared_from == @user.id && can?(:show, s.event)
+    end
+    #currently, cannot modify/destroy
+
 
     #Some fields of the sharing (click, stars, etc.) can only be modified by administrators
     cannot :update_sys, Sharing

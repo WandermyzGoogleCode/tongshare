@@ -1,37 +1,4 @@
-<p>
-  <b>Name:</b>
-  <%= @event.name %>
-</p>
-
-<p>
-  <b>Begin:</b>
-  <%= @event.begin %>
-</p>
-
-<p>
-  <b>End:</b>
-  <%= @event.end %>
-</p>
-
-<p>
-  <b>Location:</b>
-  <%= @event.location %>
-</p>
-
-<p>
-  <b>Extra info:</b>
-  <%= @event.extra_info %>
-</p>
-
-<p>
-  <b>RRULE:</b>
-  <%= @event.rrule %>
-</p>
-
-<p>
-  <b>Creator:</b>
-  <%= @event.creator_id %>
-</p>
+<%= render 'show' %>
 
 
 <%= link_to 'Edit', edit_event_path(@event) %> |

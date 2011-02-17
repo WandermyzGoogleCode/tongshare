@@ -1,5 +1,7 @@
 class RegistrationsExtendedController < Devise::RegistrationsController
 include RegistrationsExtendedHelper
+include UsersHelper
+
   def new
     super
     authorize! :create, resource
@@ -12,7 +14,7 @@ include RegistrationsExtendedHelper
     #add user identifiers
     resource.user_identifier.build \
       :login_type => UserIdentifier::TYPE_EMPLOYEE_NO,
-      :login_value => params[:employee_no]
+      :login_value => company_domain + "." + params[:employee_no]
 
     if !params[:user][:email].nil? && !params[:user][:email].empty?
       resource.user_identifier.build \
@@ -32,7 +34,7 @@ include RegistrationsExtendedHelper
     #duplicate: theoretically it is almost impossible.
     if params[:user][:email].nil? || params[:user][:email].empty?
       username = UUIDTools::UUID.random_create
-      params[:user][:email] = "#{username}@#{User::NIL_EMAIL_ALIAS_DOMAIN}"
+      params[:user][:email] = "#{username}@null.#{company_domain(resource)}"
       resource.email = params[:user][:email]
     end
 
