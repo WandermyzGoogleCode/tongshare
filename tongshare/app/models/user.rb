@@ -9,7 +9,7 @@
 
 class User < ActiveRecord::Base
 
-  NIL_EMAIL_ALIAS_DOMAIN = 'null.tongshare.com' #see registration_extended_controller
+  #NIL_EMAIL_ALIAS_DOMAIN = 'null.tongshare.com' #see registration_extended_controller
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
@@ -53,10 +53,6 @@ class User < ActiveRecord::Base
 
   def purge_useless
     errors.delete :user_identifier
-  end
-
-  def login_value(type)
-    
   end
 
   #get a friendly name for the user

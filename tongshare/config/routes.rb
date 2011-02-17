@@ -15,8 +15,8 @@ Tongshare::Application.routes.draw do
   get "temp/cal"
 
   resources :groups
-
   resources :events
+  resources :sharings
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,7 +1,9 @@
 module RegistrationsExtendedHelper
-  #check if a given email is null alias (xxx@null.tongshare.com)
-  def nil_email_alias?(email)
-    not email.match(/.+@#{User::NIL_EMAIL_ALIAS_DOMAIN}/).nil?
+  
+  include UsersHelper
+  #check if a given email is null alias (xxx@null.yyy.zzz)
+  def nil_email_alias?(email, user = nil)
+    not email.match(/.+@null.#{company_domain(user)}/).nil?
   end
 
   def more_login_used?
@@ -49,5 +51,33 @@ HTML
     </div>
 HTML
     content.html_safe
+  end
+
+  #create a dummy user with only user_id and an employee_no in user_identifier. Return the new dummy user, or raise exceptions when error occurs
+  def create_dummy_user(employee_no, company_domain)
+    user = User.new :email => "#{UUIDTools::UUID.random_create}@null.#{company_domain}",
+                    :password => random_password
+    user.user_identifier.build :login_type => UserIdentifier::TYPE_EMPLOYEE_NO_DUMMY,
+                               :login_value => company_domain + "." + employee_no
+    user.skip_confirmation!
+    user.save!
+    user
+  end
+
+  #Substitute the dummy user (if exist) with a real user. Transfer all data related to the dummy user to the real one, and delete the dummy
+  def transfer_dummy_user(employee_no, company_domain, new_user_id)
+    #try to find the dummy
+    dummy_identifier = UserIdentifier.find_by_login_type_and_login_value(UserIdentifier::TYPE_EMPLOYEE_NO_DUMMY,
+                        company_domain + "." + employee_no)
+    return if dummy_identifier.nil?
+    dummy = dummy_identifier.user
+    
+    UserSharing.update_all("user_id = #{new_user_id}", "user_id = #{dummy.id}")
+    dummy.destroy
+  end
+
+  def random_password(size = 8)
+    chars = (('a'..'z').to_a + ('0'..'9').to_a) - %w(i o 0 1 l 0)
+    (1..size).collect{|a| chars[rand(chars.size)] }.join
   end
 end

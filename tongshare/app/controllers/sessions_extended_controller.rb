@@ -1,4 +1,5 @@
 class SessionsExtendedController < Devise::SessionsController
+  include UsersHelper
   def new
 
 
@@ -11,7 +12,7 @@ class SessionsExtendedController < Devise::SessionsController
       :first,
       :conditions => ["login_type = ? AND login_value = ?",
                       params[:login_type],
-                      params[:login_value]
+                      company_domain + "." + params[:login_value]
       ]
 
     #logger.debug "Result: #{user_id_rec.to_yaml}"

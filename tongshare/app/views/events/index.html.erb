@@ -21,13 +21,15 @@
           <%= link_to instance.name, event_path(instance.event) %>
         </div>
         <div class="instance info">
+          <span><%=instance.location%></span>
           <span>
             <%= friendly_time_range instance.begin, instance.end %>
           </span>
-          <span><%instance.location%></span>
         </div>
         <div class="instance links">
-          <span>分享</span>
+          <span>
+            <%= link_to "分享", :controller => "sharings", :action => "new", :event_id => instance.event.id %>
+          </span>
           <span>
             <%= link_to "删除", instance.event, :method => "delete",
                   :confirm => ("你确实要删除\"#{instance.name}\"吗？" + (instance.event.recurring? ? "这是一个重复的事件，所有重复项都会被删除！" : ""))
