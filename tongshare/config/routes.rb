@@ -1,5 +1,10 @@
 Tongshare::Application.routes.draw do
 
+  post "auth/confirm"
+
+  get "thuauth/auth_with_xls_and_get_name"
+  post "thuauth/auth_with_xls_and_get_name"
+
   devise_for :users, :controllers => {
     :registrations => "registrations_extended", 
     :sessions => "sessions_extended"
