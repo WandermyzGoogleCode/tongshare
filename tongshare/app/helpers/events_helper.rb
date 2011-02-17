@@ -96,6 +96,7 @@ module EventsHelper
     WHERE_TIME = "instances.end >= ? AND instances.begin <= ?"  #modified by Wander
     WHERE_DECISION = "acceptances.decision = ?"
     WHERE_DECISION_UNDECIDED = "acceptances.decision IS NULL"
+    WHERE_ACCEPTANCE_USER = "acceptances.user_id = ?"
     WHERE_AND = ' AND '
   end
 
@@ -112,14 +113,34 @@ module EventsHelper
     (query_sharing_accepted_instance_includes_event(time_begin, time_end, user_id) + query_own_instance_includes_event(time_begin, time_end, user_id)).sort{|a, b| a.begin <=> b.begin}
   end
 
-  def query_sharing_accepted_instance_includes_event(time_begin, time_end, user_id = current_user.id)
-    ids = query_sharing_accepted_instance(time_begin, time_end, user_id).map{|i| i.id}
-    Instance.includes(:event).find(ids).to_a
-  end
+#  def query_sharing_accepted_instance_includes_event(time_begin, time_end, user_id = current_user.id)
+#    ids = query_sharing_accepted_instance(time_begin, time_end, user_id).map{|i| i.id}
+#    Instance.includes(:event).find(ids).to_a
+#  end
 
+  def query_sharing_accepted_instance_includes_event(time_begin, time_end, user_id = current_user.id)
+    Instance.
+      includes(:event).
+      joins(:event => :acceptances).
+      where(
+        build_where(SQLConstant::WHERE_TIME, SQLConstant::WHERE_ACCEPTANCE_USER, SQLConstant::WHERE_DECISION),
+        time_begin, time_end,
+        user_id,
+        Acceptance::DECISION_ACCEPTED).
+      order('instances.begin').
+      to_a
+  end
+  
   def query_sharing_accepted_instance(time_begin, time_end, user_id = current_user.id)
-    Instance.joins(:event => :acceptances).where \
-      ('instances.end >= ? AND instances.begin <= ? AND acceptances.user_id = ? AND acceptances.decision = ?', time_begin, time_end, user_id, Acceptance::DECISION_ACCEPTED).order('instances.begin').to_a
+    Instance.
+      joins(:event => :acceptances).
+      where(
+        build_where(SQLConstant::WHERE_TIME, SQLConstant::WHERE_ACCEPTANCE_USER, SQLConstant::WHERE_DECISION),
+        time_begin, time_end, 
+        user_id,
+        Acceptance::DECISION_ACCEPTED).
+      order('instances.begin').
+      to_a
   end
 
 #  # !readonly value returned
