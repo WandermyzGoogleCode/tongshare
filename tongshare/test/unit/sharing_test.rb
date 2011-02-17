@@ -23,6 +23,10 @@ class SharingTest < ActiveSupport::TestCase
     #open_to_user
     assert events(:one_instance).open_to_user?(1)
     assert !events(:one_instance).open_to_user?(2)
+    acc = Acceptance.new(:event_id => 1, :user_id => 2, :decision => true)
+    acc.save
+    assert events(:one_instance).open_to_user?(2)
+    acc.destroy
     #add_sharing
     #hashs = []
     #user_identifiers(:em_one, :em_two, :email_one, :email_two, :mo_one, :mo_two).each do |uid|
