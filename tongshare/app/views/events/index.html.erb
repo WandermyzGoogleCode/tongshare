@@ -1,18 +1,27 @@
-<div id="welcome">你好，<%= current_user.friendly_name %></div>
-<div id="current_time"><%= l Time.now %> <%=  number_of_week_in_thu %> </div>
-<div id="share_notice">
-  <span><%="TODO"%>个被邀请的活动</span>
-  <span><%="TODO"%>个被推荐的活动</span>
+<div id="welcome">
+<strong>你好，<%= current_user.friendly_name %>！</strong>
+
+<%
+  week_str = number_of_week_in_thu
+  week_str = "，#{week}" unless week_str.blank?
+%>
+<div id="current_time">现在是<%= l Time.now, :format => :long %><%=week_str%>。</div>
+<%#*<div id="share_notice">%>
+  <%#*<span>个被邀请的活动</span>%>
+  <%#*<span><个被推荐的活动</span>%>
+<%#*</div>%>
 </div>
 
 <div class="agenda_list" id="my_events">
-  <fieldset>
-    <legend>我的日程</legend>
-    <div id="agenda_pannel">
-      <%= link_to_unless_current "今天", {:range => :day, :offset => 0} %>
-      <%= link_to_unless_current "明天", {:range => :day, :offset => 1} %>
-      <%= link_to_unless_current "本周", {:range => :week, :offset => 0} %>
-      <%= link_to_unless_current "下周", {:range => :week, :offset => 1} %>
+  <%= content_box "我的", "日程", false do %>
+    
+    <div class="agenda_pannel">
+      <ul>
+        <li><%= link_to_unless_current "今天", {:range => :day, :offset => 0} %></li>
+        <li><%= link_to_unless_current "明天", {:range => :day, :offset => 1} %></li>
+        <li> <%= link_to_unless_current "本周", {:range => :week, :offset => 0} %></li>
+        <li><%= link_to_unless_current "下周", {:range => :week, :offset => 1} %></li>
+      </ul>
     </div>
     <div id="agenda_list_content">
     <% @instances.each do |instance|%>
@@ -39,7 +48,8 @@
       <% end %>
     <% end %>
     </div>
-  </fieldset>
+    <%= styled_button '新建日程', new_event_path %>
+  <%end%>
 </div>
 
 <%#*<div class="agenda_list" id="invited_events">%>
@@ -54,6 +64,5 @@
   <%#*</fieldset>%>
 <%#*</div>%>
 
-<br />
 
-<%= link_to '新建日程', new_event_path %>
+
