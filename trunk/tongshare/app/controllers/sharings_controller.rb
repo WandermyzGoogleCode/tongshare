@@ -15,6 +15,13 @@ class SharingsController < ApplicationController
     end
   end
 
+  def add_members
+    logger.debug params[:raw_string]
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def new
     @sharing = Sharing.new
     @sharing.shared_from = current_user.id

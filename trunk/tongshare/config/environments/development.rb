@@ -38,5 +38,7 @@ Tongshare::Application.configure do
     :enable_starttls_auto => true
   }
 
+  #time zone
+  config.time_zone = 'Beijing'
 end
 
