@@ -47,19 +47,21 @@ module EventsHelper
   end
 
   #go around time zone bug in calendar_date_selector
+  #it seems no bug in calendar_date_selector. we should set config.time_zone = 'Beijing'
   def time_ruby2selector(event)
-    event.begin = event.begin + 8.hours unless event.begin.blank?
-    event.end = event.end + 8.hours unless event.end.blank?
+    #event.begin = event.begin + 8.hours unless event.begin.blank?
+    #event.end = event.end + 8.hours unless event.end.blank?
   end
 
   def time_selector2ruby(event)
-    event.begin = event.begin - 8.hours unless event.begin.blank?
-    event.end = event.end - 8.hours unless event.end.blank?
+    #event.begin = event.begin - 8.hours unless event.begin.blank?
+    #event.end = event.end - 8.hours unless event.end.blank?
   end
 
   def query_own_instance(time_begin, time_end, creator_id = current_user.id)
     #TODO check event changed
-    Instance.where("creator_id = ? AND begin >= ? AND end <= ?", creator_id, time_begin, time_end).order("begin").to_a
+    Instance.where("creator_id = ? AND end >= ? AND begin <= ?", creator_id, time_begin, time_end).order("begin").to_a
+    #modified by Wander 
   end
 
   def query_own_event(limit_from, limit_num, creator_id = current_user.id)
@@ -78,7 +80,7 @@ module EventsHelper
     JOINS_INSTANCE = 'INNER JOIN instances ON instances.event_id = events.id'
     WHERE_USER_ID = "user_sharings.user_id = ?"
     WHERE_PRIORITY = "user_sharings.priority = ?"
-    WHERE_TIME = "instances.begin >= ? AND instances.end <= ?"
+    WHERE_TIME = "instances.end >= ? AND instances.begin <= ?"  #modified by Wander
     WHERE_DECISION = "acceptances.decision = ?"
     WHERE_DECISION_UNDECIDED = "acceptances.decision IS NULL"
     WHERE_AND = ' AND '
@@ -156,7 +158,13 @@ module EventsHelper
 
   def friendly_time_range(from, to = nil)
     ret = I18n.l from, :format => :short
-    ret += " - " + I18n.l(to, :format => :short) unless to.nil?
+    if !to.nil?
+      ret += " -"
+      if from.beginning_of_day != to.beginning_of_day
+        ret += " " + I18n.l(to, :format => :date_only)
+      end
+      ret += " " + I18n.l(to, :format => :time_only)
+    end
     ret
   end
 end

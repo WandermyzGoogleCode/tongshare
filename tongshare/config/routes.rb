@@ -14,9 +14,13 @@ Tongshare::Application.routes.draw do
   get "temp/view"
   get "temp/cal"
 
+  get "sharings/add_members"
+  post "sharings/add_members"
+
   resources :groups
   resources :events
   resources :sharings
+ 
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
