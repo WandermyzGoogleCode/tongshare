@@ -5,17 +5,17 @@ class Acceptance < ActiveRecord::Base
   DECISION_UNDECIDED = nil
   DECISION_DEFAULT = :fake
   
-  attr_accessible :user_id, :decision
+  attr_accessible :user_id, :decision, :event_id
   
   belongs_to :event
   belongs_to :user
   
   validates :user_id, :presence => true
-  #:event_id,
+  # :event_id,
   validates_inclusion_of :decision, :in => [DECISION_ACCEPTED, DECISION_DENY]
 
-  #TODO: validate
-  #validate do |accept|
-  #  errors.add :user_id, :already_exists if Acceptance.where("event_id = ? AND user_id = ?", accept.event_id, accept.user_id).exists?
-  #end
+  validate do |accept|
+    old_acc = Acceptance.where("event_id = ? AND user_id = ?", accept.event_id, accept.user_id)
+    errors.add :user_id, :already_exists if old_acc.exists? && accept.id.nil?
+  end
 end
