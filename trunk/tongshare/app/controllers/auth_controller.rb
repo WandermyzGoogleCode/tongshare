@@ -17,5 +17,7 @@ class AuthController < ApplicationController
     @output = "hash not valid"
     return unless my_hash == hash_value
     @output = "accepted"
+
+    xls2events data, current_user.id
   end
 end
