@@ -37,7 +37,10 @@ class EventTest < ActiveSupport::TestCase
 
   # Replace this with your real tests.
   test "加入刘超的课表" do
-    class_set = CourseClass.parse_xls("test/fixtures/lc.xls")
+    #try load from data
+    data = IO.read("test/fixtures/lc.xls")
+    class_set = CourseClass.parse_xls_from_data(data)
+    #class_set = CourseClass.parse_xls("test/fixtures/lc.xls")
     assert_difference('Event.count', class_set.size) do
       for course_class in class_set
         event = class2event(course_class, 1)

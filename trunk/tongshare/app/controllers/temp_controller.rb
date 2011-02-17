@@ -8,14 +8,17 @@ include EventsHelper
   def cal
     #SysMailer.reminder_email(current_user).deliver
 
+     data = IO.read("test/fixtures/lc.xls")
+     xls2events(data, current_user.id)
+
     
-    time_begin = Time.utc(2011, 1, 1)
-    time_end = Time.utc(2011, 3, 1)
-    #is = query_sharing_accepted_instance(time_begin, time_end, 1)
-    #is = query_sharing_event(UserSharing::PRIORITY_INVITE, Acceptance::DECISION_UNDECIDED, 1)
-    is = query_all_accepted_instance(time_begin, time_end, 1)
-    logger.debug is.size
-    logger.debug is[0].name
+#    time_begin = Time.utc(2011, 1, 1)
+#    time_end = Time.utc(2011, 3, 1)
+#    #is = query_sharing_accepted_instance(time_begin, time_end, 1)
+#    #is = query_sharing_event(UserSharing::PRIORITY_INVITE, Acceptance::DECISION_UNDECIDED, 1)
+#    is = query_all_accepted_instance(time_begin, time_end, 1)
+#    logger.debug is.size
+#    logger.debug is[0].name
     
 
     #test for query= =

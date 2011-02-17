@@ -3,7 +3,7 @@ require 'rails/performance_test_help'
 require 'gcal4ruby'
 
 class InstanceTest < ActionDispatch::PerformanceTest
-  USER_NUM = 100
+  USER_NUM = 10
   EVENT_NUM = 10
 
   def test_generate_instance
