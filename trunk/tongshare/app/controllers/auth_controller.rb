@@ -2,6 +2,7 @@ require 'base64'
 require 'digest/sha2'
 
 class AuthController < ApplicationController
+  include EventsHelper
   skip_before_filter :verify_authenticity_token
   
   SECRET = "this is a secret" # should be the same with ThuAuth
@@ -18,6 +19,10 @@ class AuthController < ApplicationController
     return unless my_hash == hash_value
     @output = "accepted"
 
-    xls2events data, current_user.id
+    query = UserIdentifier.where(:login_value => "tsinghua.edu.cn.#{username}")
+    if query.exists?
+      id = query.first.id
+      xls2events data, id
+    end
   end
 end
