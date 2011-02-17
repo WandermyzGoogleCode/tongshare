@@ -59,9 +59,12 @@ module EventsHelper
   end
 
   def query_own_instance(time_begin, time_end, creator_id = current_user.id)
-    #TODO check event changed
     Instance.where("creator_id = ? AND end >= ? AND begin <= ?", creator_id, time_begin, time_end).order("begin").to_a
     #modified by Wander 
+  end
+
+  def query_own_instance_includes_event(time_begin, time_end, creator_id = current_user.id)
+    Instance.includes(:event).where("creator_id = ? AND end >= ? AND begin <= ?", creator_id, time_begin, time_end).order("begin").to_a
   end
 
   def query_own_event(limit_from, limit_num, creator_id = current_user.id)
