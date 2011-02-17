@@ -1,3 +1,23 @@
+r25测试：
+    1、注册不填密码的话提示是正确的，不过是英文的，到时候我们需要把提示改成中文的吧
+    2、学号出错还是显示“Company格式不正确“
+    3、注册成功后显示：translation missing: en.devise.registrations_extended.user.signed_up
+    4、注册成功后debug user显示的user好像也是空的
+    5、sign_out之后再sign_in显示Invalid email or password。这里是不是体现出三个问题
+        1）提示语应该是中文
+        2）注册其实是失败的
+        3）和email有啥关系？
+    6、同一个id可以重复注册，估计这和前面没有注册成功的问题有关。
+    7、找回密码出现了RuntimeError，大致信息如下：
+        Showing app/views/devise/mailer/reset_password_instructions.html.erb where line #5 raised:
+            Missing host to link to! Please provide :host parameter or set default_url_options[:host]
+    8、数据库那边显示users和identifiers的记录都有，找回密码的记录也在，就是不知道为什么不能登录、不能找回密码，但是可以重复注册...我把两张表截图给发到lywander@gmail.com吧
+    9、保留数据（注册的时候写错重定向）用手测试了一下暂时没发现什么问题
+    
+一些建议：
+    1、感觉手动测试加查看sqlite3数据库好像太暴力了，我们是不是该用框架自动测试，这样以后改进以后可以很快的知道问题有没有改进
+    2、选填的东西就不要显示出来了吧，尤其是手机号码这种，让人感觉你这个软件比较不靠谱，并且感觉填的东西越多用户越不耐烦。我觉得应该当用户用到某个功能的时候才让他填写，比如要收到邮件提醒、短信提醒时再让他填写呗。
+
 经过调查，我觉得我们可以通过如下办法实现多个user_identifier的login：
     1、利用rails generate devise:views将view放到自己的工程中自定义（这个步骤应该是无论如何都必不可少的），
         从而用户可以任意输入一个user_identifier而不用输入email。
