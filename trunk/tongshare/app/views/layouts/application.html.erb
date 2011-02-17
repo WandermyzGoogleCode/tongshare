@@ -28,6 +28,7 @@
 
     <%= calendar_date_select_includes :locale => 'cn' %>
 
+    <%= stylesheet_link_tag "scaffold" %>
     <%= stylesheet_link_tag "application" %>
 
   </head>
@@ -44,21 +45,21 @@
                 <li><%= link_to(image_tag("biz/pic-sitemap.gif"), destroy_user_session_path, :title=>"注销")%></li>
               </ul>
               <ul>
-
-                <%# if user_signed_in? %>
-                  <li class="current">
+                  <% if user_signed_in? %>
+                  <li>
                     <%= link_to "我的日程", :controller => "events", :range => :day, :offset => 0 %>
-                  </li>
                   <li>
                     <%= link_to "新建日程", new_event_path%>
                   </li>
                   <li><a href="#">个人信息</a></li>
                   <li><a href="#">日历同步</a></li>
                   <li><a href="#">群组管理</a></li>
-  <%#*<li>%>
-  
-  <%#*</li>%>
-                <%# end %>
+                  </li>
+                  <% else %>
+                  <li>
+                    <%= link_to "同享日程", :root %>
+                  </li>
+                  <%  end %>
               </ul>
 
             </nav>
@@ -81,18 +82,19 @@
           <!-- aside -->
           <aside>
             <div class="inside">
-              <h2><span>Our</span> services</h2>
-              <ul class="services">
-                <li><a href="#">Sedut perspiciatis</a></li>
-                <li><a href="#">Unde omnisiste</a></li>
-              </ul>
+              <% if current_page? :root %>
+                <h2>登录</h2>
+                <%= render(:partial => "sessions_extended/login_form", :locals => {:small => true})%>
+              <% else %>
+
+              <% end %>
             </div>
           </aside>
         </div>
         <!-- footer -->
         <footer>
           <div class="inside">
-            <a href="http://www.templatemonster.com" class="new_window">Website template</a> designed by TemplateMonster.com<br/><a href="http://www.templates.com/product/3d-models/" class="new_window">3D Models</a> provided by Templates.com
+            <a href="http://www.templatemonster.com" class="new_window">Website template</a> designed by TemplateMonster.com
           </div>
         </footer>
       </div>
