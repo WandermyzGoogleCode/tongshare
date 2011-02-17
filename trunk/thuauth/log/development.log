@@ -1,0 +1,427 @@
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Thu Feb 17 23:41:33 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.2ms)
+Completed 200 OK in 8ms (Views: 6.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Thu Feb 17 23:41:38 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>""}
+Completed   in 28912ms
+
+NameError (uninitialized constant ThuauthController::SECRET):
+  app/controllers/thuauth_controller.rb:20:in `auth_with_xls_and_get_name'
+  app/controllers/thuauth_controller.rb:9:in `exclusive'
+  app/controllers/thuauth_controller.rb:9:in `auth_with_xls_and_get_name'
+
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_trace.erb (2.1ms)
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (15.1ms)
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (24.3ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Thu Feb 17 23:43:08 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.2ms)
+Completed 200 OK in 6ms (Views: 5.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Thu Feb 17 23:43:13 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>""}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (5.4ms)
+Completed 200 OK in 25472ms (Views: 13.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Thu Feb 17 23:50:42 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>""}
+Completed   in 1346ms
+
+ThreadError (timeout within critical session):
+  app/controllers/thuauth_controller.rb:27:in `auth_with_xls_and_get_name'
+  app/controllers/thuauth_controller.rb:14:in `exclusive'
+  app/controllers/thuauth_controller.rb:14:in `auth_with_xls_and_get_name'
+
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.1ms)
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (14.0ms)
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (18.3ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Thu Feb 17 23:51:33 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.3ms)
+Completed 200 OK in 6ms (Views: 5.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Thu Feb 17 23:51:41 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.4ms)
+Completed 200 OK in 7ms (Views: 6.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Thu Feb 17 23:51:46 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>""}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (4.4ms)
+Completed 200 OK in 20589ms (Views: 10.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Thu Feb 17 23:53:52 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.6ms)
+Completed 200 OK in 6ms (Views: 5.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Thu Feb 17 23:54:01 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 7ms (Views: 6.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Thu Feb 17 23:54:08 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>""}
+Completed   in 190994ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Thu Feb 17 23:57:30 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.2ms)
+Completed 200 OK in 6ms (Views: 5.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Thu Feb 17 23:57:36 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>""}
+Completed   in 106097ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:01:28 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.3ms)
+Completed 200 OK in 6ms (Views: 5.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:01:35 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>""}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (5.0ms)
+Completed 200 OK in 24194ms (Views: 11.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:12:02 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (4.4ms)
+Completed 200 OK in 8ms (Views: 7.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:12:07 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.4ms)
+Completed 200 OK in 7ms (Views: 6.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:19:13 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>""}
+Completed   in 253107ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:24:27 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 6ms (Views: 5.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:24:34 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>""}
+Completed   in 72791ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:26:00 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 6ms (Views: 5.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:26:05 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>""}
+Completed   in 27233ms
+
+NoMethodError (undefined method `path' for "http://localhost:3000/auth/confirm":String):
+  app/controllers/thuauth_controller.rb:27:in `auth_with_xls_and_get_name'
+  app/controllers/thuauth_controller.rb:16:in `exclusive'
+  app/controllers/thuauth_controller.rb:16:in `auth_with_xls_and_get_name'
+
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_trace.erb (0.9ms)
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (6.1ms)
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (9.9ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:31:55 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 6ms (Views: 5.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:32:06 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>""}
+Completed   in 20212ms
+
+NoMethodError (undefined method `encode' for Base64:Module):
+  app/controllers/thuauth_controller.rb:25:in `auth_with_xls_and_get_name'
+  app/controllers/thuauth_controller.rb:16:in `exclusive'
+  app/controllers/thuauth_controller.rb:16:in `auth_with_xls_and_get_name'
+
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.1ms)
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (6.0ms)
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (10.9ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:34:24 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 6ms (Views: 5.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:34:29 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>""}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 36015ms (Views: 6.1ms | ActiveRecord: 0.0ms)
+
+ActionDispatch::Cookies::CookieOverflow (ActionDispatch::Cookies::CookieOverflow):
+  
+
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_trace.erb (0.9ms)
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (42.3ms)
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (46.7ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:39:49 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.2ms)
+Completed 200 OK in 6ms (Views: 5.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:39:54 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>""}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.4ms)
+Completed 200 OK in 26331ms (Views: 5.8ms | ActiveRecord: 0.0ms)
+
+ActionDispatch::Cookies::CookieOverflow (ActionDispatch::Cookies::CookieOverflow):
+  
+
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_trace.erb (0.9ms)
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (14.3ms)
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (18.2ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:41:39 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.4ms)
+Completed 200 OK in 6ms (Views: 5.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:41:44 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>""}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (3.5ms)
+Completed 200 OK in 26322ms (Views: 10.4ms | ActiveRecord: 0.0ms)
+
+ActionDispatch::Cookies::CookieOverflow (ActionDispatch::Cookies::CookieOverflow):
+  
+
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.5ms)
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (21.3ms)
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (61.0ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:43:55 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.2ms)
+Completed 200 OK in 6ms (Views: 5.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:43:59 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>""}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 27873ms (Views: 6.4ms | ActiveRecord: 0.0ms)
+
+ActionDispatch::Cookies::CookieOverflow (ActionDispatch::Cookies::CookieOverflow):
+  
+
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_trace.erb (0.9ms)
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (62.3ms)
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (66.4ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:49:07 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.3ms)
+Completed 200 OK in 6ms (Views: 5.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:49:13 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>""}
+Completed   in 414708ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:56:44 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.4ms)
+Completed 200 OK in 6ms (Views: 5.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:56:49 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>""}
+Completed   in 79929ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:59:40 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.3ms)
+Completed 200 OK in 6ms (Views: 5.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 00:59:47 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>""}
+Completed   in 71232ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 01:01:27 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.2ms)
+Completed 200 OK in 6ms (Views: 5.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 01:01:32 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>""}
+Completed   in 4327ms
+
+ThreadError (timeout within critical session):
+  app/controllers/thuauth_controller.rb:27:in `auth_with_xls_and_get_name'
+  app/controllers/thuauth_controller.rb:16:in `exclusive'
+  app/controllers/thuauth_controller.rb:16:in `auth_with_xls_and_get_name'
+
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.5ms)
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (10.0ms)
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (16.4ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 01:02:03 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (41.9ms)
+Completed 200 OK in 47ms (Views: 46.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 01:02:09 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>""}
+Completed   in 1074ms
+
+ThreadError (timeout within critical session):
+  app/controllers/thuauth_controller.rb:27:in `auth_with_xls_and_get_name'
+  app/controllers/thuauth_controller.rb:16:in `exclusive'
+  app/controllers/thuauth_controller.rb:16:in `auth_with_xls_and_get_name'
+
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (6.2ms)
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (10.4ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 01:03:19 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 6ms (Views: 5.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 01:03:25 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>""}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 1478ms (Views: 10.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 01:04:42 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.2ms)
+Completed 200 OK in 6ms (Views: 5.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 01:04:47 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>""}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (1.9ms)
+Completed 200 OK in 4208ms (Views: 7.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 01:05:57 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.2ms)
+Completed 200 OK in 5ms (Views: 5.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 01:06:01 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>""}
+Redirected to http://localhost:3001
+Completed 302 Found in 4573ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 01:06:37 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 6ms (Views: 5.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name?username=2007011324&redirect_to=localhost:3000" for 127.0.0.1 at Fri Feb 18 01:07:10 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "redirect_to"=>"localhost:3000"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.3ms)
+Completed 200 OK in 6ms (Views: 5.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 01:07:14 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"localhost:3000"}
+Redirected to localhost:3000
+Completed 302 Found in 1965ms
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 01:07:34 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"localhost:3000"}
+Redirected to localhost:3000
+Completed 302 Found in 4599ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name?username=2007011324&redirect_to=http://localhost:3000/" for 127.0.0.1 at Fri Feb 18 01:10:23 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.2ms)
+Completed 200 OK in 6ms (Views: 5.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 01:10:27 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"Fq10uqHMWQP+y3I2eV0x4eY3UOu9twXn2FkRbplZ7q0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Redirected to http://localhost:3000/
+Completed 302 Found in 1118ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 01:12:21 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (3.1ms)
+Completed 200 OK in 7ms (Views: 6.6ms | ActiveRecord: 0.0ms)
