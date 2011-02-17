@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+  # mobile helper
+  has_mobile_fu
   
+  protect_from_forgery
+
   before_filter :export_i18n_messages
 
   private
