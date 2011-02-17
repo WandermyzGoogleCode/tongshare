@@ -44,7 +44,10 @@ class Event < ActiveRecord::Base
       #TODO repeat_until
       return false
     end
-    ret = super
+    #seems no improving...
+    #Instance.transaction do
+      ret = super
+    #end
     logger.debug errors.to_yaml
     return false if !ret
     #TODO edit each for better performance?

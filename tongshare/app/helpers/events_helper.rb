@@ -12,6 +12,16 @@ module EventsHelper
   # Note! This day is Sunday instead of Monday(since Monday is +1)
   FIRST_DAY_IN_SEMESTER = "2011-2-20"
 
+  def xls2events(data, user_id)
+    class_set = CourseClass::parse_xls_from_data(data)
+    class_set.each do |c|
+      e = class2event(c, 1)
+      e.save
+      acc = Acceptance.new(:event_id => e.id, :user_id => user_id, :decision => Acceptance::DECISION_ACCEPTED)
+      acc.save
+    end
+  end
+
   # Convert a course_class to an event created by creator_id
   def class2event(course_class, creator_id)
     event = Event.new(:name => course_class.name, :extra_info => course_class.extra_info, :location => course_class.location, :creator_id => creator_id)
@@ -99,7 +109,7 @@ module EventsHelper
   end
 
   def query_all_accepted_instance_includes_event(time_begin, time_end, user_id = current_user.id)
-    query_sharing_accepted_instance_includes_event(time_begin, time_end, user_id) + query_own_instance_includes_event(time_begin, time_end, user_id)
+    (query_sharing_accepted_instance_includes_event(time_begin, time_end, user_id) + query_own_instance_includes_event(time_begin, time_end, user_id)).sort{|a, b| a.begin <=> b.begin}
   end
 
   def query_sharing_accepted_instance_includes_event(time_begin, time_end, user_id = current_user.id)
@@ -107,17 +117,22 @@ module EventsHelper
     Instance.includes(:event).find(ids).to_a
   end
 
-  # !readonly value returned
   def query_sharing_accepted_instance(time_begin, time_end, user_id = current_user.id)
-    UserSharing.
-      select(SQLConstant::SELECT_INSTANCE).
-      joins(SQLConstant::JOINS_BASE + SQLConstant::JOINS_INSTANCE).
-      where(
-        build_where(SQLConstant::WHERE_USER_ID, SQLConstant::WHERE_DECISION, SQLConstant::WHERE_TIME),
-        user_id,
-        Acceptance::DECISION_ACCEPTED,
-        time_begin, time_end).to_a
+    Instance.joins(:event => :acceptances).where \
+      ('instances.end >= ? AND instances.begin <= ? AND acceptances.user_id = ? AND acceptances.decision = ?', time_begin, time_end, user_id, Acceptance::DECISION_ACCEPTED).order('instances.begin').to_a
   end
+
+#  # !readonly value returned
+#  def query_sharing_accepted_instance(time_begin, time_end, user_id = current_user.id)
+#    UserSharing.
+#      select(SQLConstant::SELECT_INSTANCE).
+#      joins(SQLConstant::JOINS_BASE + SQLConstant::JOINS_INSTANCE).
+#      where(
+#        build_where(SQLConstant::WHERE_USER_ID, SQLConstant::WHERE_DECISION, SQLConstant::WHERE_TIME),
+#        user_id,
+#        Acceptance::DECISION_ACCEPTED,
+#        time_begin, time_end).to_a
+#  end
 
   # !readonly value returned
   def query_sharing_event(priority = UserSharing::PRIORITY_INVITE, decision = Acceptance::DECISION_UNDECIDED, user_id = current_user.id)

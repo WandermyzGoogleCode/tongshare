@@ -28,7 +28,7 @@ class EventsController < ApplicationController
     logger.debug from.to_yaml
     logger.debug to.to_yaml
 
-    @instances = query_own_instance_includes_event(from, to)
+    @instances = query_all_accepted_instance_includes_event(from, to)
 
     respond_to do |format|
       format.html # index.html.erb

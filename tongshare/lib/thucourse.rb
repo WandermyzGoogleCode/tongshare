@@ -3,6 +3,7 @@ require 'rubygems'
 require 'parseexcel'
 require 'iconv'
 require 'pp'
+require 'tempfile'
 
 # First use xls2table to convert a xls file to a 2D array, i.e. table.
 # Then use CourseClass.parse_table(table) which returns a class_set.
@@ -54,6 +55,14 @@ class CourseClass
     end
   end
 
+  def self.parse_xls_from_data(data)
+    tf = Tempfile.new "xls_temp_"
+    tf.write data
+    tf.close
+    ret = parse_xls(tf.path)
+    tf.unlink
+    ret
+  end
   # Just Course.parse_table(xls2table(filename))
   def self.parse_xls(filename)
     table = xls2table(filename)
