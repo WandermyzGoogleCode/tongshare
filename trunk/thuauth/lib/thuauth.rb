@@ -50,7 +50,7 @@ class ThuAuth
     result1 = auth_with_xls(username, password)
     pp "result1", result1
     Dir.chdir(AuthConstant::GETXLS_PATH)
-    File.delete("Login.out")
+    File.delete("Login.out") if File.exist? "Login.out"
     `./getname.sh #{username} #{password}`
     name = parse_name
     result2 = (!name.nil?)
