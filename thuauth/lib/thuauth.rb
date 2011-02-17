@@ -3,6 +3,8 @@
 $KCODE = 'u'
 
 require 'pp'
+require 'rubygems'
+require 'escape'
 
 #TODO put this config outside source file
 module AuthConstant
@@ -17,7 +19,8 @@ class ThuAuth
   def self.auth_with_xls(username, password)
     Dir.chdir(AuthConstant::GETXLS_PATH)
     (0...AuthConstant::MAXTRY).each do
-      `./getxls.sh #{username} #{password} #{AuthConstant::SEMESTER}`
+      command = Escape.shell_command(["./getxls.sh", username, password, AuthConstant::SEMESTER])
+      `#{command}`
       puts "m1"
       size = File.size?("output.xls")
       puts "m2"
@@ -51,7 +54,8 @@ class ThuAuth
     pp "result1", result1
     Dir.chdir(AuthConstant::GETXLS_PATH)
     File.delete("Login.out") if File.exist? "Login.out"
-    `./getname.sh #{username} #{password}`
+    command = Escape.shell_command(["./getname.sh", username, password])
+    `#{command}`
     name = parse_name
     result2 = (!name.nil?)
     pp "result2", result2
