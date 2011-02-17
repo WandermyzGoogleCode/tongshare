@@ -1,45 +1,102 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>同享日程<%= "-#{@title}" if defined? @title%></title>
-  <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag "translations.js" %>
-  <%= javascript_include_tag "i18n.js" %>
-  <%= javascript_include_tag :defaults %>
-  <%= csrf_meta_tag %>
+<html lang="zh">
+  <head>
+    <title>同享日程<%= "-#{@title}" if defined? @title%></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <%= javascript_include_tag "translations.js" %>
+    <%= javascript_include_tag "i18n.js" %>
+    <%= javascript_include_tag :defaults %>
+
+    <%= stylesheet_link_tag "biz/reset", "biz/layout", "biz/style", :media=>"all"%>
+
+<%#= javascript_include_tag "biz/jquery-1.4.2.min" %>
+    <%= javascript_include_tag "biz/maxheight"%>
+    <%#= javascript_include_tag "biz/script" %>
+    <!--[if lt IE 7]>
+    <%= stylesheet_link_tag "biz/ie6"%>
+    <%= javascript_include_tag "biz/ie_png" %>
+      <script type="text/javascript">
+              ie_png.fix('.png');
+      </script>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <%= javascript_include_tag "biz/html5" %>
+    <![endif]-->
+
+    <%= csrf_meta_tag %>
+
+    <%= calendar_date_select_includes :locale => 'cn' %>
+
+    <%= stylesheet_link_tag "application" %>
+
+  </head>
+
+  <body id="page1" onLoad="new ElementMaxHeight();">
+    <div class="tail-bottom">
+      <div id="main">
+        <!-- header -->
+        <header>
+          <div class="nav-box">
+            <nav>
+              <ul class="fright">
+                <li><%= link_to(image_tag("biz/pic-home-act.gif"), :root, :title=>"首页")%></li>
+                <li><%= link_to(image_tag("biz/pic-sitemap.gif"), destroy_user_session_path, :title=>"注销")%></li>
+              </ul>
+              <ul>
+
+                <%# if user_signed_in? %>
+                  <li class="current">
+                    <%= link_to "我的日程", :controller => "events", :range => :day, :offset => 0 %>
+                  </li>
+                  <li>
+                    <%= link_to "新建日程", new_event_path%>
+                  </li>
+                  <li><a href="#">个人信息</a></li>
+                  <li><a href="#">日历同步</a></li>
+                  <li><a href="#">群组管理</a></li>
+  <%#*<li>%>
   
-  <%= calendar_date_select_includes :locale => 'cn' %>
-</head>
-<body>
+  <%#*</li>%>
+                <%# end %>
+              </ul>
 
-  <div id="header">
-    <h1>同享日程</h1>
-  </div>
+            </nav>
+          </div>
+        </header>
 
-<% if user_signed_in? %>
-  <div id="toolbar">
-    <div class="toolbar_item" id="toolbar_my_events">
-      <%= link_to "我的日程", :controller => "events", :range => :day, :offset => 0 %>
+        <div class="wrapper indent">
+          <!-- content -->
+          <section id="content">
+            <div class="noticebar">
+              <% if alert %>
+                <div id="alert"><%= alert %></div>
+              <% end %>
+              <% if notice %>
+                <div id="notice"><%= notice %></div>
+              <% end %>
+            </div>
+            <%= yield %>
+          </section>
+          <!-- aside -->
+          <aside>
+            <div class="inside">
+              <h2><span>Our</span> services</h2>
+              <ul class="services">
+                <li><a href="#">Sedut perspiciatis</a></li>
+                <li><a href="#">Unde omnisiste</a></li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+        <!-- footer -->
+        <footer>
+          <div class="inside">
+            <a href="http://www.templatemonster.com" class="new_window">Website template</a> designed by TemplateMonster.com<br/><a href="http://www.templates.com/product/3d-models/" class="new_window">3D Models</a> provided by Templates.com
+          </div>
+        </footer>
+      </div>
     </div>
-    <div class="toolbar_item" id="toolbar_new_event">
-      <%= link_to "新建日程", new_event_path%>
-    </div>
-    <div class="toolbar_item" id="toolbar_profile">个人信息</div>
-    <div class="toolbar_item" id="toolbar_sync">日历同步</div>
-    <div class="toolbar_item" id="toolbar_group">群组管理</div>
-    <div class="toolbar_item" id="toolbar_logout">
-      <%= link_to "注销", destroy_user_session_path%>
-    </div>
-  </div>
-<% end %>
 
-<% if alert %>
-  <div id="alert"><%= alert %></div>
-<% end %>
-<% if notice %>
-  <div id="notice"><%= notice %></div>
-<% end %>
-<%= yield %>
-
-</body>
+  </body>
 </html>
