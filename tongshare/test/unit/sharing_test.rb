@@ -55,12 +55,13 @@ class SharingTest < ActiveSupport::TestCase
     #query series
     time_begin = Time.parse('2011-01-19 00:00:00')
     time_end = Time.parse('2011-05-19 00:00:00')
-    ret = query_all_accepted_instance(time_begin, time_end, 2)
+    ret = query_all_accepted_instance_includes_event(time_begin, time_end, 2)
     assert ret.size == 5 # event #2 * 5
     events(:one_instance).decide_by_user(2, true)
-    ret = query_all_accepted_instance(time_begin, time_end, 2)
+    ret = query_all_accepted_instance_includes_event(time_begin, time_end, 2)
     assert ret.size == 6 # event #1 + event #2 * 5
-    assert ret[0].name == events(:one_instance).name
+    assert ret[0].event == events(:one_instance)
+    #assert ret[0].name == events(:one_instance).name
   end
   
 end
