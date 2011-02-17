@@ -98,6 +98,15 @@ module EventsHelper
     query_sharing_accepted_instance(time_begin, time_end, user_id) + query_own_instance(time_begin, time_end, user_id).to_a
   end
 
+  def query_all_accepted_instance_includes_event(time_begin, time_end, user_id = current_user.id)
+    query_sharing_accepted_instance_includes_event(time_begin, time_end, user_id) + query_own_instance_includes_event(time_begin, time_end, user_id)
+  end
+
+  def query_sharing_accepted_instance_includes_event(time_begin, time_end, user_id = current_user.id)
+    ids = query_sharing_accepted_instance(time_begin, time_end, user_id).map{|i| i.id}
+    Instance.includes(:event).find(ids).to_a
+  end
+
   # !readonly value returned
   def query_sharing_accepted_instance(time_begin, time_end, user_id = current_user.id)
     UserSharing.
