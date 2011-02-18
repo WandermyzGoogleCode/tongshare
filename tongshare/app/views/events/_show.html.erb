@@ -9,6 +9,7 @@
   <div class="event extra">
     <%= @event.extra_info %>
   </div>
+  <div class="event attendee">参与者：<%= show_attendees(@event).html_safe %> </div>
   <br/>
 
   <div class="event buttons">

@@ -222,4 +222,19 @@ module EventsHelper
     end
     ret
   end
+
+  # Returns attendees friendly names
+  # separated with "\n"
+  def show_attendees(event)
+    users = [event.creator]
+    for acceptance in event.acceptances
+      users << acceptance.user
+    end
+
+    result = ""
+    for user in users
+      result << user.friendly_name + "\n"
+    end
+    return result
+  end
 end
