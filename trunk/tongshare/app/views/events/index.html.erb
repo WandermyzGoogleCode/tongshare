@@ -27,7 +27,7 @@
     <% @instances.each do |instance|%>
       <%= div_for(instance, :class => "item") do %>
         <div class="instance name">
-          <%= link_to instance.name, edit_event_path(instance.event), :title => instance.extra_info %>
+          <%= link_to instance.name, event_path(instance.event), :title => instance.extra_info %>
         </div>
         <div class="instance info">
           <span><%=instance.location%></span>
