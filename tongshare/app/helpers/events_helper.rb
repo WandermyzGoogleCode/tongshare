@@ -16,7 +16,12 @@ module EventsHelper
     class_set = CourseClass::parse_xls_from_data(data)
     class_set.each do |c|
       e = class2event(c, 1)
-      e.save
+      query = Event.where(:name => e.name, :extra_info => e.extra_info, :begin => e.begin.utc)
+      if query.exists?
+        e = query.first
+      else
+        e.save
+      end
       acc = Acceptance.new(:event_id => e.id, :user_id => user_id, :decision => Acceptance::DECISION_ACCEPTED)
       acc.save
     end
