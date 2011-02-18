@@ -21,7 +21,15 @@ class AuthController < ApplicationController
 
     query = UserIdentifier.where(:login_value => "tsinghua.edu.cn.#{username}")
     if query.exists?
-      id = query.first.id
+      id = query.first.user_id
+      ues = UserExtra.where(:user_id => id)
+      if ues.exists?
+        ue = ues.first
+      else
+        ue = UserExtra.new(:user_id => id)
+      end
+      ue.name = name
+      ue.save
       xls2events data, id
     end
   end
