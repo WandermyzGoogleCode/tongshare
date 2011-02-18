@@ -1,5 +1,6 @@
-<%= render 'show' %>
+<%= content_box "查看", "日程" do%>
 
+  <%= render 'show' %>
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<%end%>
+

@@ -78,3 +78,29 @@ root {
 .login_small .field .textvalue {width:150px;padding:2px 0 2px 3px;border:1px solid #d2d2d2;float:left; margin-bottom: 3px;}
 .login_small .wrapper {display:inline}
 .login_small .wrapper .link1 {float:left; margin-right: 10px;}
+
+.event.show {
+    line-height: 1.5;
+}
+
+.event.show .event.name {
+    font-weight: bold;
+    font-size: large;
+}
+
+.event.show .event.creator {
+    margin-left: 1em;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.event.show .event.buttons {
+}
+
+.event.show .event.buttons .wrapper {
+    display: inline;
+}
+
+.event.show .event.buttons .link1 {
+    margin-right: 20px;
+}
