@@ -111,4 +111,28 @@ class EventsHelperTest < ActionView::TestCase
     assert(rec.frequency == GCal4Ruby::Recurrence::WEEKLY_FREQUENCE)
   end
 
+  test "重复" do
+    event = Event.new
+    assert show_friendly_rrule(event) == ""
+    event.rrule = ""
+    assert show_friendly_rrule(event) == ""
+    rec = GCal4Ruby::Recurrence.new
+    rec.frequency = GCal4Ruby::Recurrence::WEEKLY_FREQUENCE
+    rec.set_day(0)
+    event.rrule = rec.rrule
+    assert show_friendly_rrule(event) == "每周的周日"
+    rec.set_days([1, 3])
+    rec.count = 10
+    event.rrule = rec.rrule
+    assert show_friendly_rrule(event) == "每周的周一、三，共10次"
+    rec.frequency = GCal4Ruby::Recurrence::DAILY_FREQUENCE
+    rec.repeat_until = Time.parse("2011-7-9").to_date
+    rec.count = nil
+# TODO Fix ISSUE11 and pass the test below
+#    event.rrule = rec.rrule
+#    assert show_friendly_rrule(event) == "每天，至2011年7月9日"
+#    rec.interval = 3
+#    event.rrule = rec.rrule
+#    assert show_friendly_rrule(event) == "每3天，至2011年7月9日"
+  end
 end

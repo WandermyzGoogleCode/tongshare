@@ -239,4 +239,34 @@ module EventsHelper
     end
     return result
   end
+
+  CHN_WEEK_DAYS = ["日", "一", "二", "三", "四", "五", "六"]
+
+  def show_friendly_rrule(event) #TODO i18n
+    rrule = event.rrule
+    return "" if rrule.nil? || rrule == ""
+    rec = GCal4Ruby::Recurrence.new
+    rec.from_rrule(rrule)
+    if (rec.frequency == GCal4Ruby::Recurrence::WEEKLY_FREQUENCE)
+      interval_string = rec.interval.to_s
+      interval_string = "" if (interval_string == "1")
+      days = []
+      for i in 0...7
+        days << CHN_WEEK_DAYS[i] if rec.day[i]
+      end
+      day_string = days.join("、")
+      result = sprintf("每%s周的周%s", interval_string, day_string)
+      result << sprintf("，至%s", I18n.l(rec.repeat_until)) if rec.repeat_until
+      result << sprintf("，共%d次", rec.count) if rec.count
+      return result
+    else
+      interval_string = rec.interval.to_s
+      interval_string = "" if (interval_string == "1")
+      result = sprintf("每%s天", interval_string)
+      result << sprintf("，至%s", I18n.l(rec.repeat_until)) if rec.repeat_until
+      result << sprintf("，共%d次", rec.count) if rec.count
+      return result
+    end
+    return ""
+  end
 end
