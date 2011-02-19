@@ -134,7 +134,7 @@ module EventsHelper
 #    Instance.includes(:event).find(ids).to_a
 #  end
 
-  def query_sharing_accepted_instance_includes_event(current_time, limit_count, user_id = current_user.id)
+  def query_next_sharing_accepted_instance_includes_event(current_time, limit_count, user_id = current_user.id)
     Instance.
       includes(:event).
       joins(:event => :acceptances).
@@ -160,7 +160,7 @@ module EventsHelper
       to_a
   end
 
-  def query_next_sharing_accepted_instance(time_begin, time_end, user_id = current_user.id)
+  def query_sharing_accepted_instance(time_begin, time_end, user_id = current_user.id)
     Instance.
       joins(:event => :acceptances).
       where(
