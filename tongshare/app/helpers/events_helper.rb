@@ -212,14 +212,32 @@ module EventsHelper
     result.html_safe
   end
 
+  def friendly_day(time)
+    time_day_time = time.beginning_of_day
+    now_day_time = Time.now.beginning_of_day
+    diff_day = (time_day_time.to_i - now_day_time.to_i)/3600/24
+    return "" if diff_day == 0
+    names = I18n.t('date.num_day_names')
+    if (diff_day >= 0 && diff_day < names.size)
+      return names[diff_day] + " "
+    else
+      return I18n.l(time, :format => :date_only) + " "
+    end
+  end
+
+  # 同一年会返回空字符串，否则返回"XXXX "
+  def friendly_year(time)
+    return (time.year == Time.now.year ? "" : time.year.to_s + " ")
+  end
+
   def friendly_time_range(from, to = nil)
-    ret = I18n.l from, :format => :short
+    ret = friendly_year(from) + friendly_day(from) + I18n.l(from, :format => :time_only)
     if !to.nil?
-      ret += " -"
+      ret += " - "
       if from.beginning_of_day != to.beginning_of_day
-        ret += " " + I18n.l(to, :format => :date_only)
+        ret += friendly_year(to) + friendly_day(to)
       end
-      ret += " " + I18n.l(to, :format => :time_only)
+      ret += I18n.l(to, :format => :time_only)
     end
     ret
   end

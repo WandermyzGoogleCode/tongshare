@@ -138,4 +138,29 @@ class EventsHelperTest < ActionView::TestCase
 #    event.rrule = rec.rrule
 #    assert show_friendly_rrule(event) == "每3天，至2011年7月9日"
   end
+
+  test "TEST RANGE" do
+    from = Time.now.beginning_of_day + 8*3600
+    to = from + 3600*2
+#    pp friendly_time_range(from, to)
+    assert friendly_time_range(from, to) == "08:00 - 10:00"
+    to += 24*3600
+#    pp friendly_time_range(from, to)
+    assert friendly_time_range(from, to) == "08:00 - 明天 10:00"
+    from += 3600*24
+#    pp friendly_time_range(from, to)
+    assert friendly_time_range(from, to) == "明天 08:00 - 10:00"
+    from += 2*3600*24
+    to += 2*3600*24
+#    pp friendly_time_range(from, to)
+    assert friendly_time_range(from, to) == "大后天 08:00 - 10:00"
+    from = Time.parse("1989-7-9")
+    to = from + 1.day
+#    pp friendly_time_range(from, to)
+    assert friendly_time_range(from, to) == "1989 7月09日 00:00 - 1989 7月10日 00:00"
+    from = Time.parse("2011-12-31")
+    to = Time.parse("2012-1-1")
+#    pp friendly_time_range(from, to)
+    assert friendly_time_range(from, to) == "12月31日 00:00 - 2012 1月01日 00:00"
+  end
 end
