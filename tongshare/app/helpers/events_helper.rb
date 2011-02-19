@@ -80,7 +80,11 @@ module EventsHelper
   end
 
   def query_own_instance_includes_event(time_begin, time_end, creator_id = current_user.id)
-    Instance.includes(:event).where("creator_id = ? AND end >= ? AND begin <= ?", creator_id, time_begin, time_end).order("begin").to_a
+    Instance.includes(:event).where("creator_id = ? AND end >= ? AND begin <= ?", creator_id, time_begin.utc, time_end.utc).order("begin").to_a
+  end
+
+  def query_next_own_instance_includes_event(current_time, limit_count, creator_id = current_user.id)
+    Instance.includes(:event).where("creator_id = ? AND end >= ?", creator_id, current_time.utc).order("begin").limit(limit_count).to_a
   end
 
   def query_own_event(limit_from, limit_num, creator_id = current_user.id)
@@ -100,6 +104,7 @@ module EventsHelper
     WHERE_USER_ID = "user_sharings.user_id = ?"
     WHERE_PRIORITY = "user_sharings.priority = ?"
     WHERE_TIME = "instances.end >= ? AND instances.begin <= ?"  #modified by Wander
+    WHERE_ENDTIME = "instances.end >= ?"
     WHERE_DECISION = "acceptances.decision = ?"
     WHERE_DECISION_UNDECIDED = "acceptances.decision IS NULL"
     WHERE_ACCEPTANCE_USER = "acceptances.user_id = ?"
@@ -119,11 +124,29 @@ module EventsHelper
     (query_sharing_accepted_instance_includes_event(time_begin, time_end, user_id) + query_own_instance_includes_event(time_begin, time_end, user_id)).sort{|a, b| a.begin <=> b.begin}
   end
 
+  def query_next_accepted_instance_includes_event(current_time, limit_count, user_id = current_user.id)
+    (query_next_sharing_accepted_instance_includes_event(current_time, limit_count, user_id) +
+        query_next_own_instance_includes_event(current_time, limit_count, user_id)).sort{|a, b| a.begin <=> b.begin}
+  end
+
 #  def query_sharing_accepted_instance_includes_event(time_begin, time_end, user_id = current_user.id)
 #    ids = query_sharing_accepted_instance(time_begin, time_end, user_id).map{|i| i.id}
 #    Instance.includes(:event).find(ids).to_a
 #  end
 
+  def query_sharing_accepted_instance_includes_event(current_time, limit_count, user_id = current_user.id)
+    Instance.
+      includes(:event).
+      joins(:event => :acceptances).
+      where(
+        build_where(SQLConstant::WHERE_ENDTIME, SQLConstant::WHERE_ACCEPTANCE_USER, SQLConstant::WHERE_DECISION),
+        current_time.utc,
+        user_id,
+        Acceptance::DECISION_ACCEPTED).
+      order('instances.begin').limit(limit_count).
+      to_a
+  end
+  
   def query_sharing_accepted_instance_includes_event(time_begin, time_end, user_id = current_user.id)
     Instance.
       includes(:event).
@@ -136,8 +159,8 @@ module EventsHelper
       order('instances.begin').
       to_a
   end
-  
-  def query_sharing_accepted_instance(time_begin, time_end, user_id = current_user.id)
+
+  def query_next_sharing_accepted_instance(time_begin, time_end, user_id = current_user.id)
     Instance.
       joins(:event => :acceptances).
       where(
