@@ -9,7 +9,7 @@ require 'escape'
 #TODO put this config outside source file
 module AuthConstant
   MAXTRY = 10
-  GETXLS_PATH = "/home/spaceflyer/programming/exp/dev/" 
+  GETXLS_PATH = "/usr/local/thuauth/"
   SEMESTER = "2010-2011-2"
 end
 

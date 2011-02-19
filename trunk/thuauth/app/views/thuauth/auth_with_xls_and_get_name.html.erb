@@ -1,12 +1,11 @@
 <h1>Thuauth#auth_with_xls_and_get_name</h1>
 <%=alert%>
-<%if @display %>
-  <%= @display %>
-<%else%>
-  <%= form_tag ({:controller => "thuauth", :action => "auth_with_xls_and_get_name"}) do %>
-    用户名：<input type="text" name="username" value="<%=  @username %>"/><br/>
-    密码：<input type="password" name="password"/><br/>
-    <input type="submit" value="submit"/>
-    <input type="hidden" name="redirect_to" value="<%=@redirect_to || params[:redirect_to]%>"/>
-  <%end%>
+
+
+<%= form_tag ({:controller => "thuauth", :action => "auth_with_xls_and_get_name"}) do %>
+  用户名：<input type="text" name="username" value="<%=  @username %>"/><br/>
+  密码：<input type="password" name="password"/><br/>
+  <input type="submit" value="submit"/>
+  <input type="hidden" name="redirect_to" value="<%=@redirect_to || params[:redirect_to]%>"/>
 <%end%>
+
