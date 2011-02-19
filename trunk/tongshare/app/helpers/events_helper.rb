@@ -265,20 +265,29 @@ module EventsHelper
     ret
   end
 
-  # Returns attendees friendly names
-  # separated with "\n"
-  def show_attendees(event)
-    users = [event.creator]
+  # Returns attendees friendly names. If only self, empty array will be returned.
+  def get_attendees(event)
+    users = []
+    users << event.creator unless event.creator.id == 1
+    
     for acceptance in event.acceptances
       users << acceptance.user
     end
 
-    result = ""
+    return [] if (users.size == 1 && users[0].id == current_user.id)
+
+    pp users
+
+    result = []
     for user in users
-      pp user
-      result << user.friendly_name + "\n"
+      result << user.friendly_name.html_safe
     end
+
     return result
+  end
+
+  def find_acceptance(event, user = current_user)
+    event.acceptances.find(:first, :conditions => ["user_id = ?", user.id])
   end
 
   def show_friendly_rrule(event) #TODO i18n
@@ -308,4 +317,5 @@ module EventsHelper
     end
     return ""
   end
+
 end

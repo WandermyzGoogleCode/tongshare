@@ -47,7 +47,7 @@
               <ul>
                   <% if user_signed_in? %>
                   <li>
-                    <%= link_to "我的日程", :controller => "events", :range => :day, :offset => 0 %>
+                    <%= link_to "我的日程", :controller => "events", :range => :next %>
                   <li>
                     <%= link_to "新建日程", new_event_path%>
                   </li>

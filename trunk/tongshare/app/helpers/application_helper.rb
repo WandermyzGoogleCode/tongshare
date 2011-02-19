@@ -1,3 +1,5 @@
+require 'pp'
+
 module ApplicationHelper
   def devise_error_messages_translated!
     return "" if resource.errors.empty?
@@ -17,7 +19,7 @@ module ApplicationHelper
   def content_box(title_strong = nil, title = nil, border = false, &block)
     title_str = ""
     title_str += "<span>#{title_strong}</span>" unless title_strong.blank?
-    title_str += title unless title.blank?
+    title_str += "<span>#{title}</span>" unless title.blank?
     title_str = "<h2>#{title_str}</h2>" unless title_str.blank?
     if border
       content = <<HTML
@@ -49,10 +51,26 @@ HTML
     content.html_safe
   end
 
-  def styled_button(text, url)
-    content = <<HTML
-    <div class="wrapper"><a href="#{url}" class="link1"><span><span>#{text}</span></span></a></div>
+  #(name, {options of url_for}
+  #modified from link_to
+  def styled_button(*args)
+    name = args[0]
+    args.delete_at(0)
+    if args.last.is_a? Hash
+      args.last[:class] = 'link1'
+    else
+      args << {:class => 'link1'}
+    end
+    pp args
+
+    content = '<div class="wrapper">'
+    content += link_to(*args) do
+      safe_concat <<HTML
+        <span><span>#{name}</span></span>
 HTML
+    end
+    content += '</div>'
+
     content.html_safe
   end
 
