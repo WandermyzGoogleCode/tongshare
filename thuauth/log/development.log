@@ -425,3 +425,305 @@ Started GET "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Fri Feb 18 01
   Processing by ThuauthController#auth_with_xls_and_get_name as HTML
 Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (3.1ms)
 Completed 200 OK in 7ms (Views: 6.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name/?username=2007011329&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sat Feb 19 18:14:45 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"employee_no"=>"2007011329", "commit"=>"注册", "authenticity_token"=>"EXU/y/AgBS35PqWhIWOAei6Y5d+b7diD/r4DNF+3Cus=", "utf8"=>"✓", "username"=>"2007011329", "mobile"=>"", "user"=>{"password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "email"=>""}, "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 7ms (Views: 6.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sat Feb 19 18:15:49 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "authenticity_token"=>"GNU3K4s8Zk8ywnNiV3g9J0AA+Rq3MSqqXff5pvTKNN8=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Completed   in 323ms
+
+Errno::EACCES (Permission denied - Login.out):
+  lib/thuauth.rb:56:in `delete'
+  lib/thuauth.rb:56:in `do_auth'
+  app/controllers/thuauth_controller.rb:21:in `auth_with_xls_and_get_name'
+
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.3ms)
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (7.9ms)
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (14.4ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sat Feb 19 18:23:43 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "authenticity_token"=>"GNU3K4s8Zk8ywnNiV3g9J0AA+Rq3MSqqXff5pvTKNN8=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Redirected to http://localhost:3000/
+Completed 302 Found in 2557ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011329&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sat Feb 19 20:03:59 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 8ms (Views: 7.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sat Feb 19 20:04:04 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "authenticity_token"=>"GNU3K4s8Zk8ywnNiV3g9J0AA+Rq3MSqqXff5pvTKNN8=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Redirected to http://localhost:3000/
+Completed 302 Found in 2665ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011329&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sat Feb 19 20:06:01 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 8ms (Views: 7.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sat Feb 19 20:06:04 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "authenticity_token"=>"GNU3K4s8Zk8ywnNiV3g9J0AA+Rq3MSqqXff5pvTKNN8=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Redirected to http://localhost:3000/
+Completed 302 Found in 52966ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011329&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sat Feb 19 20:07:43 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 9ms (Views: 8.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sat Feb 19 20:07:49 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "authenticity_token"=>"GNU3K4s8Zk8ywnNiV3g9J0AA+Rq3MSqqXff5pvTKNN8=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Redirected to http://localhost:3000/
+Completed 302 Found in 2202ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011329&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sat Feb 19 20:10:26 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 8ms (Views: 7.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sat Feb 19 20:10:30 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "authenticity_token"=>"GNU3K4s8Zk8ywnNiV3g9J0AA+Rq3MSqqXff5pvTKNN8=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Redirected to http://localhost:3000/
+Completed 302 Found in 3557ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011329&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sat Feb 19 20:42:13 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 8ms (Views: 8.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sat Feb 19 20:42:33 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "authenticity_token"=>"GNU3K4s8Zk8ywnNiV3g9J0AA+Rq3MSqqXff5pvTKNN8=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Redirected to http://localhost:3000/
+Completed 302 Found in 3311ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011329&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sat Feb 19 20:51:29 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (3.0ms)
+Completed 200 OK in 8ms (Views: 7.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011329&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sat Feb 19 20:52:24 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 7ms (Views: 6.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sat Feb 19 20:52:36 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "authenticity_token"=>"GNU3K4s8Zk8ywnNiV3g9J0AA+Rq3MSqqXff5pvTKNN8=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Redirected to http://localhost:3000/
+Completed 302 Found in 1672ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011329&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sat Feb 19 20:56:33 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 8ms (Views: 7.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011329&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sat Feb 19 20:56:55 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.3ms)
+Completed 200 OK in 7ms (Views: 6.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sat Feb 19 20:56:58 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "authenticity_token"=>"GNU3K4s8Zk8ywnNiV3g9J0AA+Rq3MSqqXff5pvTKNN8=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Redirected to http://localhost:3000/
+Completed 302 Found in 1698ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011329&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sat Feb 19 20:59:26 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 7ms (Views: 6.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011329&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sat Feb 19 21:00:07 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.6ms)
+Completed 200 OK in 8ms (Views: 7.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sat Feb 19 21:00:33 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "authenticity_token"=>"GNU3K4s8Zk8ywnNiV3g9J0AA+Rq3MSqqXff5pvTKNN8=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Redirected to http://localhost:3000/
+Completed 302 Found in 2295ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011329&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sat Feb 19 21:02:49 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.6ms)
+Completed 200 OK in 7ms (Views: 7.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011329&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sat Feb 19 21:04:25 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.6ms)
+Completed 200 OK in 7ms (Views: 7.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sat Feb 19 21:05:15 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "authenticity_token"=>"GNU3K4s8Zk8ywnNiV3g9J0AA+Rq3MSqqXff5pvTKNN8=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Redirected to http://localhost:3000/
+Completed 302 Found in 3141ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011329&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sat Feb 19 21:32:32 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (3.1ms)
+Completed 200 OK in 8ms (Views: 7.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sat Feb 19 21:32:38 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "authenticity_token"=>"GNU3K4s8Zk8ywnNiV3g9J0AA+Rq3MSqqXff5pvTKNN8=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Redirected to http://localhost:3000/
+Completed 302 Found in 10853ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011329&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sat Feb 19 21:34:10 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 7ms (Views: 7.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sat Feb 19 21:34:21 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "authenticity_token"=>"GNU3K4s8Zk8ywnNiV3g9J0AA+Rq3MSqqXff5pvTKNN8=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Redirected to http://localhost:3000/
+Completed 302 Found in 1448ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011329&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sat Feb 19 21:34:46 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 8ms (Views: 7.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011329&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sat Feb 19 21:36:05 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (3.2ms)
+Completed 200 OK in 8ms (Views: 7.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sat Feb 19 21:36:07 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "authenticity_token"=>"GNU3K4s8Zk8ywnNiV3g9J0AA+Rq3MSqqXff5pvTKNN8=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Redirected to http://localhost:3000/
+Completed 302 Found in 2095ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011329&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sat Feb 19 21:38:20 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 8ms (Views: 7.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011329&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sat Feb 19 21:41:40 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 8ms (Views: 7.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sat Feb 19 21:44:18 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "authenticity_token"=>"GNU3K4s8Zk8ywnNiV3g9J0AA+Rq3MSqqXff5pvTKNN8=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Redirected to http://localhost:3000/
+Completed 302 Found in 2699ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011329&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sat Feb 19 22:11:39 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 7ms (Views: 6.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011329&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sat Feb 19 22:12:02 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 8ms (Views: 7.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sat Feb 19 22:12:06 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "authenticity_token"=>"GNU3K4s8Zk8ywnNiV3g9J0AA+Rq3MSqqXff5pvTKNN8=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Completed   in 2598ms
+
+ArgumentError (wrong number of arguments (0 for 1)):
+  app/controllers/thuauth_controller.rb:38:in `match'
+  app/controllers/thuauth_controller.rb:38:in `auth_with_xls_and_get_name'
+
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.5ms)
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (8.8ms)
+Rendered /usr/lib/ruby/gems/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (14.8ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sat Feb 19 22:12:42 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "authenticity_token"=>"GNU3K4s8Zk8ywnNiV3g9J0AA+Rq3MSqqXff5pvTKNN8=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Redirected to http://localhost:3000/
+Completed 302 Found in 1710ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011329&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sat Feb 19 22:13:25 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 7ms (Views: 6.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sat Feb 19 22:13:27 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "authenticity_token"=>"GNU3K4s8Zk8ywnNiV3g9J0AA+Rq3MSqqXff5pvTKNN8=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Redirected to http://localhost:3000/
+Completed 302 Found in 1552ms

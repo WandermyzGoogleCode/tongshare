@@ -35,11 +35,15 @@ class ThuauthController < ApplicationController
           pp response # TODO REVERT TEST
           pp response.body
           
-          if response.body.match /accepted/
+          if response.body == "accepted"
             redirect_to @redirect_to
+            pp "success"
           else
             flash[:alert] = "Confirmation not accepted"
-            @display = response.body
+            respond_to do |format|
+              format.html { render :text => response.body }
+            end
+            pp "failed"
           end
         else
           flash[:alert] = "Authentication failed"
