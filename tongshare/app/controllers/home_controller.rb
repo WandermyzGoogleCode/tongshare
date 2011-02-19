@@ -9,7 +9,7 @@ class HomeController < ApplicationController
     if user_signed_in?
       flash[:notice] = notice
       flash[:alert] = alert
-      redirect_to :controller => "events", :range => :day, :offset => 0
+      redirect_to :controller => "events", :range => :next
     else
       
     end

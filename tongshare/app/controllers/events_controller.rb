@@ -9,25 +9,33 @@ class EventsController < ApplicationController
     #@events = Event.find_all_by_creator_id current_user.id
     authorize! :index, Event
 
-    params[:range] = :day unless ["day", "week"].include?(params[:range])
+    params[:range] = :next unless ["next", "day", "week"].include?(params[:range])
     params[:offset] ||= 0
+    params[:limit] ||= 10
     range = params[:range].to_sym
     offset = params[:offset].to_i
+    limit = params[:limit].to_i
 
-    case range
-    when :day
-        from = Date.today + offset.days
-        to = Date.today + offset.days + 1.days
-    when :week:
-        from = Date.today.beginning_of_week + offset.weeks
-        to = Date.today.beginning_of_week + offset.weeks + 1.weeks
+    if range == :next
+      @instances = query_next_accepted_instance_includes_event(Time.now, limit)  #TODO: paginate
+    else
+      case range
+        when :day
+          from = Date.today + offset.days
+          to = Date.today + offset.days + 1.days
+        when :week:
+          from = Date.today.beginning_of_week + offset.weeks
+          to = Date.today.beginning_of_week + offset.weeks + 1.weeks
+      end
+
+      #TODO: this month, all(events)
+
+      #logger.debug from.to_time.to_s
+      #logger.debug to.to_time.to_s
+
+      @instances = query_all_accepted_instance_includes_event(from.to_time, to.to_time)
     end
-    #TODO: this month, all(events)
 
-    logger.debug from.to_time.to_s
-    logger.debug to.to_time.to_s
-
-    @instances = query_all_accepted_instance_includes_event(from.to_time, to.to_time)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -51,8 +59,21 @@ class EventsController < ApplicationController
   # GET /events/new.xml
   def new
     @event = Event.new
-    @event.begin = Time.now
-    @event.end = Time.now + 30.minutes
+
+    #automatically set time
+    range = params[:range].blank? ? :day : params[:range].to_sym
+    offset = params[:offset].blank? ? 0 : params[:offset].to_i
+
+    case range
+    when :next
+        @event.begin = Time.now
+    when :day
+        @event.begin = Time.now + offset.days
+    when :week:
+        @event.begin = Time.now + offset.weeks
+    end
+
+    @event.end = @event.begin + 30.minutes
     time_ruby2selector(@event)
 
     @event.rrule_days = [Date.today.wday]
@@ -87,7 +108,7 @@ class EventsController < ApplicationController
     ret = @event.save
     respond_to do |format|
       if ret
-        format.html { redirect_to(edit_event_path(@event), :notice => I18n.t('tongshare.event.created', :name => @event.name)) }
+        format.html { redirect_to(@event, :notice => I18n.t('tongshare.event.created', :name => @event.name)) }
         format.xml  { render :xml => @event, :status => :created, :location => @event }
       else
         format.html { render :action => "new" }
@@ -108,7 +129,7 @@ class EventsController < ApplicationController
     
     respond_to do |format|
       if ret
-        format.html { redirect_to(edit_event_path(@event), :notice => I18n.t('tongshare.event.updated', :name => @event.name)) }
+        format.html { redirect_to(@event, :notice => I18n.t('tongshare.event.updated', :name => @event.name)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -121,7 +142,9 @@ class EventsController < ApplicationController
   # DELETE /events/1.xml
   def destroy
     @event = Event.find(params[:id])
+    
     authorize! :destroy, @event
+
     @event.destroy
 
     respond_to do |format|

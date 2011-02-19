@@ -1,4 +1,4 @@
-
+<%#deprecated%>
 <%= div_for @event, :class => "show" do %>
   <div class="event name"><%= @event.name %></div>
   <div class="event creator">由<%= @event.creator.friendly_name %>创建</div>
@@ -9,8 +9,18 @@
   <div class="event extra">
     <%= @event.extra_info %>
   </div>
-  <div class="event attendee">参与者：<%= show_attendees(@event).html_safe %> </div>
-  <br/>
+
+  <% if (attendees = get_attendees(@event)) %>
+    <%= content_box nil, "参与者", true do %>
+      <div class="event attendee">
+        <ul>
+          <% attendees.each do |att| %>
+            <li><%=att%></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  <% end %>
 
   <div class="event buttons">
     <%= styled_button "编辑", edit_event_path(@event) %>

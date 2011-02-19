@@ -56,6 +56,7 @@ class Ability
       #TODO: I think we need to build a index table showing whether a user can access to an event
     end
     can :index, Event
+    
 
     #user can edit profile
     can :update, User, :id => @user.id
@@ -69,6 +70,9 @@ class Ability
 
     #Some fields of the sharing (click, stars, etc.) can only be modified by administrators
     cannot :update_sys, Sharing
+
+    #user can edit acceptance they owns
+    can :edit, Acceptance, :user_id => @user.id
 
     #Recommend to individuals
     can :write, UserSharing,
