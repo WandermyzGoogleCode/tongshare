@@ -240,8 +240,6 @@ module EventsHelper
     return result
   end
 
-  CHN_WEEK_DAYS = ["日", "一", "二", "三", "四", "五", "六"]
-
   def show_friendly_rrule(event) #TODO i18n
     rrule = event.rrule
     return "" if rrule.nil? || rrule == ""
@@ -252,7 +250,7 @@ module EventsHelper
       interval_string = "" if (interval_string == "1")
       days = []
       for i in 0...7
-        days << CHN_WEEK_DAYS[i] if rec.day[i]
+        days << (I18n.t 'date.abbr_day_names')[i] if rec.day[i]
       end
       day_string = days.join("、")
       result = sprintf("每%s周的周%s", interval_string, day_string)
