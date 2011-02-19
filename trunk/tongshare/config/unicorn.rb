@@ -1,17 +1,16 @@
-worker_processes 20
+worker_processes 2
 working_directory "/var/www/tongshare/current/"
 
 # This loads the application in the master process before forking
 # # worker processes
 # # Read more about it here:
 # # http://unicorn.bogomips.org/Unicorn/Configurator.html
-preload_app true
+preload_app false 
 #
 timeout 1200
 #
 # # This is where we specify the socket.
-# # We will point the upstream Nginx module to this socket later on
-listen "/var/www/tongshare/current/tmp/sockets/unicorn.sock", :backlog => 64
+listen "127.0.0.1:8000", :backlog => 64
 #
 pid "/var/www/tongshare/current/tmp/pids/unicorn.pid"
 #
