@@ -22,7 +22,9 @@ class User < ActiveRecord::Base
          :authentication_keys => [:id]
        
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :id
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :id, :user_identifier
+  attr_accessible :user_extra, :admin_extra
+  
   has_many :user_identifier, :dependent => :destroy
   has_many :group, :foreign_key => "creator_id", :dependent => :destroy
   has_many :membership, :dependent => :destroy
@@ -48,7 +50,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  #skip sth. useless like "user_identifier is invalid"
   after_validation :purge_useless
 
   def purge_useless

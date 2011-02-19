@@ -1,5 +1,6 @@
 # Type should be in {"employee_no", "mobile", "email"}
 class UserIdentifier < ActiveRecord::Base
+  extend UsersHelper
   include UsersHelper
 
   MAX_VALUE_LENGTH = 128
@@ -20,8 +21,9 @@ class UserIdentifier < ActiveRecord::Base
   #TODO: "Value has already been taken" -> "xxx has already been taken"
   validate :value_format_check
 
-  attr_accessible :login_value, :login_type
+  attr_accessible :login_value, :login_type, :confirmed, :user
 
+  
   def value_format_check
     case login_type
     when TYPE_EMPLOYEE_NO, TYPE_EMPLOYEE_NO_DUMMY
@@ -33,4 +35,17 @@ class UserIdentifier < ActiveRecord::Base
     end
   end
 
+  #value does not contains tsinghua.edu.cn. return User or nil
+  def self.find_user_by(login_type, login_value)
+    ui = UserIdentifier.find_by(login_type, login_value)
+    return nil if ui.nil?
+    return ui.user
+  end
+
+  #value does not contains tsinghua.edu.cn. return UserIdentifier or nil
+  def self.find_by(login_type, login_value)
+    login_value = company_domain + "." + login_value if login_type == TYPE_EMPLOYEE_NO
+    ui = UserIdentifier.find(:first, :conditions => ["login_type = ? AND login_value = ?", login_type, login_value])
+    return ui
+  end
 end

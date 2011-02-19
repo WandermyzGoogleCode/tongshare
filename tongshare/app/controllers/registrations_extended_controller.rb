@@ -1,6 +1,7 @@
 class RegistrationsExtendedController < Devise::RegistrationsController
 include RegistrationsExtendedHelper
 include UsersHelper
+include AuthHelper
 
   def new
     super
@@ -8,6 +9,11 @@ include UsersHelper
   end
 
   def create
+    
+    #if a user has already registered the employee_id but not confirmed, we will destroy the old one
+    oldone = UserIdentifier.find_by(UserIdentifier::TYPE_EMPLOYEE_NO, params[:employee_no])
+    oldone.user.destroy unless oldone.nil? || oldone.confirmed
+
 
     build_resource
 
@@ -42,10 +48,17 @@ include UsersHelper
 
     #skip email verify always
     resource.skip_confirmation!
-
+    
     #do what devise does
     if resource.save
       set_flash_message :notice, :signed_up
+
+      #backup the current redirect_to (according to stored_location_for)
+      redirect_to = session[:user_return_to] || root_url
+
+      #devise will do the redirect to session[:user_return_to]
+      session[:user_return_to] = auth_path(params[:employee_no], redirect_to)
+      
       sign_in_and_redirect(resource_name, resource)
     else
       clean_up_passwords(resource)
