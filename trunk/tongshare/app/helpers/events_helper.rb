@@ -2,6 +2,7 @@ module EventsHelper
   require 'thucourse'
   require 'gcal4ruby/recurrence'
   require 'time'
+  require 'pp'
 
    # Please check these time settings. Are they correct?
   COURSE_BEGINES = ["8:00", "9:50", "13:30", "15:20", "17:05", "19:20"]
@@ -233,6 +234,7 @@ module EventsHelper
 
     result = ""
     for user in users
+      pp user
       result << user.friendly_name + "\n"
     end
     return result
