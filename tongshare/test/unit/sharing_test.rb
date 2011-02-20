@@ -60,8 +60,14 @@ class SharingTest < ActiveSupport::TestCase
     events(:one_instance).decide_by_user(2, true)
     ret = query_all_accepted_instance_includes_event(time_begin, time_end, 2)
     assert ret.size == 6 # event #1 + event #2 * 5
-    assert ret[0].event == events(:one_instance)
-    #assert ret[0].name == events(:one_instance).name
+    count_i = 0
+    count_j = 0
+    ret.each do |r|
+      count_i += 1 if r.event == events(:one_instance)
+      count_j += 1 if r.event == events(:weekly_count)
+    end
+    assert count_i == 1
+    assert count_j == 5
   end
   
 end

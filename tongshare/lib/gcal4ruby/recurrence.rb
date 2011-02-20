@@ -213,10 +213,18 @@ module GCal4Ruby
     
     #Sets the end date for the recurrence
     def repeat_until=(r)
-      if not  r.is_a?(Date)
-        raise RecurrenceValueError, "Repeat_until must be a date"
-      else
+      if r.is_a?(Date)
+        if !@start_time.nil?
+          delta = r - @start_time.to_date
+          @repeat_until = @start_time + delta
+        else
+          #TODO offset?
+          @repeat_until = r.to_time
+        end
+      elsif r.is_a?(Time)
         @repeat_until = r
+      else
+        raise RecurrenceValueError, "Repeat_until must be a date or a time"
       end
     end
 
