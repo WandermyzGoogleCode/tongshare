@@ -31,7 +31,9 @@
       <%= styled_button "删除", @event, :method => "delete",
         :confirm => ("你确实要删除\"#{@event.name}\"吗？" + (@event.recurring? ? "这是一个重复的事件，所有重复项都会被删除！" : "")) \
          if can? :destroy, @event %>
-      <%= styled_button "退出活动", '#', :confirm => "确实要退出该活动吗？" if can? :edit, find_acceptance(@event)%>
+
+      <% acc = find_acceptance(@event) %>
+      <%= styled_button "退出活动", {:controller => "acceptance", :action => "deny", :id => acc.id}, :confirm => "确实要退出该活动吗？" if can? :deny, find_acceptance(@event)%>
     </div>
 
   <%end%>

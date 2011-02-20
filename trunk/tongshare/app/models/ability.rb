@@ -72,7 +72,7 @@ class Ability
     cannot :update_sys, Sharing
 
     #user can edit acceptance they owns
-    can :edit, Acceptance, :user_id => @user.id
+    can :deny, Acceptance, :user_id => @user.id
 
     #Recommend to individuals
     can :write, UserSharing,

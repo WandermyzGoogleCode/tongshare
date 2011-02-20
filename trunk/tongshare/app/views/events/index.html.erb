@@ -3,7 +3,7 @@
 
 <%
   week_str = number_of_week_in_thu
-  week_str = "，#{week}" unless week_str.blank?
+  week_str = "，#{week_str}" unless week_str.blank?
 %>
 <div id="current_time">现在是<%= l Time.now, :format => :long %><%=week_str%>。</div>
 <%#*<div id="share_notice">%>
@@ -48,7 +48,8 @@
                   :confirm => ("你确实要删除\"#{instance.name}\"吗？" + (instance.event.recurring? ? "这是一个重复的事件，所有重复项都会被删除！" : "")) \
                   if can? :destroy, instance.event
             %>
-             <%= link_to "退出活动", '#', :confirm => "确实要退出该活动吗？" if can? :edit, find_acceptance(instance.event)%>
+            <% acc = find_acceptance(instance.event) %>
+             <%= link_to "退出活动", {:controller => "acceptance", :action => "deny", :id => acc.id}, :confirm => "确实要退出该活动吗？" if can? :deny, acc%>
           </span>
         </div>
       <% end %>
