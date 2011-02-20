@@ -5,8 +5,10 @@ class AuthController < ApplicationController
   include EventsHelper
   include UsersHelper
   skip_before_filter :verify_authenticity_token
-  
-  SECRET = "this is a secret" # should be the same with ThuAuth
+
+  # TODO make this out of svn synchronized source file.
+  # This should be the same with ThuAuth
+  SECRET = "this is a secret" 
 
   def confirm
     name = params[:name]

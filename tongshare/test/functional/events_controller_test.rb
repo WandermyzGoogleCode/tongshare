@@ -22,7 +22,7 @@ class EventsControllerTest < ActionController::TestCase
       post :create, :event => @event.attributes
     end
 
-    assert_redirected_to event_path(assigns(:event))
+    assert_redirected_to (assigns(:event))
   end
 
   test "should show event" do
@@ -37,7 +37,7 @@ class EventsControllerTest < ActionController::TestCase
 
   test "should update event" do
     put :update, :id => @event.to_param, :event => @event.attributes
-    assert_redirected_to event_path(assigns(:event))
+    assert_redirected_to (assigns(:event))
   end
 
   test "should destroy event" do
