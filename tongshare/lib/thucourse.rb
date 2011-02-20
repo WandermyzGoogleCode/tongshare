@@ -18,6 +18,9 @@ class CourseClass
   VALID_WEEK_MODIFIERS = [ALL_WEEK, EVEN_WEEK, ODD_WEEK, EARLIER_EIGHT, LATER_EIGHT]
   VALID_SECOND_ROW = ",星期一,星期二,星期三,星期四,星期五,星期六,星期日"
 
+  COURSE_REGEX = /(.*)\((.*)\)/
+  SPECIAL_WEEK_MODIFIER_REGEX = /(\d)-(\d)周/
+
   attr_accessor :class_set
   attr_accessor :name
   attr_accessor :teacher
@@ -26,7 +29,7 @@ class CourseClass
   #共同确定课程中一节课的时间（一门课一周可能有多节）
   attr_accessor :day_time # 1..6, 第1..6节
   attr_accessor :week_day # 1..7，星期一..星期日
-  attr_accessor :week_modifier # "全周", "双周", "单周", "前八周", "后八周"
+  attr_accessor :week_modifier # "全周", "双周", "单周", "前八周", "后八周", "x-y周"
   attr_accessor :extra_info # 所有除课程名之外的信息，如“喻文健；限选；全周；六教6C201”
 
   def initialize(class_set = [])
@@ -37,9 +40,9 @@ class CourseClass
   end
 
   def self.add(week_day, day_time, spec, class_set)
-    if (result = spec.match(/(.*)\((.*)\)/))
-      name = result[1];
-      extra = result[2];
+    for result in spec.scan COURSE_REGEX
+      name = result[0];
+      extra = result[1];
       course_class = CourseClass.new(class_set)
       class_set << course_class
       course_class.name = name
@@ -49,6 +52,7 @@ class CourseClass
       course_class.location = options.last
       for i in 1...options.size-1
         course_class.week_modifier = options[i] if VALID_WEEK_MODIFIERS.include? options[i]
+        course_class.week_modifier = options[i] if options[i].match SPECIAL_WEEK_MODIFIER_REGEX
       end
       course_class.day_time = day_time
       course_class.week_day = week_day
