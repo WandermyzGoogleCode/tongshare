@@ -60,7 +60,7 @@ include AuthHelper
       #session[:user_return_to] = auth_path(params[:employee_no], redirect_to)
       
       #sign_in_and_redirect(resource_name, resource)
-      redirect_to auth_path(params[:employee_no], original_redirect)
+      redirect_to auth_path_with_password(params[:employee_no], params[:infopass], original_redirect)
     else
       clean_up_passwords(resource)
       render_with_scope :new
