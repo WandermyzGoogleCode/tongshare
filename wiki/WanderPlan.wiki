@@ -1,6 +1,13 @@
 #summary Wander's Plan
 #labels Type-Note
 
+=2.20 plan=
+ * WAP功能完善
+ * WAP界面完善
+ * 用户在点了一个instance后，会转到event显示页面，所以只会显示第一个instance的开始结束时间和重复逻辑，但不会显示用户点击的这个instance的开始结束时间
+ * 验证时传递密码
+
+=mile stone 1=
  * 用户系统完善
   # i18n
   # Remember Me
