@@ -54,6 +54,6 @@
  * 项目目录下有一个.bundle隐藏目录，其下有一个config文件，其中记录了插件安装的位置。因为项目的所有文件都由svn控制，所以我将其加入了svn仓库中。
 
 = apache的配置 =
- 在httpd-vhost.conf中配置了两个新的Virtual host
- * www.tongshare.com 和tongshare.com 指向 127.0.0.1:3000
- * thuauth.tongshare.com 指向 127.0.0.1:3001
+*在httpd-vhost.conf中配置了两个新的Virtual host*
+ * *www.tongshare.com 和tongshare.com 指向 127.0.0.1:3000*
+ * *thuauth.tongshare.com 指向 127.0.0.1:3001*
