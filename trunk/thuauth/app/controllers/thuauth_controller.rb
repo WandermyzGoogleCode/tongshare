@@ -51,14 +51,14 @@ class ThuauthController < ApplicationController
             redirect_to @redirect_to
             pp "success"
           else
-            flash[:alert] = "Confirmation not accepted"
+            flash[:alert] = "验证失败"
             respond_to do |format|
               format.html { render :text => response.body }
             end
             pp "failed"
           end
         else
-          flash[:alert] = "Authentication failed"
+          flash[:alert] = "验证失败，用户名或密码错误"
         end
       end
 #    end
