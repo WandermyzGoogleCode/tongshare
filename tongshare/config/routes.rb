@@ -1,5 +1,10 @@
 Tongshare::Application.routes.draw do
 
+  get "acceptance/create"
+  get "acceptance/destroy"
+  get "acceptance/deny"
+  get "acceptance/accept"
+
   post "auth/confirm"
 
   get "thuauth/auth_with_xls_and_get_name"
@@ -25,7 +30,8 @@ Tongshare::Application.routes.draw do
   resources :groups
   resources :events
   resources :sharings
- 
+  resources :acceptances
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
