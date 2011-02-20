@@ -21,7 +21,7 @@ class SessionsExtendedController < Devise::SessionsController
       params[:user][:id] = user_id_rec.user_id
     end
 
-    logger.debug params.to_yaml
+    #logger.debug params.to_yaml
 
     if !user_id_rec.nil? && !user_id_rec.confirmed
       flash[:notice] = "您的帐号未能通过验证，请尝试重新注册。"
