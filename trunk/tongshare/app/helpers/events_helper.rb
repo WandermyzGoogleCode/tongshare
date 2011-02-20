@@ -56,6 +56,14 @@ module EventsHelper
         rrule.count = 8
         event.begin += (7*8).days
         event.end += (7*8).days
+      else
+        if (matches = course_class.week_modifier.match CourseClass::SPECIAL_WEEK_MODIFIER_REGEX)
+          from = matches[1].to_i-1
+          to = matches[2].to_i-1
+          rrule.count = to-from+1
+          event.begin += (from*7).days
+          event.end += (from*7).days
+        end
       end
     end
     event.rrule = rrule.rrule
