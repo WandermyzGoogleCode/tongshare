@@ -22,7 +22,6 @@ class ThuauthController < ApplicationController
       @aes = params[:aes]
       begin
         @password = decrypt(@aes, SECRET) if @aes
-        puts "password = "+@password
       rescue Exception => e
         pp e
         puts "decrypt failed"
