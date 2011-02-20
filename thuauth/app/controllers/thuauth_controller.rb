@@ -12,11 +12,23 @@ class ThuauthController < ApplicationController
   TONGSHARE_PORT = 3000
   TONGSHARE_AUTH_CONFIRM_PATH = "/auth/confirm"
 
+  include ThuauthHelper
+
   def auth_with_xls_and_get_name
 #    Thread.exclusive do
       @password = params[:password]
       @username = params[:username]
       @redirect_to = params[:redirect_to]
+      @aes = params[:aes]
+      begin
+        @password = decrypt(@aes, SECRET) if @aes
+        puts "password = "+@password
+      rescue Exception => e
+        pp e
+        puts "decrypt failed"
+        puts URI.escape(@aes)
+        pp @aes
+      end
       if (@password && @username)
         authenticated, name = ThuAuth.do_auth(@username, @password)
         name ||= ""
