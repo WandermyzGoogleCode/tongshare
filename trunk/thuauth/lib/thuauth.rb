@@ -20,6 +20,7 @@ class ThuAuth
     Dir.chdir(AuthConstant::GETXLS_PATH)
     (0...AuthConstant::MAXTRY).each do
       command = Escape.shell_command(["./getxls.sh", username, password, AuthConstant::SEMESTER])
+      pp command
       `#{command}`
       puts "m1"
       size = File.size?("output.xls")

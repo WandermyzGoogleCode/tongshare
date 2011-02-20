@@ -727,3 +727,204 @@ Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sat Feb 19 2
   Parameters: {"username"=>"2007011329", "authenticity_token"=>"GNU3K4s8Zk8ywnNiV3g9J0AA+Rq3MSqqXff5pvTKNN8=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
 Redirected to http://localhost:3000/
 Completed 302 Found in 1552ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011324&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sun Feb 20 22:11:14 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 69ms (Views: 68.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sun Feb 20 22:13:23 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"hYtTUKjvZr8wOokGZb2rr/nY2hbLospDPU0pkLiOY8o=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Completed   in 67818ms
+
+Errno::EACCES (Permission denied - Login.out):
+  lib/thuauth.rb:56:in `delete'
+  lib/thuauth.rb:56:in `do_auth'
+  app/controllers/thuauth_controller.rb:21:in `auth_with_xls_and_get_name'
+
+Rendered /var/www/thuauth/.devise/ruby/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.4ms)
+Rendered /var/www/thuauth/.devise/ruby/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (6.6ms)
+Rendered /var/www/thuauth/.devise/ruby/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (11.9ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011324&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sun Feb 20 22:15:31 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.3ms)
+Completed 200 OK in 6ms (Views: 5.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sun Feb 20 22:15:49 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"hYtTUKjvZr8wOokGZb2rr/nY2hbLospDPU0pkLiOY8o=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (5.0ms)
+Completed 200 OK in 1250ms (Views: 10.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sun Feb 20 22:16:03 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"hYtTUKjvZr8wOokGZb2rr/nY2hbLospDPU0pkLiOY8o=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 1109ms (Views: 8.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sun Feb 20 22:16:14 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"hYtTUKjvZr8wOokGZb2rr/nY2hbLospDPU0pkLiOY8o=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 1086ms (Views: 13.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011324&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sun Feb 20 22:19:10 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.3ms)
+Completed 200 OK in 38ms (Views: 38.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sun Feb 20 22:19:15 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"hYtTUKjvZr8wOokGZb2rr/nY2hbLospDPU0pkLiOY8o=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (3.3ms)
+Completed 200 OK in 1125ms (Views: 11.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sun Feb 20 22:21:58 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"hYtTUKjvZr8wOokGZb2rr/nY2hbLospDPU0pkLiOY8o=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Redirected to http://localhost:3000/
+Completed 302 Found in 2254ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011329&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sun Feb 20 23:00:47 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 7ms (Views: 6.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sun Feb 20 23:00:56 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011329", "authenticity_token"=>"hYtTUKjvZr8wOokGZb2rr/nY2hbLospDPU0pkLiOY8o=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (4.3ms)
+Completed 200 OK in 4288ms (Views: 11.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011324&redirect_to=http://localhost:3000/" for 127.0.0.1 at Sun Feb 20 23:09:46 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "redirect_to"=>"http://localhost:3000/"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 56ms (Views: 55.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/thuauth/auth_with_xls_and_get_name" for 127.0.0.1 at Sun Feb 20 23:09:50 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"username"=>"2007011324", "authenticity_token"=>"07yplxcTRdBKdzSljXYlxt84xLrV7k9gAmjOGjY0iw0=", "utf8"=>"✓", "password"=>"[FILTERED]", "redirect_to"=>"http://localhost:3000/"}
+Redirected to http://localhost:3000/
+Completed 302 Found in 1979ms
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011324&redirect_to=/events?range=next&aes=tPAB3dXw8JRadIoGTBkb3w==%0A" for 127.0.0.1 at Mon Feb 21 00:04:33 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"aes"=>"tPAB3dXw8JRadIoGTBkb3w==\n", "username"=>"2007011324", "redirect_to"=>"/events?range=next"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 8ms (Views: 7.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011324&redirect_to=/events?range=next&aes=tPAB3dXw8JRadIoGTBkb3w==%0A" for 127.0.0.1 at Mon Feb 21 00:07:11 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"aes"=>"tPAB3dXw8JRadIoGTBkb3w==\n", "username"=>"2007011324", "redirect_to"=>"/events?range=next"}
+Completed   in 0ms
+
+NoMethodError (undefined method `debug' for Logger:Class):
+  app/controllers/thuauth_controller.rb:25:in `auth_with_xls_and_get_name'
+
+Rendered /var/www/thuauth/.devise/ruby/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.7ms)
+Rendered /var/www/thuauth/.devise/ruby/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (8.8ms)
+Rendered /var/www/thuauth/.devise/ruby/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (15.5ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011324&redirect_to=/events?range=next&aes=tPAB3dXw8JRadIoGTBkb3w==%0A" for 127.0.0.1 at Mon Feb 21 00:08:03 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"aes"=>"tPAB3dXw8JRadIoGTBkb3w==\n", "username"=>"2007011324", "redirect_to"=>"/events?range=next"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 7ms (Views: 6.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011324&redirect_to=/events?range=next&aes=tPAB3dXw8JRadIoGTBkb3w==%0A" for 127.0.0.1 at Mon Feb 21 00:08:42 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"aes"=>"tPAB3dXw8JRadIoGTBkb3w==\n", "username"=>"2007011324", "redirect_to"=>"/events?range=next"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 7ms (Views: 6.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011324&redirect_to=/events?range=next&aes=tPAB3dXw8JRadIoGTBkb3w==%0A" for 127.0.0.1 at Mon Feb 21 00:13:50 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"aes"=>"tPAB3dXw8JRadIoGTBkb3w==\n", "username"=>"2007011324", "redirect_to"=>"/events?range=next"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (4.7ms)
+Completed 200 OK in 15ms (Views: 13.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011324&redirect_to=/events?range=next&aes=tPAB3dXw8JRadIoGTBkb3w==%0A" for 127.0.0.1 at Mon Feb 21 00:19:03 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"aes"=>"tPAB3dXw8JRadIoGTBkb3w==\n", "username"=>"2007011324", "redirect_to"=>"/events?range=next"}
+Rendered thuauth/auth_with_xls_and_get_name.html.erb within layouts/application (3.7ms)
+Completed 200 OK in 10ms (Views: 7.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011324&redirect_to=/events?range=next&aes=tPAB3dXw8JRadIoGTBkb3w==%0A" for 127.0.0.1 at Mon Feb 21 00:21:15 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"aes"=>"tPAB3dXw8JRadIoGTBkb3w==\n", "username"=>"2007011324", "redirect_to"=>"/events?range=next"}
+Completed   in 3ms
+
+Errno::ENOENT (No such file or directory - /var/www/hack/):
+  lib/thuauth.rb:20:in `chdir'
+  lib/thuauth.rb:20:in `auth_with_xls'
+  lib/thuauth.rb:54:in `do_auth'
+  app/controllers/thuauth_controller.rb:33:in `auth_with_xls_and_get_name'
+
+Rendered /var/www/thuauth/.devise/ruby/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.1ms)
+Rendered /var/www/thuauth/.devise/ruby/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (6.3ms)
+Rendered /var/www/thuauth/.devise/ruby/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (11.1ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011324&redirect_to=/events?range=next&aes=tPAB3dXw8JRadIoGTBkb3w==%0A" for 127.0.0.1 at Mon Feb 21 00:23:18 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"aes"=>"tPAB3dXw8JRadIoGTBkb3w==\n", "username"=>"2007011324", "redirect_to"=>"/events?range=next"}
+Completed   in 1ms
+
+Errno::ENOENT (No such file or directory - /var/www/hack/):
+  lib/thuauth.rb:20:in `chdir'
+  lib/thuauth.rb:20:in `auth_with_xls'
+  lib/thuauth.rb:54:in `do_auth'
+  app/controllers/thuauth_controller.rb:33:in `auth_with_xls_and_get_name'
+
+Rendered /var/www/thuauth/.devise/ruby/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.1ms)
+Rendered /var/www/thuauth/.devise/ruby/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.5ms)
+Rendered /var/www/thuauth/.devise/ruby/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (10.1ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011324&redirect_to=/events?range=next&aes=tPAB3dXw8JRadIoGTBkb3w==%0A" for 127.0.0.1 at Mon Feb 21 00:24:49 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"aes"=>"tPAB3dXw8JRadIoGTBkb3w==\n", "username"=>"2007011324", "redirect_to"=>"/events?range=next"}
+Redirected to http://localhost:3001/events?range=next
+Completed 302 Found in 2033ms
+
+
+Started GET "/events?range=next" for 127.0.0.1 at Mon Feb 21 00:24:51 +0800 2011
+
+ActionController::RoutingError (No route matches "/events"):
+  
+
+Rendered /var/www/thuauth/.devise/ruby/1.8/gems/actionpack-3.0.4/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (0.8ms)
+
+
+Started GET "/thuauth/auth_with_xls_and_get_name/?username=2007011324&redirect_to=http://localhost:3000/&aes=tPAB3dXw8JRadIoGTBkb3w==%0A" for 127.0.0.1 at Mon Feb 21 00:30:35 +0800 2011
+  Processing by ThuauthController#auth_with_xls_and_get_name as HTML
+  Parameters: {"aes"=>"tPAB3dXw8JRadIoGTBkb3w==\n", "username"=>"2007011324", "redirect_to"=>"http://localhost:3000/"}
+Redirected to http://localhost:3000/
+Completed 302 Found in 2759ms
