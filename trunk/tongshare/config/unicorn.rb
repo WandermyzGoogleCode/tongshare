@@ -10,7 +10,7 @@ preload_app false
 timeout 1200
 #
 # # This is where we specify the socket.
-listen "127.0.0.1:8000", :backlog => 64
+listen "localhost:3000", :backlog => 64
 #
 pid "/var/www/tongshare/current/tmp/pids/unicorn.pid"
 #
