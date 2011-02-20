@@ -18,8 +18,11 @@
  * 配置文件比较易懂，前面主要是配置一些常量。
  * 后半部分定义了几个task，通过cap deploy:XXX调用 task XXX.
  * 需要注意的是，有必要在checkout代码后调用一遍bundle install，以保证插件的完整性。否则服务运行时会不断地抛exception
- * 我给服务器新建了一个deployer账号，用来部署，部署时需要输入此账号的密码。
- * svn的checkout目前用的是我的用户名以及对应的密码，直接写在配置文件当中。
+ * *服务器上新建了一个deployer账号，用来部署，部署时需要输入此账号的密码。*
+ * *svn的checkout目前用的是paullzn以及对应的密码，直接写在配置文件当中。*
+ * *tongshare服务部署在/var/www/tongshare/*
+ * *thuauth服务部署在/var/www/thuauth/*
+ * *hack文件夹放在/var/www/hack/*
 
 = 用unicorn+apache运行服务 =
  unicorn 是一个具有UNIX特性的ruby服务器，通常与nginx前端服务器配合使用。
