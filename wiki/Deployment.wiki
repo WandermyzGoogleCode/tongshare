@@ -1,13 +1,30 @@
-#summary One-sentence summary of this page.
+#summary deployment doc for tongshare and thuauth.
 
-= Introduction =
+= 用Capistrano部署 =
 
-Add your content here.
+== 使用方法 ==
+ * 初始化
+{{{
+    sudo apt-get install capistrano
+    cd PROJ_ROOT_DIR
+    capify .
+}}}
+ * cap deploy 最常用的命令。它会降代码checkout到目标服务器，然后restart服务
+ * cap deploy:update 把svn的代码checkout到目标服务器
+ * cap deploy:start 运行目标服务器上的服务
+ 
+== 配置 ==
 
 
-= Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+= 用unicorn+apache运行服务 =
+
+== 使用方法 ==
+
+== 配置 ==
+
+
+= Bundle的配置 =
+
+
+= apache的配置 =
