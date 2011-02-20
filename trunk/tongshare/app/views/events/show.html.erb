@@ -3,9 +3,22 @@
   <%= div_for @event, :class => "show" do %>
     <div class="event name"><%= @event.name %></div>
     <div class="event creator">由<%= @event.creator.friendly_name %>创建</div>
-    <div class="event time"><%= friendly_time_range @event.begin, @event.end  %></div>
+
     <% if @event.recurring? %>
-    <div class="event rrule">重复：<%=  show_friendly_rrule(@event) %></div>
+      <div class="event time">
+        <% if @instance.nil? %>
+          <%= friendly_time_range @event.begin, @event.end %>
+        <% else %>
+          <%= friendly_time_range @instance.begin, @instance.end  %>
+        <% end %>
+      </div>
+      <div class="event rrule">
+        重复：
+        <%= "从#{l @event.begin, :format => :date_only}开始，" unless (@instance.nil? || @event.begin == @instance.begin) %>
+        <%=  show_friendly_rrule(@event) %>
+      </div>
+    <% else %>
+      <%= friendly_time_range @event.begin, @event.end %>
     <% end %>
 
     <div class="event location">地点：<%= @event.location.blank? ? "（未指定）" : @event.location %></div>

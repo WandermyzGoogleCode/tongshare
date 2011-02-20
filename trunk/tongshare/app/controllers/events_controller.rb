@@ -47,8 +47,10 @@ class EventsController < ApplicationController
   # GET /events/1.xml
   def show
     @event = Event.find(params[:id])
+    @instance = params[:inst].blank? ? nil : Instance.find(params[:inst])
+
     authorize! :show, @event
-    
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @event }

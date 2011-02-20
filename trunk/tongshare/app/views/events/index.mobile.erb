@@ -9,8 +9,8 @@
 <br/><br/>
 
 <% @instances.each do |instance|%>
-  <%= link_to instance.name, event_path(instance.event) %><br/>
-  <%=instance.location.blank? ? "" : (instance.location + "<br/>").html_safe%>
+  <%= link_to instance.name, event_path(instance.event, :inst=>instance.id) %><br/>
+  <%= instance.location.blank? ? "" : (instance.location + "<br/>").html_safe%>
   <%= friendly_time_range instance.begin, instance.end %>
   <%#= link_to "删除", instance.event, :method => "delete" %>
   <hr/>
