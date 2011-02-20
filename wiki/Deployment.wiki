@@ -18,6 +18,8 @@
  * 配置文件比较易懂，前面主要是配置一些常量。
  * 后半部分定义了几个task，通过cap deploy:XXX调用 task XXX.
  * 需要注意的是，有必要在checkout代码后调用一遍bundle install，以保证插件的完整性。否则服务运行时会不断地抛exception
+ * 我给服务器新建了一个deployer账号，用来部署，部署时需要输入此账号的密码。
+ * svn的checkout目前用的是我的用户名以及对应的密码，直接写在配置文件当中。
 
 = 用unicorn+apache运行服务 =
  unicorn 是一个具有UNIX特性的ruby服务器，通常与nginx前端服务器配合使用。
@@ -34,12 +36,21 @@
  * unicorn_rails会根据config/unicorn.rb中的配置运行。
  * -E参数表示运行development版还是production版等
  * -D参数表示后台运行
- * unicorn的错误记录一般会记录在log/unicorn-stderror.log中
+ * unicorn的错误记录一般会记录在log/unicorn.stderror.log中
 
 == 配置 ==
-
+ Unicorn的配置文件位于config/unicorn.rb中
+ * 配置文件也很容易读懂。没有什么特殊的地方。
+ * *tongshare 运行在 127.0.0.1:3000*
+ * *thuauth 运行在 127.0.0.1:3001*
 
 = Bundle的配置 =
-
+ bundler是Rails3 新加的dependency管理工具，使用比以前的plugin方便。
+ * 当前项目所有依赖的插件均记录在Gemfile中，
+ * 当代码checkout到一个新的环境中之后，只需运行bundle install，就可以将所需要的所有插件补全，保证服务可以被运行。其中可能会从git上下载代码，需要出国。
+ * 项目目录下有一个.bundle隐藏目录，其下有一个config文件，其中记录了插件安装的位置。因为项目的所有文件都由svn控制，所以我将其加入了svn仓库中。
 
 = apache的配置 =
+ 在httpd-vhost.conf中配置了两个新的Virtual host
+ * www.tongshare.com 和tongshare.com 指向 127.0.0.1:3000
+ * thuauth.tongshare.com 指向 127.0.0.1:3001
