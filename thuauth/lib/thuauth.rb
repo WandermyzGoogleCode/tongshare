@@ -9,7 +9,7 @@ require 'escape'
 #TODO put this config outside source file
 module AuthConstant
   MAXTRY = 10
-  GETXLS_PATH = "/usr/local/thuauth/"
+  GETXLS_PATH = "/var/www/hack/"
   SEMESTER = "2010-2011-2"
 end
 
