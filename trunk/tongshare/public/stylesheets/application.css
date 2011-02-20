@@ -108,3 +108,12 @@ root {
 .field .link1 {
     margin-right: 20px;
 }
+
+.field_help {
+    margin-left: 105px;
+}
+
+.stressed {
+    font-weight: bold;
+    color: #F85811;
+}

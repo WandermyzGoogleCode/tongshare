@@ -30,20 +30,20 @@ module RegistrationsExtendedHelper
   end
 
   def label_for_login(field)
-    div_tag = login_invalid?(field) ? "<div class=\"field_with_errors\">".html_safe : "<div>"
+    div_tag = login_invalid?(field) ? "<div class=\"field_with_errors\" style=\"display:inline\">".html_safe : "<div style=\"display:inline\">"
     field_name = I18n.t "activerecord.attributes.user_identifier.#{field.to_s}"
     
     content = <<HTML
     #{div_tag}
-      <label for="#{field}">#{field_name}</label>
+      <label for="#{field}" class="title">#{field_name}</label>
     </div>
 HTML
     content.html_safe
   end
 
   def text_field_for_login(field)
-    div_tag = login_invalid?(field) ? "<div class=\"field_with_errors\">".html_safe : "<div>"
-    field_tag = text_field_tag field, params[field], :max_length => UserIdentifier::MAX_VALUE_LENGTH
+    div_tag = login_invalid?(field) ? "<div class=\"field_with_errors\" style=\"display:inline\">".html_safe : "<div style=\"display:inline\">"
+    field_tag = text_field_tag field, params[field], :max_length => UserIdentifier::MAX_VALUE_LENGTH, :class => "textvalue"
 
     content = <<HTML
     #{div_tag}
