@@ -5,10 +5,10 @@ zh-CN:
         user_identifier:
           attributes:
             login_value:
-              employee_no_invalid: "学号/工作证号格式不正确"
+              employee_no_invalid: "学号格式不正确"
               mobile_invalid: "手机号格式不正确"
               taken: "登录名“%{value}”已被占用"
-              blank: "学号/工作证号不能为空" #currently, only employee_no cannot be empty
+              blank: "学号不能为空" #currently, only employee_no cannot be empty
         user:
           attributes:
             password:
@@ -39,7 +39,7 @@ zh-CN:
 
       user_identifier:
         login_value: "登录名"
-        employee_no: "学号/工作证号"
+        employee_no: "学号"
         mobile: "手机号"
         email: "电子邮件"
 
