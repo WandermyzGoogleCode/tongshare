@@ -1,7 +1,7 @@
 #summary deployment doc for tongshare and thuauth.
 
 = 用Capistrano部署 =
-
+ capistrano是针对rails项目的一个部署的脚本框架，它可以与svn或git结合
 == 使用方法 ==
  * 初始化
 {{{
@@ -14,12 +14,27 @@
  * cap deploy:start 运行目标服务器上的服务
  
 == 配置 ==
-
-
+ 主要的配置位于 config/deploy.rb 中
+ * 配置文件比较易懂，前面主要是配置一些常量。
+ * 后半部分定义了几个task，通过cap deploy:XXX调用 task XXX.
+ * 需要注意的是，有必要在checkout代码后调用一遍bundle install，以保证插件的完整性。否则服务运行时会不断地抛exception
 
 = 用unicorn+apache运行服务 =
+ unicorn 是一个具有UNIX特性的ruby服务器，通常与nginx前端服务器配合使用。
+ 这里是官方网站：http://unicorn.bogomips.org/
+ * 一个unicorn会启动一个master进程以及N个slave进程。每一个slave跑一个rails实例，unicorn的各个进程的负载完全由linux系统的进程管理来做balance，如果某个slave出了问题就重启一个新的。unicorn可以做到服务的永不掉线。
 
 == 使用方法 ==
+ * 一个典型的启动方法是
+{{{
+ cd RPOJ_ROOT_DIR
+ unicorn_rails -cconfig/unicorn.rb -E development -D
+}}}
+ * 运行的unicorn的master进程号会存在tmp/pids目录下
+ * unicorn_rails会根据config/unicorn.rb中的配置运行。
+ * -E参数表示运行development版还是production版等
+ * -D参数表示后台运行
+ * unicorn的错误记录一般会记录在log/unicorn-stderror.log中
 
 == 配置 ==
 
