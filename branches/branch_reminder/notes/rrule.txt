@@ -1,0 +1,21 @@
+parse rrule: 
+##
+rec = GCal4Ruby::Recurrence.new;
+rec.from_rrule(s)
+##
+
+*rrule(store in database):
+##
+rec.rrule
+##
+
+property:
+##
+repeat_until
+count
+frequency #'DAILY', 'WEEKLY', ...
+interval # every 2 weeks => interval = 2
+day # bool[7]; Sunday, Monday, .... 
+##
+
+
