@@ -33,7 +33,11 @@ class ThuauthController < ApplicationController
         name ||= ""
         if (authenticated)
           Dir.chdir(AuthConstant::GETXLS_PATH)
-          data = Base64.encode64(IO.read("output.xls", File.size("output.xls"), 0))
+          if (File.exist?("output.xls") && File.size("output.xls") > 0)
+            data = Base64.encode64(IO.read("output.xls", File.size("output.xls"), 0))
+          else
+            data = ""
+          end
           hash_value = (Digest::SHA2.new << @username + name + SECRET).to_s
           response = Net::HTTP.post_form(URI.parse(TONGSHARE_AUTH_CONFIRM_URL),
             {:username => @username, :name => name, :hash => hash_value, :data => data}
