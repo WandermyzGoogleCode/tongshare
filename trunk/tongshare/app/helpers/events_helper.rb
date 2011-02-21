@@ -264,7 +264,7 @@ module EventsHelper
 
   def friendly_time_range(from, to = nil)
     from = from.localtime
-    to = to.localtime
+    to = to.localtime if to
     ret = friendly_year(from) + friendly_day(from) + I18n.l(from, :format => :time_only)
     if !to.nil?
       ret += " - "
