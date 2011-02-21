@@ -3,7 +3,7 @@ require 'digest/sha2'
 require 'base64'
 
 module AuthHelper
-  #AUTH_SERVER_PATH = "http://localhost:3001/thuauth/auth_with_xls_and_get_name/"
+  AUTH_SERVER_PATH = "http://localhost:3001/thuauth/auth_with_xls_and_get_name/"
 
   def encrypt(content, key)
     c = OpenSSL::Cipher::Cipher.new("aes-256-cbc")
