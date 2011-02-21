@@ -1,7 +1,7 @@
 #summary Wander's Plan
 #labels Type-Note
 
-=HIGHEST TODO!=
+=[All Finished]HIGHEST TODO!=
  * 自动登录
  * 确保各种EMAIL，手机等登录选项都给去掉（注册、登录、首页上都有可能有这些东西）
  * 把PC网页那堆根本不存在的功能如“个人信息”“日历同步”什么的给去掉……
