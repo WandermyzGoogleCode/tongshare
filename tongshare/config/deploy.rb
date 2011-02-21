@@ -19,7 +19,7 @@ server "lives3.net", :app, :web, :db, :primary => true
 
 default_run_options[:pty] = true
 
-set :rails_env, :development
+set :rails_env, :production
 set :unicorn_binary, "/usr/bin/unicorn_rails"
 set :unicorn_config, "#{current_path}/config/unicorn.rb"
 set :unicorn_pid, "#{current_path}/tmp/pids/unicorn.pid"
