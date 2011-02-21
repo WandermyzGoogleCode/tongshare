@@ -7,7 +7,7 @@ require 'pp'
 
 class ThuauthController < ApplicationController
   SECRET = "this is a secret" # TODO put this config outside source file
-  TONGSHARE_AUTH_CONFIRM_URL = "http://localhost:3000/auth/confirm"
+  TONGSHARE_AUTH_CONFIRM_URL = "http://www.tongshare.com/auth/confirm"
   TONGSHARE_DOMAIN = "localhost"
   TONGSHARE_PORT = 3000
   TONGSHARE_AUTH_CONFIRM_PATH = "/auth/confirm"
