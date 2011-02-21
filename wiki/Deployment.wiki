@@ -7,7 +7,7 @@
 {{{
     sudo apt-get install capistrano
     cd PROJ_ROOT_DIR
-    capify .
+    capify . (only for project with no deploy.rb config file..)
 }}}
  * cap deploy 最常用的命令。它会降代码checkout到目标服务器，然后restart服务
  * cap deploy:update 把svn的代码checkout到目标服务器
