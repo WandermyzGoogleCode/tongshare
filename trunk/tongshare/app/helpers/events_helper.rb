@@ -14,6 +14,7 @@ module EventsHelper
   FIRST_DAY_IN_SEMESTER = "2011-2-20"
 
   def xls2events(data, user_id)
+    return false if data.nil? || data == ""
     class_set = CourseClass::parse_xls_from_data(data)
     class_set.each do |c|
       e = class2event(c, 1)
