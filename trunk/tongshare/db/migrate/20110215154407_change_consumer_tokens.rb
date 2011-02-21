@@ -4,6 +4,6 @@ class ChangeConsumerTokens < ActiveRecord::Migration
   end
 
   def self.down
-    change_column :consumer_tokens, :token, :string, :limit => 1024
+    change_column :consumer_tokens, :token, :string, :limit => 124
   end
 end
