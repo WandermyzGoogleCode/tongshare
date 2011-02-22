@@ -27,7 +27,7 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem 'nokogiri'
 # gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem 'aws-s3', :require => 'aws/s3'
-gem 'devise', '1.1.5' #Authentication System
+gem 'devise', '1.1.7' #Authentication System
 gem 'cancan', '1.5.1' #Permission System
 gem 'uuidtools' #generate uuid string for unique random email address
 gem 'calendar_date_select', :git => 'http://github.com/paneq/calendar_date_select.git', :branch => 'rails3test'
