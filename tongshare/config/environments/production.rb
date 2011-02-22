@@ -48,5 +48,6 @@ Tongshare::Application.configure do
   config.active_support.deprecation = :notify
 
   AUTH_SERVER_PATH = "http://thuauth.tongshare.com/thuauth/auth_with_xls_and_get_name/"
+  SECRET = "this is a secret"
 
 end
