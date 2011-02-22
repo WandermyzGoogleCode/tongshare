@@ -46,4 +46,10 @@ Thuauth::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+
+  SECRET = "this is a secret" # TODO put this config outside source file
+  TONGSHARE_AUTH_CONFIRM_URL = "http://www.tongshare.com/auth/confirm"
+  TONGSHARE_AUTH_CONFIRM_PATH = "/auth/confirm"
+
+
 end

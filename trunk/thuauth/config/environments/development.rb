@@ -22,5 +22,11 @@ Thuauth::Application.configure do
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
+
+  SECRET = "this is a secret" # TODO put this config outside source file
+  TONGSHARE_AUTH_CONFIRM_URL = "http://localhost:3000/auth/confirm"
+  TONGSHARE_AUTH_CONFIRM_PATH = "/auth/confirm"
+
+
 end
 
