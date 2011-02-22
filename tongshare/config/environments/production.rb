@@ -47,6 +47,9 @@ Tongshare::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  #time zone
+  config.time_zone = 'Beijing'
+
   AUTH_SERVER_PATH = "http://thuauth.tongshare.com/thuauth/auth_with_xls_and_get_name/"
   SECRET = "this is a secret"
 
