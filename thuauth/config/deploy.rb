@@ -26,7 +26,7 @@ set :unicorn_pid, "#{current_path}/tmp/pids/unicorn.pid"
 
 namespace :deploy do
   task :start, :roles => :app, :except => { :no_release => true } do
-    run "cd #{current_path} && bundle install && #{try_sudo} #{unicorn_binary} -c#{unicorn_config} -E #{rails_env} -D"
+    run "cd #{current_path} && bundle install && ln -s /var/www/#{application}/shared/environments #{current_path}/config/environments && #{try_sudo} #{unicorn_binary} -c#{unicorn_config} -E #{rails_env} -D"
   end
   
   task :stop, :roles => :app, :except => { :no_release => true } do 
