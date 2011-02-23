@@ -4,12 +4,13 @@
      <%#= login_type_selector UserIdentifier::TYPE_MOBILE %>
       学号<br/>
       <input type="hidden" name="login_type" value="employee_no"/>
-      <%= text_field_tag :login_value, params[:login_value], :maxlength => UserIdentifier::MAX_VALUE_LENGTH, :size => 32%><br/>
+      <%= text_field_tag :login_value, params[:login_value], :maxlength => UserIdentifier::MAX_VALUE_LENGTH%><br/>
       <%= f.label :password, '密码' %><br/>
-      <%= f.password_field :password, :size => 32 %><br/>
+      <%= f.password_field :password, :size => nil %><br/>
       <%# if devise_mapping.rememberable? -%>
       <%= f.check_box :remember_me, :checked=>true %> <%= f.label :remember_me, '记住我' %><br/>
       <%# end -%>
-      <%= f.submit "登录" %><br/>
+      <br/>
+      <%= f.submit "登录" %><br/><br/>
       <%= link_to "立即注册", new_user_registration_path %>
  <% end %>
