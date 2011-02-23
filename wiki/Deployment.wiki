@@ -12,6 +12,8 @@
  * cap deploy 最常用的命令。它会降代码checkout到目标服务器，然后restart服务
  * cap deploy:update 把svn的代码checkout到目标服务器
  * cap deploy:start 运行目标服务器上的服务
+ * 补充：
+  # 如果新部署的版本中，对/config/locales下的文件有改动，那么在执行cap deploy之前，你必须*手动*把/public/javascripts/tranlations.js复制到服务器的/var/www/tongshare/shared/public/javascripts/translations.js
  
 == 配置 ==
  主要的配置位于 config/deploy.rb 中
