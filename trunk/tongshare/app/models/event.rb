@@ -235,8 +235,8 @@ class Event < ActiveRecord::Base
       #modified by Wander
       rec = self.recurrence
       interval = self.rrule_interval
+      count = 0
       if rec.frequency == 'DAILY'
-        count = 0
         while 1
           self.instances.build(
             :name => self.name,
@@ -256,7 +256,6 @@ class Event < ActiveRecord::Base
         
       elsif rec.frequency == 'WEEKLY'
         now = self.begin
-        count = 0
         interval = 0
         interval = rec.interval - 1 if rec.interval > 1
         while 1
@@ -274,15 +273,16 @@ class Event < ActiveRecord::Base
             )
             #i.save
             count += 1
-          end
+          end         
+          break if !rec.count.nil? and count >= rec.count
+          break if !rec.repeat_until.nil? and now > rec.repeat_until
+          return false if count > MAX_INSTANCE_COUNT
+          
           now += SECONDS_OF_A_DAY # now += 1.day seems to be too slow in 1.8.7
           if now.wday == 0 # now.sunday? is too new for ruby1.8.7
             now += interval * 7 * SECONDS_OF_A_DAY
           end
 
-          break if !rec.count.nil? and count >= rec.count
-          break if !rec.repeat_until.nil? and now > rec.repeat_until
-          return false if count > MAX_INSTANCE_COUNT
         end
         
       elsif rec.frequency == 'MONTHLY'
@@ -292,8 +292,9 @@ class Event < ActiveRecord::Base
       else
         logger.debug "#{__method__}:unknown frequency: #{rec.frequency}"
       end
+      logger.debug "#{__method__}:instance generated:" + self.instances.size.to_s
     end
-    logger.debug 'instance generated:' + self.instances.size.to_s
+    
     true
   end
   
