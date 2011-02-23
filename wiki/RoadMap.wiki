@@ -1,6 +1,14 @@
 #summary Development Roadmap
 #labels Featured
 
+= 新策略下的MILESTONE2 =
+FIX完MILESTONE1的各种BUG和ENHANCEMENT之后，我们需要在本周末完成下列新的FEATURE，然后下周再丢给测试用户测试，第三周PUBLISH `^_^`
+ * 完成SHARING界面和功能
+ * 完成EMAIL CONFIRMATION，REMINDER以及查看USER的EMAIL（这个隐私问题应该不大吧？还是说要加一个是否对其它用户可见，然后默认可见？）
+ * 对SHARING以及REMINDER做PERMANCE TEST
+ * 完成查看他人的空余时间的功能，我觉得这里可能得用到一些类似于GOOGLE CALENDAR的插件。最好除了可以查看单个用户的空余时间外，还能像GOOGLE一样查看邀请的所有人的空余时间，然后FIND A TIME
+ * (欢迎补充)
+
 = 新策略 =
 
 由于MILESTONE1看样子在2-17号是出不来了，所以我们需要再次调整一下策略。为了尽量简化我们的工作，我决定从用户的需求出发，从我们推广的计划出发，minimize我们的工作。
