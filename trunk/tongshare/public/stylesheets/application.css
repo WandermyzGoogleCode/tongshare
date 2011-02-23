@@ -127,3 +127,19 @@ root {
     font-weight: bold;
     color: #F85811;
 }
+
+#acknowledge {
+    text-indent: -3em;
+    position: relative;
+    text-align: left;
+    width: 330px;
+    margin: 0 auto;
+}
+
+.hanging:before{
+    width: 3em;
+    text-align: right;
+    display: block;
+    float: left;
+    position: relative;
+}
