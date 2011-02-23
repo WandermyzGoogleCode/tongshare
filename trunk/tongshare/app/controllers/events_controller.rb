@@ -25,7 +25,7 @@ class EventsController < ApplicationController
         when :day
           from = Date.today + offset.days
           to = Date.today + offset.days + 1.days
-        when :week:
+        when :week
           from = Date.today.beginning_of_week + offset.weeks
           to = Date.today.beginning_of_week + offset.weeks + 1.weeks
       end
@@ -83,7 +83,7 @@ class EventsController < ApplicationController
         @event.begin = Time.now
     when :day
         @event.begin = Time.now + offset.days
-    when :week:
+    when :week
         @event.begin = Time.now + offset.weeks
     end
 
