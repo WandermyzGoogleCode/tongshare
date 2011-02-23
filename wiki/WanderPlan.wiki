@@ -46,3 +46,8 @@
   # 查看用户有空状态
    * 问题：可以查看什么人的有空状态？如果是所有人，那就得做搜索用户的功能。另外，默认是可以让别人知道自己有空没空是吗？这不太好吧？貌似就需要权限系统了。所以我觉得是否这个功能可以先不在mile stone 1里
     * SpaceFlyer: 所有人，不需要搜索，一开始先从输入用户的employee_num, email等，或者点击链接（比如查看同一个活动的人的有空时间）进行查看。只是否busy这个我觉得不是什么大不了的事情吧，google calendar默认也是可以看到的。而且日历上的只是一个参考，又不能作为证据什么的。我觉得这是一个很重要的incentive，有了这个用户会顿时觉得日程表确实应该online and shared.
+
+=Compile Ruby 1.9.2=
+ * NetBeans: patch org-netbeans-modules-ruby-railsprojects.jar  to /ruby/modules
+ * apt-get sqlite3
+ * apt-get libsqlite3-dev
