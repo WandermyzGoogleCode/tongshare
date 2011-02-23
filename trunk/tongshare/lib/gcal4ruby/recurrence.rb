@@ -223,6 +223,8 @@ module GCal4Ruby
         end
       elsif r.is_a?(Time)
         @repeat_until = r
+      elsif r.nil?  #add by Wander
+        @repeat_until = nil
       else
         raise RecurrenceValueError, "Repeat_until must be a date or a time"
       end
