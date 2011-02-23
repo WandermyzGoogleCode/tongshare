@@ -219,7 +219,7 @@ module GCal4Ruby
           @repeat_until = @start_time + delta
         else
           #TODO offset?
-          @repeat_until = r.to_time + (24 * 60 * 60 - 1) #1s before the next day
+          @repeat_until = r.to_time.localtime + (24 * 60 * 60 - 1) #1s before the next day
         end
       elsif r.is_a?(Time)
         @repeat_until = r
