@@ -3,6 +3,11 @@ require 'gcal4ruby'
 class Event < ActiveRecord::Base
 
   MAX_INSTANCE_COUNT = 64
+
+  RRULE_END_BY_NEVER = 0  #won't store into database, currently not supported
+  RRULE_END_BY_COUNT = 1  #won't store into database
+  RRULE_END_BY_DATE = 2   #won't store into database
+
   # In order to make Event.new(:creator_id => creator_id) work, attr_accessible :creator_id
   # seems to be necessary!
   attr_accessible :name, :begin, :end, :location, :extra_info, :rrule, :creator_id
@@ -33,6 +38,16 @@ class Event < ActiveRecord::Base
     else
       self.rrule_days = []
     end
+
+    #check repeat_end_condition
+    if self.rrule_end_condition == RRULE_END_BY_NEVER || self.rrule_end_condition == RRULE_END_BY_COUNT
+      self.recurrence.repeat_until = nil
+    end
+
+    if self.rrule_end_condition == RRULE_END_BY_NEVER || self.rrule_end_condition == RRULE_END_BY_COUNT
+      self.recurrence.count = nil
+    end
+    ##
 
     self.rrule = self.recurrence.rrule
     logger.debug self.rrule.to_yaml
@@ -156,6 +171,33 @@ class Event < ActiveRecord::Base
 
   def rrule_count=(count)
     self.recurrence.count = count.to_i
+  end
+
+  def rrule_repeat_until
+    self.recurrence.repeat_until
+  end
+
+  def rrule_repeat_until=(date)
+    self.recurrence.repeat_until=(date)
+  end
+
+  def rrule_end_condition
+    if !defined? @rrule_end_condition
+      if self.recurrence.count.nil? && self.recurrence.repeat_until.nil?
+        RRULE_END_BY_NEVER
+      elsif !self.recurrence.repeat_until.nil?
+        RRULE_END_BY_DATE
+      else
+        RRULE_END_BY_COUNT
+      end
+    else
+      @rrule_end_condition
+    end
+  end
+
+  def rrule_end_condition=(cond)
+    @rrule_end_condition=cond
+    #will check consistency in "save"
   end
 
   def recurring?

@@ -81,7 +81,7 @@ root {
     content: "\2714";
 }
 
-.login_small {clear:right;width:100%;overflow:hidde}
+.login_small {clear:right;width:100%;overflow:hidden}
 .login_small fieldset {border:none;float:left;}
 .login_small .field {clear:both;min-height:30px;height:auto !important;height:30px}
 .login_small .field .title {font-weight:bold; width:auto;margin-bottom:3px;}
