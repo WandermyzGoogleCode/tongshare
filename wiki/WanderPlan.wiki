@@ -51,3 +51,11 @@
  * NetBeans: patch org-netbeans-modules-ruby-railsprojects.jar  to /ruby/modules
  * apt-get sqlite3
  * apt-get libsqlite3-dev
+ * apt-get libncurses5-dev libreadline5-dev
+ * 如果有模块没有编译进去，用apt-get装好依赖以后
+{{{
+go to the <ruby_src>/ext/xxx, 
+  ruby extconv.rb    #generate valid makefile
+  make
+  make install
+}}}
