@@ -46,10 +46,8 @@ OPTIONS
   <%# end -%>
  </div>
   <div class="field">
-    <label class="title">&nbsp;</label>
-    <%= submit_button f, "login_form", "登录"%>
-    <%= styled_button "立即注册", new_user_registration_path %>
-  <%#= f.submit "登录" %>
+    <a href="#" class="link1" style="margin-left: 37px;" onclick="$('login_form').submit();">登录</a>
+    <a href="/users/sign_up" class="link1">立即注册</a>
   </div>
 </fieldset>
 <% end %>
