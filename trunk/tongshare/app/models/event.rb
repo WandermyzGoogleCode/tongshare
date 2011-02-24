@@ -26,6 +26,7 @@ class Event < ActiveRecord::Base
   validates :name, :begin, :creator_id, :presence => true
   validates_numericality_of :rrule_count, :allow_nil => true, :only_integer => true, :greater_than_or_equal_to => 1, :less_than_or_equal_to => MAX_INSTANCE_COUNT
   validates_inclusion_of :rrule_frequency, :in => GCal4Ruby::Recurrence::DUMMY_FREQS
+  
   #
   #
 
@@ -174,7 +175,7 @@ class Event < ActiveRecord::Base
   end
 
   def rrule_count
-    self.recurrence.count
+    self.recurrence.count || 1
   end
 
   def rrule_count=(count)
@@ -186,7 +187,13 @@ class Event < ActiveRecord::Base
   end
 
   def rrule_repeat_until=(date_str)
-    self.recurrence.repeat_until=(Date.parse(date_str))
+    begin
+      date = Date.parse(date_str)
+    rescue ArgumentError => e
+      date = nil
+    end
+    
+    self.recurrence.repeat_until=date
   end
 
   def rrule_end_condition
