@@ -259,7 +259,7 @@ module EventsHelper
 
   # 同一年会返回空字符串，否则返回"XXXX "
   def friendly_year(time)
-    return (time.year == Time.now.year ? "" : time.year.to_s + " ")
+    return (time.year == Time.now.year ? "" : time.year.to_s + "年")
   end
 
   def friendly_time_range(from, to = nil)
