@@ -14,7 +14,7 @@ class Event < ActiveRecord::Base
   # In order to make Event.new(:creator_id => creator_id) work, attr_accessible :creator_id
   # seems to be necessary!
   attr_accessible :name, :begin, :end, :location, :extra_info, :rrule, :creator_id
-  attr_accessible :rrule_interval, :rrule_frequency, :rrule_days, :rrule_count, :rrule_repeat_until
+  attr_accessible :rrule_interval, :rrule_frequency, :rrule_days, :rrule_count, :rrule_repeat_until, :rrule_end_condition
 
   belongs_to :creator, :class_name => "User"
   has_many :acceptances, :foreign_key => "event_id", :dependent => :destroy
@@ -30,9 +30,6 @@ class Event < ActiveRecord::Base
   #
 
   def save
-    #generate rrule
-    logger.debug self.recurrence.to_yaml
-
     #check rrule_days
     if self.rrule_frequency == GCal4Ruby::Recurrence::WEEKLY_FREQUENCE
       if self.rrule_days.empty?
@@ -45,11 +42,19 @@ class Event < ActiveRecord::Base
     #check repeat_end_condition
     if self.rrule_end_condition == RRULE_END_BY_NEVER || self.rrule_end_condition == RRULE_END_BY_COUNT
       self.recurrence.repeat_until = nil
+      logger.debug "set repeat_until to nil"
     end
 
     if self.rrule_end_condition == RRULE_END_BY_NEVER || self.rrule_end_condition == RRULE_END_BY_DATE
       self.recurrence.count = nil
+      logger.debug "set count to nil"
     end
+    
+    #generate rrule
+    logger.debug self.recurrence.to_yaml
+    logger.debug "end cond: " + self.rrule_end_condition.to_yaml
+    logger.debug "repeat_until: " + self.recurrence.repeat_until.to_yaml
+    logger.debug "count: " + self.recurrence.count.to_yaml
     ##
 
     self.rrule = self.recurrence.rrule
@@ -180,8 +185,8 @@ class Event < ActiveRecord::Base
     self.recurrence.repeat_until
   end
 
-  def rrule_repeat_until=(date)
-    self.recurrence.repeat_until=(date)
+  def rrule_repeat_until=(date_str)
+    self.recurrence.repeat_until=(Date.parse(date_str))
   end
 
   def rrule_end_condition
@@ -198,8 +203,8 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def rrule_end_condition=(cond)
-    @rrule_end_condition=cond
+  def rrule_end_condition=(cond_str)
+    @rrule_end_condition = cond_str.to_i
     #will check consistency in "save"
   end
 
@@ -251,7 +256,12 @@ class Event < ActiveRecord::Base
           count += 1
           break if !rec.count.nil? and count >= rec.count
           break if !rec.repeat_until.nil? and self.begin + count * interval * SECONDS_OF_A_DAY > rec.repeat_until
-          return false if count > MAX_INSTANCE_COUNT
+          #return false if count > MAX_INSTANCE_COUNT
+          #modified by Wander
+          if count > MAX_INSTANCE_COUNT
+            report_count_too_much
+            return
+          end
         end
         
       elsif rec.frequency == 'WEEKLY'
@@ -276,8 +286,14 @@ class Event < ActiveRecord::Base
           end         
           break if !rec.count.nil? and count >= rec.count
           break if !rec.repeat_until.nil? and now > rec.repeat_until
-          return false if count > MAX_INSTANCE_COUNT
-          
+
+          #return false if count > MAX_INSTANCE_COUNT
+          #modified by Wander
+          if count > MAX_INSTANCE_COUNT
+            report_count_too_much
+            return
+          end
+
           now += SECONDS_OF_A_DAY # now += 1.day seems to be too slow in 1.8.7
           if now.wday == 0 # now.sunday? is too new for ruby1.8.7
             now += interval * 7 * SECONDS_OF_A_DAY
@@ -296,6 +312,16 @@ class Event < ActiveRecord::Base
     end
     
     true
+  end
+
+  def report_count_too_much
+    logger.debug "instance too much"
+    if self.recurrence.count.nil?
+      errors.add :rrule_repeat_until, :too_late, :max_count => MAX_INSTANCE_COUNT
+    else
+      errors.add :rrule_count, :too_much, :max_count => MAX_INSTANCE_COUNT
+    end
+    return false
   end
   
 end
