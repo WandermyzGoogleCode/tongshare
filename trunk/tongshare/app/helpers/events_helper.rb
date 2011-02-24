@@ -315,14 +315,14 @@ module EventsHelper
       end
       day_string = days.join("、")
       result = sprintf("每%s周的周%s", interval_string, day_string)
-      result << sprintf("，至%s", I18n.l(rec.repeat_until)) if rec.repeat_until
+      result << sprintf("，至%s", I18n.l(rec.repeat_until.to_date)) if rec.repeat_until
       result << sprintf("，共%d次", rec.count) if rec.count
       return result
     else
       interval_string = rec.interval.to_s
       interval_string = "" if (interval_string == "1")
       result = sprintf("每%s天", interval_string)
-      result << sprintf("，至%s", I18n.l(rec.repeat_until)) if rec.repeat_until
+      result << sprintf("，至%s", I18n.l(rec.repeat_until.to_date)) if rec.repeat_until
       result << sprintf("，共%d次", rec.count) if rec.count
       return result
     end
