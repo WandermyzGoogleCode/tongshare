@@ -1,4 +1,4 @@
-/* 
+/*
     Document   : application
     Created on : Feb 17, 2011, 9:08:59 PM
     Author     : wander
@@ -6,15 +6,12 @@
         Purpose of the stylesheet follows.
 */
 
-/* 
+/*
    TODO customize this sample style
    Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 */
 
-body{
-    background-color: #fffcf0;
-}
-root { 
+root {
     display: block;
 }
 
@@ -54,8 +51,9 @@ root {
 }
 
 .agenda_list .instance.info {
-    
+
 }
+
 .link1 {
     float: left;
 }
@@ -83,38 +81,13 @@ root {
     content: "\2714";
 }
 
-#feedback{
-    position:fixed; 
-    left:auto;
-    right: 0px;
-    top: auto;
-    bottom: 300px;
-  
-    z-index:1; 
-    height:80px;
-    width: 22px;
-    background-color: #ffcc22; 
-}
-
-#feedback a{
-    display: block;
-    font-size: 14px;
-    color: #fff;
-    padding-left: 5px;
-    padding-top: 5px;
-}
-
-#feedback:hover{
-    background-color: #ffdd44;
-}
-
-
 .login_small {clear:right;width:100%;overflow:hidden}
 .login_small fieldset {border:none;float:left;}
 .login_small .field {clear:both;min-height:30px;height:auto !important;height:30px}
 .login_small .field .title {font-weight:bold; width:auto;margin-bottom:3px;}
 .login_small .field .textvalue {width:150px;padding:2px 0 2px 3px;border:1px solid #d2d2d2;float:left; margin-bottom: 3px;}
-.field .link1 {display:inline; padding: 4px 12px 5px 12px; float:left; margin-right: 10px;}
+.login_small .wrapper {display:inline}
+.login_small .wrapper .link1 {float:left; margin-right: 10px;}
 
 .event.show {
     line-height: 1.5;
@@ -155,17 +128,12 @@ root {
     color: #F85811;
 }
 
-#inside_main {
-    min-height: 350px;
-}
-
 #acknowledge {
     text-indent: -3em;
-    padding-left: 3em;
     position: relative;
     text-align: left;
     width: 330px;
-    margin: 5px auto 5px auto;
+    margin: 0 auto;
 }
 
 .hanging:before{
