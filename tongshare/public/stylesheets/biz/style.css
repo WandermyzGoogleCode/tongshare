@@ -15,7 +15,7 @@ section#content {width:739px;float:left}
 /* Sidebar */
 aside {float:left;width:261px}
 /* Footer */
-footer {text-align:center;height:111px;line-height:1.538em; border-top: solid 1px #fb2}
+footer {text-align:center;height:111px;line-height:1.538em}
 /* Left & Right alignment */
 .fleft {float:left}
 .fright {float:right}
@@ -24,10 +24,8 @@ footer {text-align:center;height:111px;line-height:1.538em; border-top: solid 1p
 .alignright {text-align:right}
 .aligncenter {text-align:center}
 .wrapper {width:100%;overflow:hidden}
-/* tailings 
+/* tailings */
 .tail-bottom {background:url(../../images/biz/tail-bottom.gif) left bottom repeat-x}
-.tail-bottom {background-color: #fffcda; }
-*/
 /* form defaults */
 input,select,textarea {font-family:Arial,Helvetica,sans-serif;font-size:1em;vertical-align:middle;font-weight:normal;color:#5c5c5c;margin:0;padding:0}
 fieldset {border:0}
@@ -36,7 +34,7 @@ fieldset {border:0}
 .news li {line-height:1.538em;padding-top:20px}
 .news li strong {display:block;padding-bottom:6px}
 .recent {margin-bottom:-20px}
-.recent li {width:100%;clear:left;vertical-align:top;line-height:1.538em;padding-bottom:20px} 
+.recent li {width:100%;clear:left;vertical-align:top;line-height:1.538em;padding-bottom:20px}
 .recent li img {float:left}
 .recent li strong {display:block;padding-bottom:6px}
 .recent li.alt {padding-bottom:0}
@@ -64,9 +62,7 @@ fieldset {border:0}
 .img-box {width:100%;overflow:hidden;padding-bottom:12px;line-height:1.538em}
 .img-box img {float:left;margin:0 20px 0 0}
 .extra-wrap {overflow:hidden}
-
-/* p {margin-bottom:20px;line-height:1.538em}*/
-
+p {margin-bottom:20px;line-height:1.538em}
 .p0 {margin:0;padding:0}
 dl {}
 dl dt {}
@@ -105,12 +101,12 @@ h2 span {color:#f85811}
 .box .inner {padding:25px 49px 45px 49px}
 .box h2 {font-size:1.923em;margin-bottom:50px}
 /* content */
-#content .inside {padding:24px 40px 30px 40px}
+#content .inside {padding:24px 40px 30px 50px}
 /* Sidebar */
-aside .inside {padding:35px 35px 30px 20px; background-color: #edefca; }
+aside .inside {padding:12px 45px 0 40px}
 aside h2 {letter-spacing:-1px}
 /* footer */
-footer .inside {padding-top:15px}
+footer .inside {padding-top:36px}
 /* forms */
 form {clear:right;width:100%;overflow:hidden}
 form fieldset {border:none;float:left;}
