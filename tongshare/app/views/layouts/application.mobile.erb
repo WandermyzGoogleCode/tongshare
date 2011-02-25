@@ -15,6 +15,9 @@
   <% if notice %>
     <p><%= notice %></p>
   <% end %>
+  <% if flash[:bookmark_notice] %>
+    <p><%= flash[:bookmark_notice] %></p>
+  <% end %>
   <%= yield %>
   <p>
     
