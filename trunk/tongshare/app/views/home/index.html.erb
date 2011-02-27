@@ -1,2 +1,11 @@
-<%#= styled_button '立即注册', new_user_registration_path%>
-&nbsp;&nbsp;
+<%= image_tag "slides_home/poster.jpg" %>
+
+<% content_for :aside do %>
+  <h2>登录</h2>
+  <%= render(:partial => "sessions_extended/login_form", :locals => {:small => true})%>
+  <br/>
+  <div>
+    手机访问：<a href="http://tongshare.com">tongshare.com</a> <br/>
+    <div style="text-align:center"><%= image_tag "qrcode.gif" %></div>
+  </div>
+<% end %>
