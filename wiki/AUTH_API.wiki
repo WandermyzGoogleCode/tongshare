@@ -24,7 +24,7 @@ http://A.com/auth?username=<username>&redirect_to=<redirect_to>
     || hash = `<hash>`     || 4个字符串`<username>, <name>, <data>, <SECRET>`连接在一起后的SHA2哈希码 ||
     这里：
     * `<name>, <data>`的具体格式和包含的信息可以由A和M协定，以让A站点尽量提供一些用户的纯文本信息避免M站点让用户填写过多的资料。
-    * `<hash>`的作用是用来验证A站点的身份，并验证返回的信息的有效性，放置篡改和冒充A站点发出的数据。
+    * `<hash>`的作用是用来验证A站点的身份，并验证返回的信息的有效性，防止篡改和冒充A站点发出的数据。
     * `<SECRET>`是由M和A站点协定的密钥，不能让第三方知晓，否则将无法保证验证信息的有效性
  # M站点确认验证成功
     M站点在收到A站点的验证信息后，对验证信息进行验证（通过`<SECRET>`），如果接受则将用户的confirmed设为true，写入A站点提供的用户信息，最后反馈一个字符串accepted给A站点，作为A站点调用POST request的response。
