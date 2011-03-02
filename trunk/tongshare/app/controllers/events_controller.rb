@@ -2,6 +2,7 @@ class EventsController < ApplicationController
   include EventsHelper
   include UsersHelper
   include AuthHelper
+  include CurriculumHelper
 
   before_filter :authenticate_user!
 
@@ -56,6 +57,8 @@ class EventsController < ApplicationController
       username = username.delete(company_domain(current_user) + ".")
       @auth_path = auth_path(username, root_url)
     end
+
+    @curriculum_empty = curriculum_empty?(current_user)
 
     respond_to do |format|
       format.html # index.html.erb

@@ -34,12 +34,15 @@ zh-CN:
     models:
       user: "用户"
       event: "活动"
+      user_extra: "个人资料"
 
     attributes:
       user:
         email: "电子邮件"
         password: ""      #another trick
         login_value: ""   #just a trick
+        user_extra:
+          renren_url: "人人网个人主页"
 
       user_identifier:
         login_value: "登录名"
@@ -55,4 +58,7 @@ zh-CN:
         extra_info: "描述"
         rrule_count: "重复次数"
         rrule_repeat_until: "重复终止日期"
+
+      user_extra:
+        renren_url: "人人网个人主页"
 
