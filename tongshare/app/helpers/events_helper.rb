@@ -172,7 +172,7 @@ module EventsHelper
 #  end
 
   def query_next_sharing_accepted_instance_includes_event(current_time, limit_count, user_id = current_user.id, offset = 0)
-    acceptances = Acceptance.where("user_id=?", user_id).to_a
+    acceptances = Acceptance.where("user_id=? AND decision=?", user_id, true).to_a  #AND decision=? add by Wander
     events = acceptances.map { |a| a.event }
 #    pp events # TODO TEST
     results = []
