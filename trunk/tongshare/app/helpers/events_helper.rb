@@ -174,9 +174,11 @@ module EventsHelper
   def query_next_sharing_accepted_instance_includes_event(current_time, limit_count, user_id = current_user.id, offset = 0)
     acceptances = Acceptance.where("user_id=?", user_id).to_a
     events = acceptances.map { |a| a.event }
+#    pp events # TODO TEST
     results = []
     for event in events
-      instances = Instance.where("event_id=? AND end>=?", event.id, current_time).order(:begin).offset(offset).limit(limit_count).to_a
+      instances = Instance.where("event_id=? AND end>=?", event.id, current_time.utc).order(:begin).limit(limit_count).to_a
+#      pp instances # TODO TEST
       new_results = []
       result_index = 0
       instance_index = 0
@@ -195,9 +197,10 @@ module EventsHelper
       for i in result_index...results.size
         new_results << results[i]
       end
-      results = new_results[0...limit_count]
+      results = new_results[0...limit_count+offset]
     end
-    return results
+#    pp results.size
+    return results[offset...offset+limit_count]
 #    Instance.
 #      includes(:event).
 #      joins(:event => :acceptances).
