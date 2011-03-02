@@ -105,8 +105,8 @@ module EventsHelper
     Instance.includes(:event).where("creator_id = ? AND end >= ? AND begin <= ?", creator_id, time_begin.utc, time_end.utc).order("begin").to_a
   end
 
-  def query_next_own_instance_includes_event(current_time, limit_count, creator_id = current_user.id)
-    Instance.includes(:event).where("creator_id = ? AND end >= ?", creator_id, current_time.utc).order("begin").limit(limit_count).to_a
+  def query_next_own_instance_includes_event(current_time, limit_count, creator_id = current_user.id, offset = 0)
+    Instance.includes(:event).where("creator_id = ? AND end >= ?", creator_id, current_time.utc).order("begin").offset(offset).limit(limit_count).to_a
   end
 
   def query_own_event(limit_from, limit_num, creator_id = current_user.id)
@@ -146,9 +146,9 @@ module EventsHelper
     (query_sharing_accepted_instance_includes_event(time_begin, time_end, user_id) + query_own_instance_includes_event(time_begin, time_end, user_id)).sort{|a, b| a.begin <=> b.begin}
   end
 
-  def query_next_accepted_instance_includes_event(current_time, limit_count, user_id = current_user.id)
-    (query_next_sharing_accepted_instance_includes_event(current_time, limit_count, user_id) +
-        query_next_own_instance_includes_event(current_time, limit_count, user_id)).sort{|a, b| a.begin <=> b.begin}
+  def query_next_accepted_instance_includes_event(current_time, limit_count, user_id = current_user.id, offset = 0)
+    (query_next_sharing_accepted_instance_includes_event(current_time, limit_count, user_id, offset) +
+        query_next_own_instance_includes_event(current_time, limit_count, user_id, offset)).sort{|a, b| a.begin <=> b.begin}
   end
 
 #  def query_sharing_accepted_instance_includes_event(time_begin, time_end, user_id = current_user.id)
@@ -156,7 +156,7 @@ module EventsHelper
 #    Instance.includes(:event).find(ids).to_a
 #  end
 
-  def query_next_sharing_accepted_instance_includes_event(current_time, limit_count, user_id = current_user.id)
+  def query_next_sharing_accepted_instance_includes_event(current_time, limit_count, user_id = current_user.id, offset = 0)
     Instance.
       includes(:event).
       joins(:event => :acceptances).
@@ -165,7 +165,7 @@ module EventsHelper
         current_time.utc,
         user_id,
         Acceptance::DECISION_ACCEPTED).
-      order('instances.begin').limit(limit_count).
+      order('instances.begin').offset(offset).limit(limit_count).
       to_a
   end
   
