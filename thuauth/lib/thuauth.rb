@@ -50,7 +50,7 @@ class ThuAuth
   # Make sure that all auth procedure should be single-thread. Otherwise, the file
   # might be changed during auth. For example, use Thread.exclusive
   def self.do_auth(username, password)
-    result1 = auth_with_xls(username, password)
+    result1 = false # auth_with_xls(username, password)
     pp "result1", result1
     Dir.chdir(AuthConstant::GETXLS_PATH)
     File.delete("Login.out") if File.exist? "Login.out"
