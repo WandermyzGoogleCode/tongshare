@@ -5,14 +5,14 @@
 <%= form_tag ({:controller => "thuauth", :action => "auth_with_xls_and_get_name"}) do %>
 <table>
   <tr>
-    <td>用户名：</td>
+    <td>学号：</td>
     <td>
       <%=@username%>
       <input type="hidden" name="username" value="<%=@username%>"/>
     </td>
   </tr>
   <tr>
-    <td>密码：</td>
+    <td>信息门户（Info）密码：</td>
     <td>
       <input type="password" name="password"/><br/>
     </td>
