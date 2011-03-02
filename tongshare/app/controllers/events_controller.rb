@@ -3,6 +3,7 @@ class EventsController < ApplicationController
   include UsersHelper
   include AuthHelper
   include CurriculumHelper
+  include SiteConnectHelper
 
   before_filter :authenticate_user!
 
@@ -46,19 +47,6 @@ class EventsController < ApplicationController
 
       @instances = query_all_accepted_instance_includes_event(from.to_time, to.to_time)
     end
-
-    #check confirmation for employee_no
-    user_id_rec = current_user.user_identifier.find(:first,
-      :conditions => ["login_type = ?", UserIdentifier::TYPE_EMPLOYEE_NO])
-
-    if !user_id_rec.nil?
-      @not_confirmed = !user_id_rec.confirmed
-      username = user_id_rec.login_value
-      username = username.delete(company_domain(current_user) + ".")
-      @auth_path = auth_path(username, root_url)
-    end
-
-    @curriculum_empty = curriculum_empty?(current_user)
 
     respond_to do |format|
       format.html # index.html.erb
