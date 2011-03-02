@@ -347,11 +347,12 @@ module EventsHelper
     pp users
 
     result = []
-    for user in users
-      result << user.friendly_name.html_safe
-    end
+#    for user in users
+#      result << user.friendly_name.html_safe
+#    end
 
-    return result
+#    return result
+     return users
   end
 
   def find_acceptance(event, user = current_user)
