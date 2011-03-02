@@ -41,7 +41,7 @@
     <%= link_to "之后的活动", {:offset => @offset + @limit} if !@is_last_page %>
 <% end %>
 
-<br/>
+<br/><br/>
 <% if !@not_confirmed %>
   <%= link_to "重新导入课表", @auth_path %>
 <% end %>
