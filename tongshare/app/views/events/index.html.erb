@@ -89,10 +89,12 @@
 
     <br/>
 
-    <%# if !@not_confirmed %>
-      <%#*<div><%=  link_to "重新导入课表", @auth_path %>
-      <%#*</div>%>
-    <%# end %>
+    <% if !@not_confirmed %>
+      <div>
+        <%=  link_to "重新导入课表", @auth_path %>
+        &nbsp;&nbsp;
+      </div>
+    <% end %>
 
     <%= link_to "通过课表文件导入课表", {:controller=>"curriculum", :action=>"upload"}%>
 
