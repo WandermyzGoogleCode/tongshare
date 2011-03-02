@@ -143,3 +143,8 @@ root {
     float: left;
     position: relative;
 }
+
+.instruction_list {
+    list-style-type: decimal;
+    
+}

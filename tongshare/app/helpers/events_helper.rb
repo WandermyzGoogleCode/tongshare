@@ -3,6 +3,7 @@ module EventsHelper
   require 'gcal4ruby/recurrence'
   require 'time'
   require 'pp'
+  require 'ftools'
 
    # Please check these time settings. Are they correct?
   COURSE_BEGINES = ["8:00", "9:50", "13:30", "15:20", "17:05", "19:20"]
@@ -16,24 +17,38 @@ module EventsHelper
   TIME_SPEC_REGEX = /时间(\d+:\d+)-(\d+:\d+)/
 
   def xls2events(data, user_id)
+
+    #save xls file
+    #TODO: there are too many read/write/read/write... in the process of parsing xls files
+    dir = "data/curriculum"
+    File.makedirs(dir) unless File.exists?(dir)
+    path = File.join(dir, "user_#{user_id.to_s}.xls")
+    File.open(path, "wb") { |f| f.write(data) }
+
     #remove previous acceptances
+    return false if data.nil? || data == ""
+    class_set = CourseClass::parse_xls_from_data(data)
+
+    return false if class_set.nil?
+
     prev = Acceptance.joins(:event).where("events.creator_id = ? AND acceptances.user_id = ?", 1, user_id)
     prev.each do |p|
       p.destroy
     end
-    return false if data.nil? || data == ""
-    class_set = CourseClass::parse_xls_from_data(data)
+
     class_set.each do |c|
       e = class2event(c, 1)
       query = Event.where(:name => e.name, :extra_info => e.extra_info, :begin => e.begin.utc)
       if query.exists?
         e = query.first
       else
-        e.save
+        return false unless e.save
       end
       acc = Acceptance.new(:event_id => e.id, :user_id => user_id, :decision => Acceptance::DECISION_ACCEPTED)
-      acc.save
+      return false unless acc.save
     end
+
+    return true
   end
 
   # Convert a course_class to an event created by creator_id

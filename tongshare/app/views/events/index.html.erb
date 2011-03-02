@@ -17,6 +17,13 @@
 </div>
 <% end %>
 
+<% if @curriculum_empty %>
+<div>
+  <span class="stressed">课表有问题？</span>
+  尝试<%= link_to "通过课表文件导入课表", {:controller=>"curriculum", :action=>"upload"}%>
+</div>
+<% end %>
+
 <%#*<div id="share_notice">%>
   <%#*<span>个被邀请的活动</span>%>
   <%#*<span><个被推荐的活动</span>%>
@@ -81,9 +88,13 @@
     <%= styled_button '新建活动', new_event_path(:offset => params[:offset], :range => params[:range])%>
 
     <br/>
-    <% if !@not_confirmed %>
-      <div><%=  link_to "重新导入课表", @auth_path %></div>
-    <% end %>
+
+    <%# if !@not_confirmed %>
+      <%#*<div><%=  link_to "重新导入课表", @auth_path %>
+      <%#*</div>%>
+    <%# end %>
+
+    <%= link_to "通过课表文件导入课表", {:controller=>"curriculum", :action=>"upload"}%>
 
   <%end%>
 </div>
