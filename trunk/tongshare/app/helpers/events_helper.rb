@@ -45,7 +45,7 @@ module EventsHelper
         return false unless e.save
       end
       acc = Acceptance.new(:event_id => e.id, :user_id => user_id, :decision => Acceptance::DECISION_ACCEPTED)
-      return false unless acc.save
+      logger.error acc.errors.to_yaml unless acc.save
     end
 
     return true
