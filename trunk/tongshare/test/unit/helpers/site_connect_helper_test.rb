@@ -42,6 +42,10 @@ class SiteConnectHelperTest < ActionView::TestCase
     puts 9
     r = parse_renren_url("www.renren.com/profile")
     assert_nil(r)
+
+    puts 10
+    r = parse_renren_url("2007011324")
+    assert_nil(r)
   end
 
   test "test renren generator" do
