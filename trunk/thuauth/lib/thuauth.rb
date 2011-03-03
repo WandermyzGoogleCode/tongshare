@@ -39,7 +39,7 @@ class ThuAuth
     if File.readable?("Login.out")
       f = File.new("Login.out", "r")
       content = f.readlines.join("")
-      m = content.match %r!当前用户：\W*</span></td><td valign="middle" align="center"><span class="uportal-navi-user">(.*)</span></td><td><img height(.|\n)*(最近成功登录记录)!
+      m = content.match %r!当前用户：\W*</span></td><td valign="middle" align="center"><span class="uportal-navi-user">(.*)</span></td><td><img height!
       return m[1] if m
     end
     return nil
