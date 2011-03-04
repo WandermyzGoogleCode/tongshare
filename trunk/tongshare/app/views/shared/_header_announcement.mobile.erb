@@ -12,3 +12,10 @@
   请尝试用电脑登录并通过Excel课表文件导入课表
 </p>
 <% end %>
+
+<% if @renren_url_empty %>
+<p>
+  <strong>让Ta找到你！</strong>
+   立即<%= link_to "填写人人网个人主页地址", edit_user_registration_path%>
+</p>
+<% end %>
