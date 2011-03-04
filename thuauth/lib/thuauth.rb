@@ -8,7 +8,7 @@ require 'escape'
 
 #TODO put this config outside source file
 module AuthConstant
-  MAXTRY = 10
+  MAXTRY = 1
   GETXLS_PATH = "/var/www/hack/"
   SEMESTER = "2010-2011-2"
 end
@@ -19,6 +19,7 @@ class ThuAuth
   def self.auth_with_xls(username, password)
     Dir.chdir(AuthConstant::GETXLS_PATH)
     (0...AuthConstant::MAXTRY).each do
+      `echo > output.xls`
       command = Escape.shell_command(["./getxls.rb", username, password, AuthConstant::SEMESTER])
       `#{command}`
       puts "m1"
