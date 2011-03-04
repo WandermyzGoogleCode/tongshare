@@ -15,6 +15,7 @@ module SiteConnectHelper
           if(uri.query.blank?)  #domain
             domain = uri.path
             domain = domain[1..-1] if domain.start_with?("/")
+            return nil if domain.empty?
             return nil if ["home", "profile"].include?(domain.downcase)
             return "domain:" + domain
             #return parse_renren_url(domain)
