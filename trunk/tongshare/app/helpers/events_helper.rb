@@ -339,7 +339,7 @@ module EventsHelper
     users << event.creator unless event.creator.id == 1
     
     for acceptance in event.acceptances
-      users << acceptance.user
+      users << acceptance.user if acceptance.decision == true
     end
 
     return [] if (users.size == 1 && users[0].id == current_user.id)
