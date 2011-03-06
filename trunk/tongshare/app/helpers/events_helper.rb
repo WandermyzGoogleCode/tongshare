@@ -347,12 +347,16 @@ module EventsHelper
     pp users
 
     result = []
+    for user in users
+      ui = user.user_identifier.find_by_login_type(UserIdentifier::TYPE_EMPLOYEE_NO)
+      result << user if (ui && ui.confirmed)
+    end
 #    for user in users
 #      result << user.friendly_name.html_safe
 #    end
 
 #    return result
-     return users
+     return result
   end
 
   def find_acceptance(event, user = current_user)
