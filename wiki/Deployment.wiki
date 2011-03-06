@@ -1,5 +1,12 @@
 #summary deployment doc for tongshare and thuauth.
 
+= 关于Unicorn的0 Timedown部署 =
+ * kill -USR2是没有错的，但是原来的unicorn.rb中的before_fork函数没有做到应该做的事情，导致了kill -USR2败了。我改了unicorn.rb中相应的代码就OK了
+ * 以前的那个deploy.rb中的4个基础函数比较扯淡，restart中间必须sleep 5……我好像找到这些代码在网上的来源了，原代码没有sleep 5但是整个restart根本不WORK！
+ * 貌似实际上restart就应该写成原来的reload，也就是kill -USR2
+ * 而原来的stop应该最好不要用，而是用原来的graceful_stop来代替stop，这样就不会使得已有连接断掉。实际上，reload也采用的是-QUIT，也就是graceful_stop
+ * 然后请照楠帮我解答一下这两个疑问：1、为什么preload_app = false，貌似网上默认的教程是true？2、以前的before_fork是参考的哪，为什么那个没有按照USR2的要求进行操作呢？
+
 = 用Capistrano部署 =
  capistrano是针对rails项目的一个部署的脚本框架，它可以与svn或git结合
 == 使用方法 ==
