@@ -5,7 +5,7 @@ working_directory "/var/www/tongshare/current/"
 # # worker processes
 # # Read more about it here:
 # # http://unicorn.bogomips.org/Unicorn/Configurator.html
-preload_app false 
+preload_app true
 #
 timeout 1200
 #
