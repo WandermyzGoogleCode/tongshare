@@ -62,6 +62,27 @@ class EventsController < ApplicationController
 
     authorize! :show, @event
 
+    if (@instance)
+      @warninged = (Feedback.where("user_id=? AND instance_id=? AND value=?",
+        current_user.id, @instance.id, Feedback::WARNING).count > 0)
+      feedback = params[:feedback]
+      if (feedback == Feedback::WARNING && !@warninged)
+        Feedback.create(:user_id => current_user.id,
+          :instance_id => @instance.id, :value => Feedback::WARNING)
+        @warninged = true
+      elsif (feedback == Feedback::DISABLE_WARNING && @warninged)
+        Feedback.where("user_id=? AND instance_id=? AND value=?",
+          current_user.id, @instance.id, Feedback::WARNING).to_a.each do |f|
+          f.destroy
+        end
+        @warninged = false
+      end
+
+      @warning_count = @instance.warning_count
+      @total_count = get_attendees(@event).size
+      @warning_reliability = @warning_count.to_f / @total_count
+    end
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @event }
