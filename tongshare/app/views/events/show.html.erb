@@ -32,15 +32,16 @@
       <%= @event.extra_info %>
     </div>
     <br/>
-    <p><%= "(报警指该活动有一些突发状况，比如该节课有点名、小测)" %></p>
+    <p><%= "(报警：该节课有点名、小测)" if @event.creator_id == 1 %></p>
     <div class="event buttons">
       <%= styled_button "编辑", edit_event_path(@event) if can? :edit, @event %>
       <%= styled_button "删除", @event, :method => "delete",
         :confirm => ("你确实要删除\"#{@event.name}\"吗？" + (@event.recurring? ? "这是一个重复的事件，所有重复项都会被删除！" : "")) \
          if can? :destroy, @event %>
-
+      <% if @can_warn %>
       <%= styled_button "报警", event_path(@event, :inst => @instance.id, :feedback => Feedback::WARNING) if @instance && !@warninged %>
       <%= styled_button "取消报警", event_path(@event, :inst => @instance.id, :feedback => Feedback::DISABLE_WARNING) if @instance && @warninged %>
+      <% end %>
       <% acc = find_acceptance(@event) %>
       <%= styled_button "退出活动", {:controller => "acceptance", :action => "deny", :id => acc.id}, :confirm => "确实要退出该活动吗？" if can? :deny, find_acceptance(@event)%>
     </div>
@@ -67,7 +68,7 @@
             <% end %>
           </ul>
         </div>
-        <div>（仅显示已注册用户）</div>
+        <div>（仅显示已注册并通过验证的用户）</div>
       <% end %>
 <% end %>
 

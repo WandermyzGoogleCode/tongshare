@@ -33,7 +33,7 @@
 
 <%= link_to "报警", event_path(@event, :inst => @instance.id, :feedback => Feedback::WARNING) if @instance && !@warninged %>
 <%= link_to "取消报警", event_path(@event, :inst => @instance.id, :feedback => Feedback::DISABLE_WARNING) if @instance && @warninged %>
-<%= "(报警指该活动有一些突发状况，比如该节课有点名、小测)" %>
+<%= "(报警：该节课有点名、小测)" if @event.creator_id == 1%>
 
 <hr/>
 
@@ -49,6 +49,6 @@
       </li>
     <% end %>
   </ul>
-  （仅显示已注册用户）
+  （仅显示已注册并通过验证的用户）
 </p>
 <% end %>
