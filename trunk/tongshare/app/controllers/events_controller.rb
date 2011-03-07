@@ -79,8 +79,10 @@ class EventsController < ApplicationController
       end
 
       @warning_count = @instance.warning_count
-      @total_count = get_attendees(@event).size
-      @warning_reliability = @warning_count.to_f / @total_count
+      attendee_ids = get_attendees(@event).map { |user| user.id }
+      @total_count = attendee_ids.size
+      @can_warn = attendee_ids.include? current_user.id
+      @warning_reliability = @warning_count.to_f / [@total_count, 1].max
     end
 
     respond_to do |format|
