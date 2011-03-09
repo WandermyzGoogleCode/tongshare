@@ -1,5 +1,5 @@
 set :application, "tongshare"
-set :repository,  "https://tongshare.googlecode.com/svn/trunk/tongshare/"
+set :repository,  "https://tongshare.googlecode.com/svn/branches/branch_email/tongshare/"
 
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location
