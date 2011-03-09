@@ -4,7 +4,7 @@
 <p>
 <font color="red">
   <%=  sprintf("共有%.1f%%的参与者报警", @warning_reliability * 100) %>
-  <%= sprintf("(包括我在内)") if @warninged  %>
+  <%= sprintf("(包括你在内)") if @warninged  %>
 </font>
 </p>
 <% end %>

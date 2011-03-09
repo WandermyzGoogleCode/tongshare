@@ -6,7 +6,7 @@
     <% if @warning_count && @warning_count > 0 %>
     <div class="instance warning">
       <%=  sprintf("共有%.1f%%的参与者报警", @warning_reliability * 100) %>
-      <%= sprintf("(包括我在内)") if @warninged  %>
+      <%= sprintf("(包括你在内)") if @warninged  %>
     </div>
     <% end %>
 
