@@ -2,6 +2,19 @@ class SysMailer < ActionMailer::Base
   include RegistrationsExtendedHelper
   default :from => "同享日程 <no_reply@tongshare.com>"
 
+  def warning_email(user, instance)
+    @user = user
+    @instance = instance
+    if (!nil_email_alias?(user.email) && user.confirmed? && user.user_extra && !user.user_extra.reject_warning_flag)
+      str = (@instance.warning_count > 0 ? "有" : "解除")
+      headers = {:to => @user.email,
+        :subject => str + I18n.t("tongshare.warning") + ":" + instance.name}
+      return mail(headers)
+    else
+      return nil
+    end
+  end
+
   def reminder_email(user)
     @user = user
     mail(:to => user.email, 
