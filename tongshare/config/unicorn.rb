@@ -1,4 +1,4 @@
-worker_processes 2
+worker_processes 8
 working_directory "/var/www/tongshare/current/"
 
 # This loads the application in the master process before forking
