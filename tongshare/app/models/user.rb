@@ -96,5 +96,9 @@ class User < ActiveRecord::Base
     clean_up_passwords
     result
   end
+
+  def active?
+    true
+  end
   
 end
