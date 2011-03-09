@@ -10,6 +10,8 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.xml
   def index
+    @note = NOTES[rand(NOTES.size)]
+
     #@events = Event.find_all_by_creator_id current_user.id
     authorize! :index, Event
 
