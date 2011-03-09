@@ -1,0 +1,74 @@
+<%= content_box "查看", "活动" do%>
+
+  <%= div_for @event, :class => "show" do %>
+    <div class="event name"><%= @event.name %></div>
+    <div class="event creator">由<%= @event.creator.friendly_name %>创建</div>
+    <% if @warning_count && @warning_count > 0 %>
+    <div class="instance warning">
+      <%=  sprintf("共有%.1f%%的参与者报警", @warning_reliability * 100) %>
+      <%= sprintf("(包括你在内)") if @warninged  %>
+    </div>
+    <% end %>
+
+    <% if @event.recurring? %>
+      <div class="event time">
+        <% if @instance.nil? %>
+          <%= friendly_time_range @event.begin, @event.end %>
+        <% else %>
+          <%= friendly_time_range @instance.begin, @instance.end  %>
+        <% end %>
+      </div>
+      <div class="event rrule">
+        重复：
+        <%= "从#{l @event.begin, :format => :date_only}开始，" unless (@instance.nil? || @event.begin == @instance.begin) %>
+        <%=  show_friendly_rrule(@event) %>
+      </div>
+    <% else %>
+      <%= friendly_time_range @event.begin, @event.end %>
+    <% end %>
+
+    <div class="event location">地点：<%= @event.location.blank? ? "（未指定）" : @event.location %></div>
+    <div class="event extra">
+      <%= @event.extra_info %>
+    </div>
+    <br/>
+    <p><%= "(报警指该节课有点名、小测。同享日程提醒您，请按时上课，不要迟到、早退或旷课)" if @event.creator_id == 1 %></p>
+    <div class="event buttons">
+      <%= styled_button "编辑", edit_event_path(@event) if can? :edit, @event %>
+      <%= styled_button "删除", @event, :method => "delete",
+        :confirm => ("你确实要删除\"#{@event.name}\"吗？" + (@event.recurring? ? "这是一个重复的事件，所有重复项都会被删除！" : "")) \
+         if can? :destroy, @event %>
+      <% if @can_warn %>
+      <%= styled_button "报警", event_path(@event, :inst => @instance.id, :feedback => Feedback::WARNING) if @instance && !@warninged %>
+      <%= styled_button "取消报警", event_path(@event, :inst => @instance.id, :feedback => Feedback::DISABLE_WARNING) if @instance && @warninged %>
+      <% end %>
+      <% acc = find_acceptance(@event) %>
+      <%= styled_button "退出活动", {:controller => "acceptance", :action => "deny", :id => acc.id}, :confirm => "确实要退出该活动吗？" if can? :deny, find_acceptance(@event)%>
+    </div>
+
+  <%end%>
+
+<%end%>
+<br/>
+<% if !(attendees = get_attendees(@event)).empty? %>
+      <%= content_box "活动", "参与者", true do %>
+        <div class="event attendee">
+          <ul>
+            <% attendees.each do |att| %>
+              <li>
+                <div class="name"><%=att.friendly_name%></div>
+                <% if (!att.user_extra.nil? && !att.user_extra.renren_url.blank?) %>
+                  <%= link_to att.user_extra.renren_url, :target=>"_blank", :title=>"访问#{att.friendly_name}的人人网个人主页" do %>
+                    <%= image_tag 'renren.png'%>
+                  <% end %>
+                <% else %>
+                  &nbsp;
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+        <div>（仅显示已注册并通过验证的用户）</div>
+      <% end %>
+<% end %>
+

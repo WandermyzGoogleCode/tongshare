@@ -1,0 +1,62 @@
+zh-CN:      
+  activerecord:
+    errors:
+      models:
+        user_identifier:
+          attributes:
+            login_value:
+              employee_no_invalid: "学号格式不正确"
+              mobile_invalid: "手机号格式不正确"
+              taken: "登录名“%{value}”已被占用"
+              blank: "学号不能为空" #currently, only employee_no cannot be empty
+        user:
+          attributes:
+            password:
+              confirmation: "两次输入的密码不一致"
+              too_short: "密码长度不够"
+              blank: "密码不能为空"
+            email:
+              taken: "\"%{value}\"已被占用"
+        event:
+          attributes:
+            rrule_count:
+              too_much: "过多，目前最多仅允许%{max_count}次重复"
+            rrule_repeat_until:
+              too_late: "太晚。目前每个事件仅允许最多%{max_count}次重复"
+
+
+      #messages:
+      #  invalid: "格式不正确"
+
+      template:
+        header: "您输入的信息中含有%{count}个错误，请更正"
+
+    models:
+      user: "用户"
+      event: "活动"
+      user_extra: "个人资料"
+
+    attributes:
+      user:
+        email: "电子邮件"
+        password: ""      #another trick
+        login_value: ""   #just a trick
+        current_password: "当前密码"
+        user_extra:
+          renren_id: "人人网个人主页"
+
+      user_identifier:
+        login_value: "登录名"
+        employee_no: "学号"
+        mobile: "手机号"
+        email: "电子邮件"
+
+      event:
+        name: "活动标题"
+        begin: "开始于"
+        end: "结束于"
+        location: "地点"
+        extra_info: "描述"
+        rrule_count: "重复次数"
+        rrule_repeat_until: "重复终止日期"
+

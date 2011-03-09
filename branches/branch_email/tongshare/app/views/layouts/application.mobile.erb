@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <%#*<link rel="apple-touch-icon" href="http://wap.baidu.com/r/wise/wapsearchindex/favicon-57.png"/>%>
+  <title>同享日程<%= "-#{@title}" if defined? @title%></title>
+</head>
+<body>
+  <h1><center>同享日程</center></h1>
+  <% if alert %>
+    <p><%= alert %></p>
+  <% end %>
+  <% if notice %>
+    <p><%= notice %></p>
+  <% end %>
+  <% if flash[:bookmark_notice] %>
+    <p><%= flash[:bookmark_notice] %></p>
+  <% end %>
+  <%= yield %>
+  <p>
+    
+      <%=link_to "首页", :controller => "events", :range => :next %>&nbsp;&nbsp;
+    <% if user_signed_in? %>
+      <%=link_to "个人资料", edit_user_registration_path %>&nbsp;&nbsp;
+      <%=link_to "注销", destroy_user_session_path %>&nbsp;&nbsp;
+    <% end %>
+      <%=link_to "意见反馈", "http://blog.tongshare.com/feedback" %>&nbsp;&nbsp;
+  </p>
+</body>
+</html>

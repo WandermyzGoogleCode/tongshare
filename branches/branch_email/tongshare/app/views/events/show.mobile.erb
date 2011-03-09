@@ -1,0 +1,54 @@
+<h2><%= @event.name %></h2>
+
+<% if @warning_count && @warning_count > 0 %>
+<p>
+<font color="red">
+  <%=  sprintf("共有%.1f%%的参与者报警", @warning_reliability * 100) %>
+  <%= sprintf("(包括你在内)") if @warninged  %>
+</font>
+</p>
+<% end %>
+
+<% if @event.recurring? %>
+  <% if @instance.nil? %>
+    <%= friendly_time_range @event.begin, @event.end %>
+  <% else %>
+    <%= friendly_time_range @instance.begin, @instance.end  %>
+  <% end %>
+  <br/>
+  重复：
+  <%= "从#{l @event.begin, :format => :date_only}开始，" unless (@instance.nil? || @event.begin == @instance.begin) %>
+  <%=  show_friendly_rrule(@event) %>
+<% else %>
+  <%= friendly_time_range @event.begin, @event.end %>
+<% end %>
+<br/>
+
+<%if !@event.location.blank?%>
+地点：<%= @event.location %><br/>
+<%end%>
+
+
+<p><%= @event.extra_info %></p>
+
+<%= link_to "报警", event_path(@event, :inst => @instance.id, :feedback => Feedback::WARNING) if @instance && !@warninged %>
+<%= link_to "取消报警", event_path(@event, :inst => @instance.id, :feedback => Feedback::DISABLE_WARNING) if @instance && @warninged %>
+<%= "(报警指该节课有点名、小测。同享日程提醒您，请按时上课，不要迟到、早退或旷课)" if @event.creator_id == 1%>
+
+<hr/>
+
+<% if !(attendees = get_attendees(@event)).empty? %>
+<p>活动参与者：<br/>
+  <ul>
+    <% attendees.each do |att| %>
+      <li>
+        <%=att.friendly_name%>
+        <% if (!att.user_extra.nil? && !att.user_extra.renren_url.blank?) %>
+          <%= link_to "人人主页", generate_renren_url(att.user_extra.renren_id, true), :target=>"_blank" %>
+        <%end%>
+      </li>
+    <% end %>
+  </ul>
+  （仅显示已注册并通过验证的用户）
+</p>
+<% end %>

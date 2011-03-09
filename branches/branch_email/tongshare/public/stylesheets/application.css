@@ -1,0 +1,187 @@
+/*
+    Document   : application
+    Created on : Feb 17, 2011, 9:08:59 PM
+    Author     : wander
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/*
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root {
+    display: block;
+}
+
+#welcome {
+    margin-left: 50px;
+}
+
+#header_ann {
+    margin-left: 50px;
+    margin-top: 10px;
+}
+
+#header_ann li {
+    list-style-type: disc;
+    margin-bottom: 2px;
+}
+
+#sidebar_ann .subtitle {
+    margin-top: 5px;
+    margin-bottom: 2px;
+    font-weight: bold;
+}
+
+#sidebar_ann li {
+    list-style-type: disc;
+    margin-bottom: 2px;
+}
+
+.agenda_list .agenda_pannel ul li {
+    display: inline;
+    font-weight: bold;
+}
+
+.agenda_list .agenda_pannel ul li:before {
+    content: "\00BB \0020 ";
+}
+
+.agenda_list .agenda_pannel ul li a {
+    text-decoration: none
+}
+
+.agenda_list .agenda_pannel ul li a:hover {
+    color: #5C5C5C
+}
+
+.agenda_list .instance.item {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.agenda_list .instance.name {
+    font-size: larger;
+    margin-bottom: 5px;
+}
+
+.agenda_list .instance.links {
+    text-align: right;
+}
+
+.agenda_list .instance.info {
+
+}
+
+.link1 {
+    float: left;
+}
+
+.noticebar {
+    margin-left: 50px;
+}
+
+.noticebar #alert {
+    margin-bottom: 15px;
+    color: #FF5811;
+    font-weight: bold;event creator
+}
+
+.noticebar #alert:before {
+    content: "\2717";
+}
+
+.noticebar #notice {
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.noticebar #notice:before {
+    content: "\2714";
+}
+
+.login_small {clear:right;width:100%;overflow:hidden}
+.login_small fieldset {border:none;float:left;}
+.login_small .field {clear:both;min-height:30px;height:auto !important;height:30px}
+.login_small .field .title {font-weight:bold; width:auto;margin-bottom:3px;}
+.login_small .field .textvalue {width:150px;padding:2px 0 2px 3px;border:1px solid #d2d2d2;float:left; margin-bottom: 3px;}
+.login_small .wrapper {display:inline}
+.login_small .wrapper .link1 {float:left; margin-right: 10px;}
+
+.event.show {
+    line-height: 1.5;
+}
+
+.event.show .event.name {
+    font-weight: bold;
+    font-size: large;
+}
+
+.event.show .event.creator {
+    margin-left: 1em;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.event.show .instance.warning {
+    margin-left: 1em;
+    margin-bottom: 10px;
+    color: red;
+}
+
+.event.show .event.buttons {
+}
+
+.event.show .event.buttons .wrapper {
+    display: inline;
+}
+
+.event.show .event.buttons .link1 {
+    margin-right: 20px;
+}
+
+.event.attendee li {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.event.attendee .name {
+    min-width: 4em;
+    float: left;
+}
+
+.field .link1 {
+    margin-right: 20px;
+}
+
+.field_help {
+    margin-left: 105px;
+}
+
+.stressed {
+    font-weight: bold;
+    color: #F85811;
+}
+
+#acknowledge {
+    text-indent: -3em;
+    position: relative;
+    text-align: left;
+    width: 330px;
+    margin: 0 auto;
+}
+
+.hanging:before{
+    width: 3em;
+    text-align: right;
+    display: block;
+    float: left;
+    position: relative;
+}
+
+.instruction_list {
+    list-style-type: decimal;
+    
+}
