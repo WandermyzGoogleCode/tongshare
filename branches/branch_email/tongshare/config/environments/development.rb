@@ -27,21 +27,28 @@ Tongshare::Application.configure do
   config.action_mailer.default_url_options = {
     :host => "127.0.0.1:3000"
   }
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    :address => 'smtp.gmail.com',
-    :port => 587,
-    :domain => 'tongshare.com', 
-    :user_name => 'rubycaltest',
-    :password => 'testcalruby',
-    :authentication => :login,
-    :enable_starttls_auto => true
+  config.action_mailer.delivery_method = :sendmail
+#  config.action_mailer.smtp_settings = {
+#    :address => 'smtp.gmail.com',
+#    :port => 587,
+#    :domain => 'tongshare.com',
+#    :user_name => 'rubycaltest',
+#    :password => 'testcalruby',
+#    :authentication => :login,
+#    :enable_starttls_auto => true
+#  }
+  config.action_mailer.sendmail_settings = {
+    #default args
+    #:arguments => '-i -t' 
   }
+  config.action_mailer.default_url_options = { :host => "127.0.0.1:3000" }
 
   #time zone
   config.time_zone = 'Beijing'
 
   AUTH_SERVER_PATH = "http://localhost:3001/thuauth/auth_with_xls_and_get_name/"
   SECRET = "this is a secret"
+
+  THU_SPECIAL_SECRET = "I am special" # for special user registration (e.g. Association, Centenary)
 end
 
