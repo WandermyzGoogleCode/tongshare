@@ -10,6 +10,19 @@
     </div>
     <% end %>
 
+    <% if @instance %>
+    <div class="instance score">
+    <% for i in 1..@current_score.round %>
+      <%= link_to '★', event_path(@event, :inst => @instance.id, :feedback => Feedback::SCORE+"."+i.to_s) %>
+    <% end %>
+    <% for i in @current_score.round+1..5 %>
+      <%= link_to '☆', event_path(@event, :inst => @instance.id, :feedback => Feedback::SCORE+"."+i.to_s) %>
+    <% end %>
+      <br/>
+    <%= sprintf("（本活动评分%.1f；共有%.1f%%的用户打分；你%s打分）", @current_score, @score_reliability * 100, @scored ? "已经" : "尚未") %>
+    </div>
+    <% end %>
+
     <% if @event.recurring? %>
       <div class="event time">
         <% if @instance.nil? %>

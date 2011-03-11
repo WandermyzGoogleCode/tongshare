@@ -83,6 +83,19 @@ class EventsController < ApplicationController
       @total_count = attendee_ids.size
       @can_warn = attendee_ids.include? current_user.id
       @warning_reliability = @warning_count.to_f / [@total_count, 1].max
+
+      if (feedback && feedback.match(Feedback::SCORE_REGEX))
+        Feedback.where("user_id=? AND instance_id=? AND value like ?",
+            current_user.id, @instance.id, Feedback::SCORE + ".%").to_a.each do |f|
+          f.destroy
+        end
+        Feedback.create!(:user_id => current_user.id,
+          :instance_id => @instance.id, :value => feedback)
+      end
+
+      @current_score, @score_reliability = @instance.average_score_with_reliability
+      @scored = (Feedback.where("user_id=? AND instance_id=? AND value like ?",
+        current_user.id, @instance.id, Feedback::SCORE+".%").count > 0)
     end
 
     respond_to do |format|
