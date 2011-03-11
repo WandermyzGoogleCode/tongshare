@@ -1,10 +1,7 @@
 class ConfirmationsExtendedController < Devise::ConfirmationsController
   def show
-    puts "TEST A"
-
     super
 
-    puts "TEST B"
     if (current_user.confirmed?)
       email_id = UserIdentifier.find_by_user_id_and_login_type(current_user.id, UserIdentifier::TYPE_EMAIL)
       email_id.destroy unless email_id.nil?
