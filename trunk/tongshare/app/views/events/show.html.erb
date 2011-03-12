@@ -1,25 +1,22 @@
 <%= content_box "查看", "活动" do%>
 
   <%= div_for @event, :class => "show" do %>
-    <div class="event name"><%= @event.name %></div>
+    <div class="event name">
+    <%= @event.name %> &nbsp;
+    <% if @current_score > 0 %>
+    <% for i in 1..@current_score.round %>
+      ★
+    <% end %>
+    <% for i in @current_score.round+1..5 %>
+      ☆
+    <% end %>
+    <% end %>
+    </div>
     <div class="event creator">由<%= @event.creator.friendly_name %>创建</div>
     <% if @warning_count && @warning_count > 0 %>
     <div class="instance warning">
       <%=  sprintf("共有%.1f%%的参与者报警", @warning_reliability * 100) %>
       <%= sprintf("(包括你在内)") if @warninged  %>
-    </div>
-    <% end %>
-
-    <% if @instance %>
-    <div class="instance score">
-    <% for i in 1..@current_score.round %>
-      <%= link_to '★', event_path(@event, :inst => @instance.id, :feedback => Feedback::SCORE+"."+i.to_s) %>
-    <% end %>
-    <% for i in @current_score.round+1..5 %>
-      <%= link_to '☆', event_path(@event, :inst => @instance.id, :feedback => Feedback::SCORE+"."+i.to_s) %>
-    <% end %>
-      <br/>
-    <%= sprintf("（本活动评分%.1f；共有%.1f%%的用户打分；你%s打分）", @current_score, @score_reliability * 100, @scored ? "已经" : "尚未") %>
     </div>
     <% end %>
 
@@ -45,6 +42,20 @@
       <%= @event.extra_info %>
     </div>
     <br/>
+    <% if @instance %>
+    <div class="instance score">
+    给该活动评分：
+    <% for i in 1..@my_score %>
+      <%= link_to '★', event_path(@event, :inst => @instance.id, :feedback => Feedback::SCORE+"."+i.to_s) %>
+    <% end %>
+    <% for i in @my_score+1..5 %>
+      <%= link_to '☆', event_path(@event, :inst => @instance.id, :feedback => Feedback::SCORE+"."+i.to_s) %>
+    <% end %>
+    <%= sprintf("（本活动共有%.1f%%的用户打分；你%s打分）", @score_reliability * 100, @scored ? "已经" : "尚未") %>
+    </div>
+    <br/>
+    <% end %>
+
     <p><%= "(报警指该节课有点名、小测。同享日程提醒您，请按时上课，不要迟到、早退或旷课)" if @event.creator_id == 1 %></p>
     <div class="event buttons">
       <%= styled_button "编辑", edit_event_path(@event) if can? :edit, @event %>

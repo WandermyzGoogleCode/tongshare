@@ -132,8 +132,8 @@ root {
 }
 
 .event.show .instance.score {
-    margin-left: 1em;
-    margin-bottom: 10px;
+/*    margin-left: 1em;
+    margin-bottom: 10px;*/
 }
 
 .event.show .instance.score a {
