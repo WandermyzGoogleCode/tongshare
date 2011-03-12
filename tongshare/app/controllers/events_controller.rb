@@ -110,9 +110,16 @@ class EventsController < ApplicationController
           :instance_id => @instance.id, :value => feedback)
       end
 
+      my_score_feedbacks = Feedback.where("user_id=? AND instance_id=? AND value like ?",
+            current_user.id, @instance.id, Feedback::SCORE + ".%").to_a
+      if (!my_score_feedbacks.nil? && my_score_feedbacks.size > 0)
+        m = my_score_feedbacks[0].value.match Feedback::SCORE_REGEX
+        @my_score = m[1].to_i
+      else
+        @my_score = 0
+      end
       @current_score, @score_reliability = @instance.average_score_with_reliability
-      @scored = (Feedback.where("user_id=? AND instance_id=? AND value like ?",
-        current_user.id, @instance.id, Feedback::SCORE+".%").count > 0)
+      @scored = @my_score > 0
     end
 
     respond_to do |format|
