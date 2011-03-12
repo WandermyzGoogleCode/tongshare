@@ -43,14 +43,14 @@
 
 <% if @instance %>
 <p>
-    给该活动评分：
+    给本次活动评分：
     <% for i in 1..@my_score %>
       <%= link_to '★', event_path(@event, :inst => @instance.id, :feedback => Feedback::SCORE+"."+i.to_s) %>
     <% end %>
     <% for i in @my_score+1..5 %>
       <%= link_to '☆', event_path(@event, :inst => @instance.id, :feedback => Feedback::SCORE+"."+i.to_s) %>
     <% end %>
-    <%= sprintf("（本活动共有%.1f%%的用户打分；你%s打分）", @score_reliability * 100, @scored ? "已经" : "尚未") %>
+    <%= sprintf("（本次活动共有%.1f%%的用户打分；你%s打分）", @score_reliability * 100, @scored ? "已经" : "尚未") %>
 </p>
 <% end %>
 
