@@ -4,6 +4,7 @@ class EventsController < ApplicationController
   include AuthHelper
   include CurriculumHelper
   include SiteConnectHelper
+  include RegistrationsExtendedHelper
 
   before_filter :authenticate_user!
 
@@ -76,8 +77,10 @@ class EventsController < ApplicationController
 
         if (original_count == 0)
           for user in get_attendees(@event)
-            mail = SysMailer.warning_email(user, @instance)
-            mail.deliver unless mail.nil?
+            if (user.confirmed? && !nil_email_alias?(user.email) && user.id != current_user.id)
+              mail = SysMailer.warning_email(user, @instance)
+              mail.deliver unless mail.nil?
+            end
           end
         end
       elsif (feedback == Feedback::DISABLE_WARNING && @warninged)
@@ -89,8 +92,10 @@ class EventsController < ApplicationController
         
         if (@instance.warning_count == 0)
           for user in get_attendees(@event)
-            mail = SysMailer.warning_email(user, @instance)
-            mail.deliver unless mail.nil?
+            if (user.confirmed? && !nil_email_alias?(user.email) && user.id != current_user.id)
+              mail = SysMailer.warning_email(user, @instance)
+              mail.deliver unless mail.nil?
+            end
           end
         end
       end
