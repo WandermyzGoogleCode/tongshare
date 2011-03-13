@@ -51,7 +51,8 @@
     <% for i in @my_score+1..5 %>
       <%= link_to '☆', event_path(@event, :inst => @instance.id, :feedback => Feedback::SCORE+"."+i.to_s) %>
     <% end %>
-    <%= sprintf("（本次活动共有%.1f%%的用户打分；你%s打分）", @score_reliability * 100, @scored ? "已经" : "尚未") %>
+    <br/>
+    <%= sprintf("（评分指您对本次活动的气氛、收获等满意度；本次活动共有%.1f%%的用户打分；你%s打分）", @score_reliability * 100, @scored ? "已经" : "尚未") %>
     </div>
     <br/>
     <% end %>
