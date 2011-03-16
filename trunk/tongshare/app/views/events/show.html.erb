@@ -62,10 +62,12 @@
     <br/>
     <% end %>
 
-  <ul>
-    <li>(报到指你到场参加了该活动，已经报到的人将不会收到报警邮件；同享日程只统计百分比，保证不会将具体的报到信息透露给任何人)</li>
-    <li><%= "(报警指该节课有点名、小测。同享日程提醒您，请按时上课，不要迟到、早退或旷课)" if @event.creator_id == 1 %></li>
-  </ul>
+    <% if @instance %>
+      <ul>
+        <li>(报到指你到场参加了该活动，已经报到的人将不会收到报警邮件；同享日程只统计百分比，保证不会将具体的报到信息透露给任何人)</li>
+        <li><%= "(报警指该节课有点名、小测。同享日程提醒您，请按时上课，不要迟到、早退或旷课)" if @event.creator_id == 1 %></li>
+      </ul>
+    <% end %>
     <div class="event buttons">
       <%= styled_button "编辑", edit_event_path(@event) if can? :edit, @event %>
       <%= styled_button "删除", @event, :method => "delete",
