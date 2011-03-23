@@ -9,24 +9,26 @@ class Event < ActiveRecord::Base
   RRULE_END_BY_COUNT = 1  #won't store into database
   RRULE_END_BY_DATE = 2   #won't store into database
 
-  
+  PUBLIC_TOKEN = "public"
 
+  
   # In order to make Event.new(:creator_id => creator_id) work, attr_accessible :creator_id
   # seems to be necessary!
-  attr_accessible :name, :begin, :end, :location, :extra_info, :rrule, :creator_id
+  attr_accessible :name, :begin, :end, :location, :extra_info, :rrule, :creator_id, :share_token
   attr_accessible :rrule_interval, :rrule_frequency, :rrule_days, :rrule_count, :rrule_repeat_until, :rrule_end_condition
 
   belongs_to :creator, :class_name => "User"
   has_many :acceptances, :foreign_key => "event_id", :dependent => :destroy
   has_many :sharings, :foreign_key => "event_id", :dependent => :destroy
-  has_many :reminders, :foreign_key => "event_id", :dependent => :destroy
   has_many :instances, :foreign_key => "event_id", :dependent => :destroy
+  has_many :reminders, :dependent => :destroy
 
   #TODO validates
   validates :name, :begin, :creator_id, :presence => true
   validates_numericality_of :rrule_count, :allow_nil => true, :only_integer => true, :greater_than_or_equal_to => 1, :less_than_or_equal_to => MAX_INSTANCE_COUNT
   validates_inclusion_of :rrule_frequency, :in => GCal4Ruby::Recurrence::DUMMY_FREQS
-  
+
+  include SharingsHelper
   #
   #
 
@@ -70,12 +72,18 @@ class Event < ActiveRecord::Base
     end
     #seems no improving...
     #Instance.transaction do
-      ret = super
-    #end
+    ret = super
+
+    #reload instances
+    self.instances(true)
+    #regenerate reminder_queues
+    self.reminders(true).each do |r|
+      r.save
+    end
+
     logger.debug errors.to_yaml
     return false if !ret
     #TODO edit each for better performance?
-    #TODO: LC: you should return true/false. Once fail to generate, you need to rollback the newly created event.
     return true
   end
 
@@ -96,15 +104,14 @@ class Event < ActiveRecord::Base
     # I think this won't work since sharing has no attr_accessor!
     s = self.sharings.new(:shared_from => current_user_id, :extra_info => extra_info)
     #ids = user_ids.split(%r{[,;]\s*}
-    uids = User.where(:id => user_ids)
+    nodup_user_ids = user_ids - find_duplicated_sharing(current_user_id, self.id, user_ids)
+    uids = User.where(:id => nodup_user_ids)
+    #FIXME true or false? # SpaceFlyer: true, because maybe all invited members are new emails
+    #return false if uids.empty?
     uids.each do |id|
       s.add_user_sharing(id.id, user_priority)
     end
-    ret = s.save
-    # if !ret
-    #   return s.errors
-    # end
-    # ret
+    s.save
   end
 
   def query_instance(time_begin, time_end)
@@ -127,6 +134,18 @@ class Event < ActiveRecord::Base
        self.creator_id == user_id \
     || Acceptance.where(:event_id => self.id, :user_id => user_id, :decision => Acceptance::DECISION_ACCEPTED).exists? \
     || UserSharing.joins(:sharing).where(:user_id => user_id, 'sharings.event_id' => self.id).exists?
+  end
+
+  def add_reminder(value, time_type = Reminder::TIME_DAY, method_type = Reminder::METHOD_EMAIL)
+    r = self.reminders.new(
+      :method_type => method_type,
+      :value => value,
+      :time_type => time_type
+    )
+    r.save
+    # force reload reminders
+    self.reminders(true)
+    true
   end
 
   #virtual fields for recurrence logic
@@ -219,6 +238,23 @@ class Event < ActiveRecord::Base
     !self.rrule.blank?
   end
 
+  def get_or_create_share_token
+    if (self.share_token.nil?)
+      self.share_token = rand(36**8).to_s(36) # ref http://blog.logeek.fr/2009/7/2/creating-small-unique-tokens-in-ruby
+      self.save!
+    end
+    self.share_token
+  end
+
+  def public?
+    return get_or_create_share_token == PUBLIC_TOKEN
+  end
+
+  def set_public
+    self.share_token = PUBLIC_TOKEN
+    self.save!
+  end
+  
   protected
  
   def drop_instance
@@ -330,5 +366,5 @@ class Event < ActiveRecord::Base
     end
     return false
   end
-  
+
 end

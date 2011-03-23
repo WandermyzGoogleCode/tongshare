@@ -1,5 +1,5 @@
 set :application, "tongshare"
-set :repository,  "https://tongshare.googlecode.com/svn/trunk/tongshare/"
+set :repository,  "https://tongshare.googlecode.com/svn/branches/branch_reminder/tongshare/"
 
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location
@@ -47,5 +47,7 @@ after "deploy:update_code", :link_and_bundle_install
 desc "install the necessary prerequisites"
 task :link_and_bundle_install, :roles => :app do
 #  run "cd #{release_path} && bundle install"
-  run "ln -s /var/www/tongshare/shared/environments/production.rb #{release_path}/config/environments/production.rb && ln -s /var/www/tongshare/shared/public/javascripts/translations.js #{release_path}/public/javascripts/translations.js && ln -s /var/www/tongshare/shared/data #{release_path}/data && cd #{release_path} && bundle install"
+  run "ln -s /var/www/tongshare/shared/environments/production.rb #{release_path}/config/environments/production.rb && \
+    ln -s /var/www/tongshare/shared/public/javascripts/translations.js #{release_path}/public/javascripts/translations.js && \
+    ln -s /var/www/tongshare/shared/data #{release_path}/data && cd #{release_path} && bundle install"
 end

@@ -1,0 +1,34 @@
+<% content_for :name do %>
+ <%= @email %>
+<% end %>
+
+<p><%= @shared_from.friendly_name %>邀请你参加活动“<%= @event.name %>”
+<% unless @sharing.extra_info.blank? %>
+  <br/>“<%= @sharing.extra_info %>”
+<% end %>
+</p>
+
+<p>活动详情：
+<br/><%= link_to @event.name, "http://" + SITE + event_path(@event)%>
+<br/>时间：<%= @friendly_time_range %>
+
+<% if @event.recurring? %>
+<br/>重复：<%=  @friendly_rrule %>
+<% end %>
+
+<%if !@event.location.blank?%>
+<br/>地点：<%= @event.location %>
+<%end%>
+
+<%if !@event.extra_info.blank? %>
+<br/><%=  @event.extra_info%>
+<%end%>
+</p>
+
+<p>
+<%= link_to "接受邀请", url_for(:host => SITE, :controller => 'acceptance', :action => 'accept', :id => @sharing.id, :email => @email) %>
+<%= link_to "拒绝邀请", url_for(:host => SITE, :controller => 'acceptance', :action => 'deny', :id => @sharing.id, :email => @email) %>
+</p>
+
+<p>注意：请勿转发此邮件，因为邮件内容中包含了您的“同享日程”账户信息。</p>
+

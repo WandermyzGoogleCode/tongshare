@@ -4,6 +4,7 @@ class EventsController < ApplicationController
   include AuthHelper
   include CurriculumHelper
   include SiteConnectHelper
+  include SharingsHelper
   include RegistrationsExtendedHelper
 
   before_filter :authenticate_user!
@@ -51,6 +52,22 @@ class EventsController < ApplicationController
       @instances = query_all_accepted_instance_includes_event(from.to_time, to.to_time)
     end
 
+    #check confirmation for employee_no
+    user_id_rec = current_user.user_identifier.find(:first,
+      :conditions => ["login_type = ?", UserIdentifier::TYPE_EMPLOYEE_NO])
+
+    if !user_id_rec.nil?
+      @not_confirmed = !user_id_rec.confirmed
+      username = user_id_rec.login_value
+      username = username.delete(company_domain(current_user) + ".")
+      @auth_path = auth_path(username, root_url)
+    end
+
+    #sharing
+    @invited_user_sharings = query_sharing_event
+
+    @curriculum_empty = curriculum_empty?(current_user)
+
     respond_to do |format|
       format.html # index.html.erb
       #format.xml  { render :xml => @instances }
@@ -61,9 +78,13 @@ class EventsController < ApplicationController
   # GET /events/1.xml
   def show
     @event = Event.find(params[:id])
-    @instance = params[:inst].blank? ? nil : Instance.find(params[:inst])
+    @token = params[:share_token]
+    authorize! :show, @event unless (@event.public? || @token && @event.share_token == @token)
 
-    authorize! :show, @event
+    @instance = params[:inst].blank? ? nil : Instance.find(params[:inst])
+    @acceptance = find_acceptance(@event)
+    @sharings = @event.sharings.all(:conditions => ['user_sharings.user_id = ?', current_user.id], :joins => [:user_sharings])
+    @invited_feedbacks = find_invited_feedback(@event.id, current_user.id)
 
     if (@instance)
       @warninged = (Feedback.where("user_id=? AND instance_id=? AND value=?",
@@ -139,6 +160,10 @@ class EventsController < ApplicationController
       @checked_in = checked_in?(current_user.id, @instance.id)
       @check_in_count = check_in_count(@instance.id)
     end
+
+    @current_user = current_user
+    @friendly_time_range  = friendly_time_range(@event.begin, @event.end)
+    @sharing = Sharing.find_last_by_shared_from_and_event_id(current_user.id, @event.id)
 
     respond_to do |format|
       format.html # show.html.erb

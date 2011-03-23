@@ -32,6 +32,8 @@
     <%= stylesheet_link_tag "application" %>
 
     <%= yield :js_ext %>
+    <%= yield :css_ext %>
+    <%= yield :meta_ext %>
   </head>
 
   <body id="page1" onLoad="new ElementMaxHeight();">
@@ -55,6 +57,9 @@
                   </li>
                   <li>
                     <%= link_to "个人资料", edit_user_registration_path%>
+                  </li>
+                  <li>
+                    <%= link_to "搜索查询", url_for(:controller => "search"), :title => "查询Ta们可能的空余时间" %>
                   </li>
                   <%#*<li><a href="#">个人信息</a></li>%>
                   <%#*<li><a href="#">日历同步</a></li>%>
@@ -99,7 +104,8 @@
             BRAVURA | 华彩 出品<br/><br/>
             <div id="acknowledge">致谢：清华大学计算机系软件所、高性能所、ACM/ICPC实验室<br/>
             清华大学信研院CPU中心、网络安全实验室<br/>
-            清华大学计算机系团委、科协、学生会
+            清华大学计算机系团委、科协、学生会<br/>
+            清华大学互联网协会、电脑协会<br/>
             </div>
             <br/>
             <a href="http://www.templatemonster.com" class="new_window">Website template</a> designed by TemplateMonster.com

@@ -75,16 +75,29 @@ root {
 
 }
 
+.agenda_list .sharing.item {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.agenda_list .sharing.name {
+    font-size: larger;
+    margin-bottom: 5px;
+}
+
+.agenda_list .sharing.links {
+    text-align: right;
+}
+
 .link1 {
     float: left;
 }
 
 #login_button {
-    border: none;
     display: block;
+    border: none;
     padding: 1px 13px 3px 13px;
 }
-
 .noticebar {
     margin-left: 50px;
 }
@@ -92,7 +105,7 @@ root {
 .noticebar #alert {
     margin-bottom: 15px;
     color: #FF5811;
-    font-weight: bold;event creator
+    font-weight: bold;
 }
 
 .noticebar #alert:before {
@@ -152,6 +165,14 @@ root {
     text-decoration: none;
 }
 
+.invitation_message {
+    border: groove;
+    margin-left: 1em;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 10px;
+}
+
 .event.show .event.buttons {
 }
 
@@ -173,11 +194,29 @@ root {
     float: left;
 }
 
+.event.sharings .quote {
+    margin-left: 10px;
+}
+
+.event.sharings .event.buttons .wrapper {
+    display: inline;
+}
+
+.event.sharings .event.buttons .link1 {
+    margin-right: 20px;
+}
+
+
+
 .field .link1 {
     margin-right: 20px;
 }
 
 .field_help {
+    margin-left: 105px;
+}
+
+.field_div {
     margin-left: 105px;
 }
 
@@ -202,7 +241,28 @@ root {
     position: relative;
 }
 
+.sharing.title {
+    font-weight: bold;
+    font-size: large;
+    margin-bottom: 15px;
+}
+
+.conflict {
+    margin-left: 25px;
+}
+
+a.del {
+    color: #88AAEE;
+}
+
+.conflict ul {
+    list-style-type: circle;
+}
+
 .instruction_list {
-    list-style-type: decimal;
-    
+    list-style-type: decimal;   
+}
+
+.textfield_narrow {
+    width: 450px;
 }

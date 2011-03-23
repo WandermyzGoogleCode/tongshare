@@ -59,7 +59,7 @@ HTML
   def styled_button(*args)
     name = args[0]
     args.delete_at(0)
-    if args.last.is_a? Hash
+    if args.last.is_a?(Hash) && (args.length > 1)
       args.last[:class] = 'link1'
     else
       args << {:class => 'link1'}

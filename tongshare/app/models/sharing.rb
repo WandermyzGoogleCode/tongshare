@@ -6,9 +6,12 @@ class Sharing < ActiveRecord::Base
   attr_accessible :event_id, :shared_from, :extra_info
   
   belongs_to :event
-  #belongs_to :user  #add by wander
+  belongs_to :user, :foreign_key => "shared_from"  #add by wander
+  
   has_many :user_sharings, :dependent => :destroy
   has_many :group_sharings, :dependent => :destroy
+  #sth. to clearify: both has_many :user_sharings and has_many :user_sharing work, but the former will define a method user.user_sharings while the latter user.user_sharing
+  #Conventionally, it should be user_sharings. But in User there are too much has_many will wrong convention! so just ignore it...
 
   validates :event_id, :shared_from, :presence => true
 

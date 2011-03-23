@@ -8,6 +8,8 @@
 # by Wander: add columns for devise. 
 
 class User < ActiveRecord::Base
+  include UsersHelper
+  include RegistrationsExtendedHelper
 
   #NIL_EMAIL_ALIAS_DOMAIN = 'null.tongshare.com' #see registration_extended_controller
 
@@ -43,7 +45,7 @@ class User < ActiveRecord::Base
   has_one :admin_extra, :dependent => :destroy
   has_one :google, :class_name => "GoogleToken", :dependent=> :destroy
   #FIXME hack!
-  has_many :consumer_tokens, :class_name => "GoogleToken", :dependent => :destroy
+  has_many :consumer_tokens, :dependent => :destroy
 
 
   #merge errors of children into this model
@@ -64,13 +66,21 @@ class User < ActiveRecord::Base
 
   #get a friendly name for the user
   def friendly_name
-    name = self.user_extra.name unless self.user_extra.nil?
-    return name unless name.blank?
+    if (self.user_extra)
+      name = self.user_extra.name unless self.user_extra.nil?
+      return name unless name.blank?
+    end
     
     employee_no_rec = self.user_identifier.find_by_login_type(UserIdentifier::TYPE_EMPLOYEE_NO)
-    return employee_no_rec.login_value unless (employee_no_rec.nil? || employee_no_rec.login_value.blank?)
+    return without_company_domain(employee_no_rec.login_value, self) unless (employee_no_rec.nil? || employee_no_rec.login_value.blank?)
 
     email_rec = self.user_identifier.find_by_login_type(UserIdentifier::TYPE_EMAIL)
+    return email_rec.login_value unless (email_rec.nil? || email_rec.login_value.blank?)
+
+    employee_no_rec = self.user_identifier.find_by_login_type(UserIdentifier::TYPE_EMPLOYEE_NO_DUMMY)
+    return without_company_domain(employee_no_rec.login_value, self) unless (employee_no_rec.nil? || employee_no_rec.login_value.blank?)
+
+    email_rec = self.user_identifier.find_by_login_type(UserIdentifier::TYPE_EMAIL_DUMMY)
     return email_rec.login_value unless (email_rec.nil? || email_rec.login_value.blank?)
 
     return nil
@@ -99,6 +109,11 @@ class User < ActiveRecord::Base
 
   def active?
     true
+  end
+  
+  def has_valid_email(email=nil)
+    return false if (!self.confirmed? || nil_email_alias?(self.email))
+    return (email.nil? || email == self.email)
   end
   
 end

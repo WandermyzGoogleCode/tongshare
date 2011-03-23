@@ -7,6 +7,13 @@ GIT
       oauth (>= 0.3.6)
 
 GIT
+  remote: git://github.com/afeld/oauth-plugin.git
+  revision: a573ea1b5fb5be777bd500e3e39b5b815cb7b18b
+  specs:
+    oauth-plugin (0.4.0.pre4)
+      oauth (>= 0.4.4)
+
+GIT
   remote: http://github.com/paneq/calendar_date_select.git
   revision: 8e7ec79435a68665df40b14bd90f47e6ac5e9135
   branch: rails3test
@@ -55,6 +62,7 @@ GEM
       oauth (>= 0.4.4)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    htmlentities (4.2.4)
     i18n (0.5.0)
     i18n-js (1.0.0)
       i18n
@@ -67,8 +75,6 @@ GEM
     mime-types (1.16)
     mysql (2.8.1)
     oauth (0.4.4)
-    oauth-plugin (0.4.0.pre4)
-      oauth (>= 0.4.4)
     parseexcel (0.5.2)
     polyglot (0.3.1)
     rack (1.2.1)
@@ -98,7 +104,7 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.24)
-    uuidtools (2.1.1)
+    uuidtools (2.1.2)
     warden (1.0.3)
       rack (>= 1.0.0)
 
@@ -111,9 +117,10 @@ DEPENDENCIES
   daemons (>= 1.1.0)
   devise (= 1.1.5)
   edave-gdata4ruby (= 0.2.0)
+  htmlentities
   i18n-js
   mysql
-  oauth-plugin (>= 0.4.0.pre1)
+  oauth-plugin!
   parseexcel
   portablecontacts!
   rails (= 3.0.3)

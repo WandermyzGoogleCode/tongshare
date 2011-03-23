@@ -6,7 +6,7 @@ module EventsHelper
   require 'ftools'
 
   NOTES = [["又点名了？不用怕，一有情况立即自动邮件提醒！还不赶快去填写邮箱～（自3月13日起）", '/users/edit'],
-    ["快去填写你的人人网地址，让同上一节课的Ta认识你！(自3月3日起)", '/users/edit'],
+    "分享功能让您更轻松地与朋友、同学们一起参加活动，寻找大家共同空余的时间并且方便掌握大家的反馈～（自3月13日起）",
     "同享日程可以导入研究生课表了！(自3月3日起)",
   ]
 
@@ -256,19 +256,23 @@ module EventsHelper
 #  end
 
   # !readonly value returned
+  # TODO: consider including UserSharing.sharing.event
+  # TODO: consider including UserSharing.sharing.user
   def query_sharing_event(priority = UserSharing::PRIORITY_INVITE, decision = Acceptance::DECISION_UNDECIDED, user_id = current_user.id)
     if decision == Acceptance::DECISION_UNDECIDED
       UserSharing.
-        select(SQLConstant::SELECT_EVENT).
+        #select(SQLConstant::SELECT_EVENT). deleted by Wander
         joins(SQLConstant::JOINS_BASE).
+        includes(:sharing => :event).
         where(
           build_where(SQLConstant::WHERE_USER_ID, SQLConstant::WHERE_DECISION_UNDECIDED, SQLConstant::WHERE_PRIORITY),
           user_id,
           priority).to_a
     else
       UserSharing.
-        select(SQLConstant::SELECT_EVENT).
+        #select(SQLConstant::SELECT_EVENT). deleted by Wander
         joins(SQLConstant::JOINS_BASE).
+        includes(:sharing => :event).
         where(
           build_where(SQLConstant::WHERE_USER_ID, SQLConstant::WHERE_DECISION, SQLConstant::WHERE_PRIORITY),
           user_id,
@@ -310,7 +314,7 @@ module EventsHelper
     time_day_time = time.beginning_of_day
     now_day_time = Time.now.beginning_of_day
     diff_day = (time_day_time.to_i - now_day_time.to_i)/3600/24
-    return "" if diff_day == 0
+    #return "" if diff_day == 0 #SpaceFlyer 我觉得还是显示“今天”好，否则在查询时间冲突的时候会很迷茫（哪一天的12:00到13:00?）
     names = I18n.t('date.num_day_names')
     if (diff_day >= 0 && diff_day < names.size)
       return names[diff_day] + " "

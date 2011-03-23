@@ -2,6 +2,11 @@
 # by tsechingho (http://github.com/tsechingho)
 
 zh-CN:
+  unauthorized:
+    accept:
+      acceptance: "您无法接受该活动邀请（您并没有被邀请参加该活动或者您是该活动的创建者）"
+    deny:
+      acceptance: "您无法拒绝该活动邀请（您并没有被邀请参加该活动或者您是该活动的创建者）"
   date:
     formats:
       default: "%Y-%m-%d"
