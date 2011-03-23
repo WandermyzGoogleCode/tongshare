@@ -1,0 +1,145 @@
+<h2>
+    <%= @event.name %> &nbsp;
+    <% if @instance && @current_score > 0 %>
+    <% for i in 1..@current_score.round %>
+      ★
+    <% end %>
+    <% for i in @current_score.round+1..5 %>
+      ☆
+    <% end %>
+    <% end %>
+</h2>
+
+<% if @instance && @total_count && @check_in_count %>
+<p>
+  <%= sprintf("共有%.1f%%的参与者报到", @check_in_count.to_f * 100 / @total_count) %>
+</p>
+<%end%>
+
+<% if @warning_count && @warning_count > 0 %>
+<p>
+<font color="red">
+  <%=  sprintf("共有%.1f%%的参与者报警", @warning_reliability * 100) %>
+  <%= sprintf("(包括你在内)") if @warninged  %>
+</font>
+</p>
+<% end %>
+
+<% if @event.recurring? %>
+  <% if @instance.nil? %>
+    <%= friendly_time_range @event.begin, @event.end %>
+  <% else %>
+    <%= friendly_time_range @instance.begin, @instance.end  %>
+  <% end %>
+  <br/>
+  重复：
+  <%= "从#{l @event.begin, :format => :date_only}开始，" unless (@instance.nil? || @event.begin == @instance.begin) %>
+  <%=  show_friendly_rrule(@event) %>
+<% else %>
+  <%= friendly_time_range @event.begin, @event.end %>
+<% end %>
+<br/>
+
+<%if !@event.location.blank?%>
+地点：<%= @event.location %><br/>
+<%end%>
+
+
+<p><%= @event.extra_info %></p>
+
+<% if @instance %>
+<p>
+    给本次活动评分：
+    <% for i in 1..@my_score %>
+      <%= link_to '★', event_path(@event, :inst => @instance.id, :feedback => Feedback::SCORE+"."+i.to_s) %>
+    <% end %>
+    <% for i in @my_score+1..5 %>
+      <%= link_to '☆', event_path(@event, :inst => @instance.id, :feedback => Feedback::SCORE+"."+i.to_s) %>
+    <% end %>
+    <%= sprintf("（本次活动共有%.1f%%的用户打分；你%s打分）", @score_reliability * 100, @scored ? "已经" : "尚未") %>
+</p>
+<% end %>
+
+<% if @token %>
+  <%= link_to "参加该活动", {:controller => "acceptance", :action => "accept", :event => @event.id, :share_token => @token} %>
+  <%= link_to "拒绝该活动", {:controller => "acceptance", :action => "deny", :event => @event.id, :share_token => @token} %>
+<% end %>
+<%= link_to "报到", event_path(@event, :inst => @instance.id, :feedback => Feedback::CHECK_IN) if @instance && !@checked_in %>
+<%= link_to "取消报到", event_path(@event, :inst => @instance.id, :feedback => Feedback::CHECK_OUT) if @instance && @checked_in %>
+<%= link_to "报警", event_path(@event, :inst => @instance.id, :feedback => Feedback::WARNING) if @instance && !@warninged %>
+<%= link_to "取消报警", event_path(@event, :inst => @instance.id, :feedback => Feedback::DISABLE_WARNING) if @instance && @warninged %>
+  <ul>
+    <% if @instance %>
+    <li>(报到指你到场参加了该活动，已经报到的人将不会收到报警邮件；同享日程只统计百分比，保证不会将具体的报到信息透露给任何人)</li>
+    <% end %>
+    <% if @event.creator_id == 1 %>
+    <li>(报警指该节课有点名、小测。同享日程提醒您，请按时上课，不要迟到、早退或旷课)</li>
+    <% end %>
+  </ul>
+
+<hr/>
+
+<% unless @invited_feedbacks.nil? %>
+  <p>受邀者反馈: <br/>
+    &nbsp;&nbsp;您发出的邀请共有<%= @invited_feedbacks[:counter][:accepted] %>人接受，
+        <%= @invited_feedbacks[:counter][:rejected] %>人拒绝，
+        <%= @invited_feedbacks[:counter][:undecided] %>人尚未回复。
+      <ul>
+        <% for feedback in @invited_feedbacks[:data] %>
+        <li>
+           <%= feedback[:user].friendly_name %>：
+             <% if feedback[:decision].nil? %>
+                未定
+             <% elsif feedback[:decision] == true %>
+                接受
+             <% else %>
+                拒绝
+             <% end %>
+        </li>
+        <% end %>
+      </ul>
+  </p>
+  <hr/>
+<% end %>
+
+<% unless @sharings.empty? %>
+  <br/>
+      以下用户邀请你参加此活动：
+      <ul>
+        <% for sharing in @sharings %>
+          <li>
+            <%=sharing.user.friendly_name%>
+            <% unless sharing.extra_info.blank?  %>
+              “<%= sharing.extra_info %>“
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+      <% if @acceptance.nil? %>
+        <%= link_to "接受邀请", {:controller => "acceptance", :action => "accept", :id => sharing.id} %>
+        <%= link_to "拒绝邀请", {:controller => "acceptance", :action => "deny", :id => sharing.id} %>
+      <% elsif @acceptance.decision == true %>
+        （你已经接受了这些邀请）
+      <% else %>
+        （你已经拒绝了这些邀请）
+      <% end %>
+   <hr/>
+<%end%>
+
+
+
+<% if !(attendees = get_attendees(@event)).empty? %>
+<p>谁在和你一起参加该活动？我们已知的有<%= attendees.count %>人：<br/>
+  <ul>
+    <% attendees.each do |att| %>
+      <li>
+        <%=att.friendly_name%>
+        <% if (!att.user_extra.nil? && !att.user_extra.renren_url.blank?) %>
+          <%= link_to "人人主页", generate_renren_url(att.user_extra.renren_id, true), :target=>"_blank" %>
+        <%end%>
+      </li>
+    <% end %>
+  </ul>
+  （仅显示已注册并通过验证的用户）
+</p>
+<% end %>

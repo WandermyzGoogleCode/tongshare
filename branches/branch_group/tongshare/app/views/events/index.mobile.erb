@@ -1,0 +1,71 @@
+你好，<%= current_user.friendly_name %> <br/>
+<%= l Time.now, :format => :long %> <%=  number_of_week_in_thu %> <br/>
+<% if @invited_user_sharings && @invited_user_sharings.count > 0 %>
+<%= link_to sprintf("有%d个邀请正等待你的回复", @invited_user_sharings.count), '#invited_events' %><br/>
+<% end %>
+
+<%= header_announcement %>
+
+<%= link_to_unless_current "接下来", {:range => :next} %>&nbsp;&nbsp;
+<%= link_to_unless_current "今天", {:range => :day, :offset => 0} %>&nbsp;&nbsp;
+<%= link_to_unless_current "明天", {:range => :day, :offset => 1} %>&nbsp;&nbsp;
+<%= link_to_unless_current "本周", {:range => :week, :offset => 0} %>&nbsp;&nbsp;
+<%= link_to_unless_current "下周", {:range => :week, :offset => 1} %>&nbsp;&nbsp;
+<br/><br/>
+
+<% @instances.each do |instance|%>
+  <%= link_to instance.name, event_path(instance.event, :inst=>instance.id) %>
+  <% if instance.warning_count > 0 %>
+  <font color="red">（有报警！）</font>
+  <% end %>
+  <br/>
+  <%= instance.location.blank? ? "" : (instance.location + "<br/>").html_safe%>
+  <%= friendly_time_range instance.begin, instance.end %>
+  <%#= link_to "删除", instance.event, :method => "delete" %>
+  <br/>
+  <% event = instance.event %>
+  <% if instance.user_checked_in?(current_user.id) %>
+    <%=  link_to "取消报到", event_path(event, :inst => instance.id, :feedback => Feedback::CHECK_OUT) %>
+  <% else %>
+    <%=  link_to "报到", event_path(event, :inst => instance.id, :feedback => Feedback::CHECK_IN) %>
+  <% end %>
+  <% if instance.warninged?(current_user.id) %>
+    <%= link_to "取消报警", event_path(event, :inst => instance.id, :feedback => Feedback::DISABLE_WARNING) %>
+  <% else %>
+    <%= link_to "报警", event_path(event, :inst => instance.id, :feedback => Feedback::WARNING) %>
+  <% end %>
+
+  <hr/>
+<% end %>
+
+<% if @range == :next %>
+    <% if @offset == 0 %>
+      以上是即将发生的前<%=@limit%>个活动
+    <% else %>
+      以上是即将发生的第<%=@offset + 1%>个到<%=@offset + @limit + 1%>个活动。
+    <% end %><br/>
+    <%= link_to "之前的活动", {:offset => [0, @offset - @limit].max} if @offset > 0 %>
+    <%= link_to "之后的活动", {:offset => @offset + @limit} if !@is_last_page %>
+<% end %>
+
+<br/><br/>
+<% if !@not_confirmed %>
+  <%= link_to "重新导入课表", @auth_path %>
+<% end %>
+
+<% if !@invited_user_sharings.nil? && !@invited_user_sharings.empty? %>
+<div id="invited_events">
+  <h2>邀请你参加</h2>
+  <% @invited_user_sharings.each do |user_sharing|%>
+    <% sharing = user_sharing.sharing %>
+    <%= link_to sharing.event.name, event_path(sharing.event), :title => sharing.extra_info%>
+    <%sharing.event.location%><br/>
+    <%= friendly_time_range sharing.event.begin, sharing.event.end %><br/>
+    来自
+    <%= sharing.user.friendly_name  %><br/>
+    <%= link_to "接受", {:controller => "acceptance", :action => "accept", :id => sharing.id} %> &nbsp;&nbsp;
+    <%= link_to "拒绝", {:controller => "acceptance", :action => "deny", :id => sharing.id}%>
+    <hr/>
+  <% end %>
+ </div>
+<% end %>

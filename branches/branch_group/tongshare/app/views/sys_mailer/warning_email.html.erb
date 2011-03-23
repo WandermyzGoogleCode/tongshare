@@ -1,0 +1,13 @@
+<% content_for :name do %>
+  <%= @user.friendly_name %>
+<% end %>
+
+<% if @instance.warning_count > 0 %>
+<p>
+  活动“<%= @instance.name %>”有警报，详情见：<%= link_to event_url(@instance.event, :inst => @instance.id, :host => SITE), event_url(@instance.event, :inst => @instance.id, :host => SITE) %>
+</p>
+<% else %>
+<p>
+  活动“<%= @instance.name %>”解除警报，详情见：<%= link_to event_url(@instance.event, :inst => @instance.id, :host => SITE), event_url(@instance.event, :inst => @instance.id, :host => SITE) %>
+</p>
+<% end %>

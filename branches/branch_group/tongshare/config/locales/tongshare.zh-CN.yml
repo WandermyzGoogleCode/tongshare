@@ -1,0 +1,45 @@
+zh-CN:
+  tongshare:
+    warning: "警报"
+    feedback:
+      invalid: "您的操作输入不合法"
+    event:
+      created: "活动\"%{name}\"创建成功"
+      updated: "活动\"%{name}\"修改成功"
+      recurrence:
+        none: "不重复"
+        weekly: "按周重复"
+        daily: "按日重复"
+        interval_suffix_weekly: "周"
+        interval_suffix_daily: "天"
+    acceptance:
+      accepted: "已接受活动\"%{name}\""
+      denied: "已拒绝活动\"%{name}\""
+      restored: "已重新接受活动\"%{name}\""
+      exited: "已退出活动\"%{name}\""
+      email:
+        denied_subject: "%{name}已拒绝您的活动邀请"
+        accepted_subject: "%{name}已接受您的活动邀请"
+    sharing:
+      sharing_not_found: "该邀请不存在或者已经被删除或者失效"
+      wrong_email: "该邀请针对的邮箱并没有被绑定到当前登录的账户上，请以正确的账户登录或者修改个人资料将邮箱绑定到该账户，然后再次点击拒绝或接受的链接"
+      created: "已将活动\"%{name}\"分享给%{count}位用户"
+      failed: "分享活动\"%{name}\"时出现未知错误" #occured only when hacked or js disabled
+      empty: "没有有效的邀请对象。您真的要添加一个空的分享吗？（空的分享用于生成短信和电子邮件模板）"
+      add_empty: "现在没有有效的邀请对象，因此无法提交邀请"
+      add_forgot: "请检查“邀请对象”中新增的受邀者是否正确，然后再次点击“提交”按钮"
+      email:
+        subject: "来自%{user_name}的分享邀请"
+      conflict:
+        link: "时间冲突！"
+        prompt: "该用户在以下时间段已有日程安排："
+        edit_event: "编辑活动"
+        about_repeat: "注意：被分享的活动是有重复的，但是这里只检查第一次活动的时间冲突情况。"
+    curriculum:
+      file_empty: "请选择一个课表文件"
+      file_ext_error: "只允许上传Excel类型的文件，其后缀为.xls"
+      import_finish: "课表导入成功"
+      import_failed: "课表导入失败，请确认你上传的文件是从清华选课系统的“整体课表”导出的，且文件类型为XLS（Excel电子表格）"
+
+      
+        

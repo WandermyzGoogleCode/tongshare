@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>同享日程<%= "-#{@title}" if defined? @title%></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <%= javascript_include_tag "translations.js" %>
+    <%= javascript_include_tag "i18n.js" %>
+    <%= javascript_include_tag :defaults %>
+
+    <%= stylesheet_link_tag "biz/reset", "biz/layout", "biz/style", :media=>"all"%>
+
+<%#= javascript_include_tag "biz/jquery-1.4.2.min" %>
+    <%= javascript_include_tag "biz/maxheight"%>
+    <%#= javascript_include_tag "biz/script" %>
+    <!--[if lt IE 7]>
+    <%= stylesheet_link_tag "biz/ie6"%>
+    <%= javascript_include_tag "biz/ie_png" %>
+      <script type="text/javascript">
+              ie_png.fix('.png');
+      </script>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <%= javascript_include_tag "biz/html5" %>
+    <![endif]-->
+
+    <%= csrf_meta_tag %>
+
+    <%= calendar_date_select_includes :locale => 'cn' %>
+
+    <%= stylesheet_link_tag "scaffold" %>
+    <%= stylesheet_link_tag "application" %>
+
+    <%= yield :js_ext %>
+    <%= yield :css_ext %>
+    <%= yield :meta_ext %>
+  </head>
+
+  <body id="page1" onLoad="new ElementMaxHeight();">
+    <div class="tail-bottom">
+      <div id="main">
+        <!-- header -->
+        <header>
+          <div class="nav-box">
+            <nav>
+              <ul class="fright">
+                <li><%= link_to(image_tag("biz/pic-home.gif"), :root, :title=>"首页")%></li>
+                <li><%= link_to(image_tag("biz/pic-sitemap.gif"), destroy_user_session_path, :title=>"注销")%></li>
+              </ul>
+              <ul>
+                  <% if user_signed_in? %>
+                  <li>
+                    <%= link_to "我的日程", :controller => "events", :range => :next %>
+                  </li>
+                  <li>
+                    <%= link_to "新建活动", new_event_path%>
+                  </li>
+                  <li>
+                    <%= link_to "个人资料", edit_user_registration_path%>
+                  </li>
+                  <li>
+                    <%= link_to "搜索查询", url_for(:controller => "search"), :title => "查询Ta们可能的空余时间" %>
+                  </li>
+                  <%#*<li><a href="#">个人信息</a></li>%>
+                  <%#*<li><a href="#">日历同步</a></li>%>
+                  <%#*<li><a href="#">群组管理</a></li>%>
+                  <% else %>
+                  <li>
+                    <%= link_to "同享日程", :root %>
+                  </li>
+                  <%  end %>
+                  <li>
+                    <%= link_to "意见反馈", "http://blog.tongshare.com/feedback", :target => "_blank"%>
+                  </li>
+              </ul>
+
+            </nav>
+          </div>
+        </header>
+
+        <div class="wrapper indent">
+          <!-- content -->
+          <section id="content">
+            <div class="noticebar">
+              <% if alert %>
+                <div id="alert"><%= alert %></div>
+              <% end %>
+              <% if notice%>
+                <div id="notice"><%= notice %></div>
+              <% end %>
+            </div>
+            <%= yield %>
+          </section>
+          <!-- aside -->
+          <aside>
+            <div class="inside">
+              <%= yield :aside %>
+            </div>
+          </aside>
+        </div>
+        <!-- footer -->
+        <footer>
+          <div class="inside">
+            BRAVURA | 华彩 出品<br/><br/>
+            <div id="acknowledge">致谢：清华大学计算机系软件所、高性能所、ACM/ICPC实验室<br/>
+            清华大学信研院CPU中心、网络安全实验室<br/>
+            清华大学计算机系团委、科协、学生会<br/>
+            清华大学互联网协会、电脑协会<br/>
+            </div>
+            <br/>
+            <a href="http://www.templatemonster.com" class="new_window">Website template</a> designed by TemplateMonster.com
+          </div>
+        </footer>
+      </div>
+    </div>
+
+  </body>
+</html>
