@@ -1,7 +1,11 @@
 #summary deployment doc for tongshare and thuauth.
 
+= 关于image =
+ * 别忘了apt-get install libmagickwand-dev，否则不能安装gem 'rmagick'
+
 = 关于邮件！ =
  * 别忘了改production.rb
+ * 别忘了装postfix（我记得是要装的）
 
 = 关于db:migration! =
  * 对了，新的deploy.rb中不会自动`db:migration`，因为cap本身有一条命令`cap deploy:migrations`来做这件事情。这样，一来避免了危险的migration行为在每次deploy的时候都会做；二来将部署的步骤分的更加清楚，deploy就是让服务器上的代码和SCM的一致（也就是coding部分的工作），至于数据库的更新则和本地一样需要一条单独的migration命令。
