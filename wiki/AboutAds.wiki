@@ -1,0 +1,4 @@
+#summary 关于广告常量
+#labels Type-Note
+
+ * 目前各种广告（邮件中的，注册或登录时显示的等）都被放在了两个常量中：EventsHelper::NOTE和ApplicationHelper::FUNCTION_DESCRIPTIONS
