@@ -14,4 +14,5 @@ class Membership < ActiveRecord::Base
   
   validates :power, :group_id, :user_id, :presence => true
   validates_numericality_of :power, :only_integer => true, :less_than => POWER_UPPER_BOUND, :greater_than => POWER_LOWER_BOUND
+  attr_accessible :group_id, :user_id, :power
 end
