@@ -2,6 +2,7 @@
 
 = 关于image =
  * 别忘了apt-get install libmagickwand-dev，否则不能安装gem 'rmagick'
+ * 别忘了apt-get install imagemagick
 
 = 关于邮件！ =
  * 别忘了改production.rb
